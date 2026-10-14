@@ -104,6 +104,25 @@
   .vazio { color: var(--suave); }
   footer { max-width: 920px; margin: 0 auto; padding: 24px 16px 40px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha); }
   .carregando { padding: 80px 16px; text-align: center; color: var(--suave); }
+
+  /* ao vivo + partida agora */
+  .aovivo { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: #c4122f; color: #fff; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
+  .aovivo i { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pisca 1.2s ease-in-out infinite; }
+  @keyframes pisca { 50% { opacity: .25; } }
+  .numeros { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+  .numeros div { font: 900 24px/1.1 "Cinzel", serif; color: var(--nome2); }
+  .numeros small { display: block; font: 700 11px "Rajdhani", sans-serif; letter-spacing: .2em; color: var(--suave); text-transform: uppercase; }
+  .times { display: grid; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linha); }
+  .time { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .time .rot { width: 76px; }
+  .time img { width: 42px; height: 42px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor, var(--linha)); }
+  .oponente { margin-top: 14px; }
+  .oponente > .rot { color: var(--acento); margin-bottom: 8px; display: block; }
+  .filtro { display: flex; gap: 8px; margin-bottom: 12px; }
+  .filtro button { padding: 7px 14px; background: var(--painel); border: 1px solid var(--linha); color: var(--suave); font: 700 14px "Rajdhani", sans-serif;
+    letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+  .filtro button.on { color: var(--borda); border-color: var(--borda); }
 </style>
 </head>
 <body>
@@ -150,21 +169,43 @@
     return `<div class="painel itens">${(d.itens || []).map(i => `<div class="item">${img(i)}<div>${i.botas ? "<small>botas</small>" : ""}${esc(i.nome)}</div></div>`).join("")}</div>`;
   }
 
-  function cartaoMu(m) {
+  function cartaoMu(m, semId) {
     const c = m.campeao;
-    return `<article class="mu" id="vs-${c.id}" data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
+    return `<article class="mu" ${semId ? "" : `id="vs-${c.id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
       ${img(c)}<div><h3>${esc(c.nome)}${m.nivel ? `<span class="nv">${esc(m.nivel)}</span>` : ""}</h3>
+      ${m.sem_nota ? `<p class="vazio">Ainda não anotei essa matchup.</p>` : ""}
       ${m.feiticos.length || m.keystone ? `<div class="icones">${m.feiticos.map(f => img(f)).join("")}${img(m.keystone, "r")}${img(m.secundaria, "r", 'style="width:26px;height:26px"')}</div>` : ""}
       ${m.runas ? `<p><span class="rot">runas</span>${esc(m.runas)}</p>` : ""}
       ${m.build ? `<p><span class="rot">build</span>${esc(m.build)}</p>` : ""}
       ${m.dicas ? `<p><span class="rot">dica</span>${esc(m.dicas)}</p>` : ""}</div></article>`;
   }
 
+  // filtro das matchups: "junglers" (padrão quando há junglers anotados: o Karthus dele é de selva) ou "todos"
+  let filtroMu = null;
+  const NIVEIS = { 1: "fácil", 2: "tranquila", 3: "média", 4: "difícil", 5: "pesadelo" };
   function secMatchups(d) {
-    if (!d.matchups || !d.matchups.length) return `<p class="vazio">As anotações de matchup ainda não foram publicadas.</p>`;
-    const tl = d.tierlist ? `<div class="painel">${d.tierlist.niveis.filter(n => n.campeoes.length).map(n => `<div class="nivel" style="--cor:${COR[n.n]}">
-        <span class="nome">${esc(n.nome)}</span><div class="camps">${n.campeoes.map(c => `<a href="#vs-${c.id}">${img(c)}</a>`).join("")}</div></div>`).join("")}</div>` : "";
-    return `${tl}<input class="busca" id="busca" placeholder="Buscar campeão…" autocomplete="off"><div class="mus" id="mus">${d.matchups.map(cartaoMu).join("")}</div>`;
+    const todos = d.matchups || [];
+    if (!todos.length) return `<p class="vazio">As anotações de matchup ainda não foram publicadas.</p>`;
+    const temJg = todos.some(m => m.jungler);
+    if (filtroMu === null) filtroMu = temJg ? "junglers" : "todos";
+    const lista = filtroMu === "junglers" ? todos.filter(m => m.jungler) : todos;
+    const niveis = [1, 2, 3, 4, 5].map(n => ({ n, campeoes: lista.filter(m => m.dificuldade === n).map(m => m.campeao) })).filter(x => x.campeoes.length);
+    const filtro = temJg ? `<div class="filtro"><button data-f="junglers" class="${filtroMu === "junglers" ? "on" : ""}">Junglers</button>
+      <button data-f="todos" class="${filtroMu === "todos" ? "on" : ""}">Todos</button></div>` : "";
+    const tl = niveis.length ? `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}">
+        <span class="nome">${NIVEIS[x.n]}</span><div class="camps">${x.campeoes.map(c => `<a href="#vs-${c.id}">${img(c)}</a>`).join("")}</div></div>`).join("")}</div>` : "";
+    return `${filtro}${tl}<input class="busca" id="busca" placeholder="Buscar campeão…" autocomplete="off"><div class="mus" id="mus">${lista.map(m => cartaoMu(m)).join("")}</div>`;
+  }
+
+  function mmss(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
+  function secAgora(p) {
+    const time = (lista, rot) => `<div class="time"><span class="rot">${rot}</span>${lista.map(c => c.anotado
+      ? `<a href="#vs-${c.id}" style="--cor:${COR[c.dificuldade] || "var(--borda)"}" title="${esc(c.nome)}">${img(c)}</a>` : img(c)).join("")}</div>`;
+    return `<div class="painel"><div class="numeros"><div>${esc(p.kda)}<small>KDA</small></div><div>${p.cs}<small>CS</small></div>
+        <div>${p.nivel}<small>nível</small></div><div>${mmss(p.tempo)}<small>tempo de jogo</small></div></div>
+        ${p.itens.length ? `<div class="itens" style="margin-top:16px">${p.itens.map(i => `<div class="item">${img(i)}<div>${esc(i.nome)}</div></div>`).join("")}</div>` : ""}
+        <div class="times">${time(p.aliados, "aliados")}${time(p.inimigos, "inimigos")}</div></div>
+      ${p.oponente ? `<div class="oponente"><span class="rot">${esc(p.oponente.quem || "oponente direto")}</span>${cartaoMu(p.oponente, true)}</div>` : ""}`;
   }
 
   function anel(pct) {
@@ -191,23 +232,40 @@
   function desenhar(d) {
     const s = d.skin || {};
     Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
-    const k = d.karthus, solo = (d.elo || []).find(e => e.elo);
+    const k = d.karthus, solo = (d.elo || []).find(e => e.elo), p = d.partida;
     document.getElementById("app").className = "";
     document.getElementById("app").innerHTML = `
       <header class="hero" style="--splash:url('${esc(s.splash || "")}')">
-        <div class="topo"><span class="canal">${esc(d.canal)}</span><a class="botao" href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">▶ live</a></div>
+        <div class="topo"><span class="canal">${esc(d.canal)}</span><a class="botao" href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">${d.ao_vivo ? "● assistir ao vivo" : "▶ twitch"}</a></div>
         <h1>Karthus</h1><div class="skin">skin de agora: ${esc(s.nome || "")}</div>
-        <div class="chips">${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${Math.round(k.v / k.jogos * 100)}%</b> nas últimas ${k.jogos}</span>` : ""}
+        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${Math.round(k.v / k.jogos * 100)}%</b> nas últimas ${k.jogos}</span>` : ""}
           <span class="chip">atualizado ${haQuanto(d.atualizado)}</span></div>
       </header>
-      <nav id="abas"><a href="#runas">Runas</a><a href="#build">Build</a><a href="#matchups">Matchups</a><a href="#stats">Stats</a></nav>
+      <nav id="abas">${p ? `<a href="#agora">Agora</a>` : ""}<a href="#runas">Runas</a><a href="#build">Build</a><a href="#matchups">Matchups</a><a href="#stats">Stats</a></nav>
       <main>
+        ${p ? `<section id="agora"><h2>Partida agora</h2><div class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}</div>${secAgora(p)}</section>` : ""}
         <section id="runas"><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${de(d.runas)}</div>${secRunas(d.runas)}</section>
         <section id="build"><h2>Build</h2><div class="sub">${esc(d.build ? d.build.titulo : "")}${de(d.build)}</div>${secBuild(d.build)}</section>
         <section id="matchups"><h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}</section>
         <section id="stats"><h2>Stats</h2><div class="sub">Elo e win rate</div>${secStats(d)}</section>
       </main>
       <footer>Atualiza sozinho durante a live · <a href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">twitch.tv/${esc(d.canal)}</a> · comandos no chat: !runas !build !tierlist !vs campeão</footer>`;
+    document.querySelectorAll(".filtro button").forEach(b => b.onclick = () => {
+      filtroMu = b.dataset.f;
+      document.querySelector("#matchups").innerHTML = `<h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}`;
+      desenharEventos(d);
+    });
+    desenharEventos(d);
+    focar();
+    marcarAba();
+  }
+
+  function desenharEventos(d) {
+    document.querySelectorAll(".filtro button").forEach(b => b.onclick = () => {
+      filtroMu = b.dataset.f;
+      document.querySelector("#matchups").innerHTML = `<h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}`;
+      desenharEventos(d);
+    });
     const busca = document.getElementById("busca");
     if (busca) busca.oninput = () => {
       const t = semAcento(busca.value);
