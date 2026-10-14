@@ -30,8 +30,8 @@
   .cena-arte { position: absolute; inset: -4% -4% -22% -4%; will-change: transform; }
   .cena .arte { position: absolute; inset: 0; background: var(--splash, none) var(--fx, 60%) var(--fy, 25%) / cover no-repeat;
     transform-origin: var(--fx, 60%) var(--fy, 25%); animation: respira 38s ease-in-out infinite alternate; filter: saturate(1.06) contrast(1.04);
-    opacity: 0; transition: opacity 1.2s ease; }
-  .cena .arte.ok { opacity: 1; }
+    opacity: 0; transition: opacity .45s ease; }
+  .cena .arte.ok { opacity: 1; transition-duration: 1.1s; }
   @keyframes respira { from { transform: scale(1.03); } to { transform: scale(1.16) translate(-1%, -.6%); } }
   .nevoa { position: absolute; width: 95vmax; height: 65vmax; border-radius: 50%; filter: blur(70px); opacity: .32; mix-blend-mode: screen; pointer-events: none; }
   .nevoa.n1 { left: -38vmax; bottom: -36vmax; background: radial-gradient(circle, color-mix(in srgb, var(--acento) 60%, transparent), transparent 66%);
@@ -652,11 +652,12 @@
     if (!s.splash || s.splash === cenaSkin) return;
     cenaSkin = s.splash;
     const r = document.documentElement.style, arte = $("#arte");
-    r.setProperty("--fx", (s.rosto ? s.rosto[0] : 60) + "%");
-    r.setProperty("--fy", (s.rosto ? s.rosto[1] : 25) + "%");
     const imgArte = new Image();
     imgArte.onload = () => { if (cenaSkin !== s.splash) return;   // já trocaram de tema de novo
-      arte.classList.remove("ok"); setTimeout(() => { r.setProperty("--splash", `url("${s.splash}")`); arte.classList.add("ok"); }, arte.classList.contains("ok") ? 600 : 0); };
+      const vestir = () => { if (cenaSkin !== s.splash) return;
+        r.setProperty("--fx", (s.rosto ? s.rosto[0] : 60) + "%"); r.setProperty("--fy", (s.rosto ? s.rosto[1] : 25) + "%");
+        r.setProperty("--splash", `url("${s.splash}")`); arte.classList.add("ok"); };
+      if (arte.classList.contains("ok")) { arte.classList.remove("ok"); setTimeout(vestir, 450); } else vestir(); };
     imgArte.onerror = () => { if (s.reserva && cenaSkin === s.splash) vestirCena({ ...s, splash: s.reserva, reserva: null }); };
     imgArte.src = s.splash;
   }
