@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#120a10">
 <link rel="icon" href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/30.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap">
 <style>
   /* Guia do Karthus do polgarlol. A mesma página serve para ver (GitHub Pages) e para editar:
      - no PC (http://127.0.0.1:7730, servida pelo karthus_bot.py) já abre editando;
@@ -21,8 +21,33 @@
           --nome1: #b9772c; --nome2: #fff4dc; --nome3: #f1c27a; --fundo: #0d0709; --painel: #160d12; --painel2: #1e1319; --linha: #2c1d25;
           --suave: #a8959f; --fraco: #75656e; --d1: #4fbf7f; --d2: #a3c95a; --d3: #e0b84c; --d4: #e4793a; --d5: #e0405a; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
-  body { background: var(--fundo); color: var(--texto); font: 500 16px/1.5 "Rajdhani", system-ui, sans-serif; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; background: var(--fundo); }
+  /* textos corridos em Inter (lê melhor em parágrafo); rótulos e botões em Rajdhani; títulos em Cinzel */
+  body { color: var(--texto); font: 400 15.5px/1.6 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* ---------- fundo vivo: a arte da skin em uso respirando (zoom lento no rosto), névoa, brasas e o pulso do Réquiem ---------- */
+  .cena { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--fundo); }
+  .cena-arte { position: absolute; inset: -4% -4% -22% -4%; will-change: transform; }
+  .cena .arte { position: absolute; inset: 0; background: var(--splash, none) var(--fx, 60%) var(--fy, 25%) / cover no-repeat;
+    transform-origin: var(--fx, 60%) var(--fy, 25%); animation: respira 38s ease-in-out infinite alternate; filter: saturate(1.06) contrast(1.04);
+    opacity: 0; transition: opacity 1.2s ease; }
+  .cena .arte.ok { opacity: 1; }
+  @keyframes respira { from { transform: scale(1.03); } to { transform: scale(1.16) translate(-1%, -.6%); } }
+  .nevoa { position: absolute; width: 95vmax; height: 65vmax; border-radius: 50%; filter: blur(70px); opacity: .32; mix-blend-mode: screen; pointer-events: none; }
+  .nevoa.n1 { left: -38vmax; bottom: -36vmax; background: radial-gradient(circle, color-mix(in srgb, var(--acento) 60%, transparent), transparent 66%);
+    animation: deriva1 30s ease-in-out infinite alternate; }
+  .nevoa.n2 { right: -40vmax; top: -30vmax; background: radial-gradient(circle, color-mix(in srgb, var(--borda) 40%, transparent), transparent 66%);
+    animation: deriva2 36s ease-in-out infinite alternate; }
+  @keyframes deriva1 { to { transform: translate(22vmax, -6vmax) scale(1.12); } }
+  @keyframes deriva2 { to { transform: translate(-18vmax, 8vmax) scale(1.18); } }
+  #brasas { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; pointer-events: none; }
+  .cena-veu { position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(10, 6, 8, .9) 0%, rgba(10, 6, 8, .62) 38%, rgba(10, 6, 8, .25) 64%, rgba(10, 6, 8, .5) 100%),
+                linear-gradient(180deg, rgba(10, 6, 8, .05) 0%, rgba(10, 6, 8, .45) 48vh, rgba(10, 6, 8, .86) 92vh); }
+  .pulso { position: absolute; inset: 0; opacity: 0; mix-blend-mode: screen; pointer-events: none;
+    background: radial-gradient(ellipse 45% 55% at var(--fx, 60%) var(--fy, 25%), var(--brilho), transparent 70%); animation: requiem 26s ease-in-out infinite; }
+  @keyframes requiem { 0%, 86% { opacity: 0; } 90% { opacity: .55; } 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cena .arte, .nevoa, .pulso { animation: none; } }
   a { color: var(--borda); }
   img { display: block; }
   button, input, textarea { font: inherit; color: inherit; }
@@ -39,23 +64,25 @@
   .btn.mini { padding: 5px 10px; font-size: 12px; }
   .btn:disabled { opacity: .5; cursor: default; }
 
-  .hero { position: relative; padding: 22px 18px 26px; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
-    background: linear-gradient(180deg, rgba(13, 7, 9, .15), var(--fundo) 96%), linear-gradient(90deg, rgba(13, 7, 9, .85), transparent 75%), var(--splash, none) center 22% / cover; }
-  .hero .topo { position: absolute; top: 16px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .hero { position: relative; max-width: 960px; margin: 0 auto; padding: 84px 18px 34px; min-height: min(62vh, 560px); display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero .topo { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
   .hero .canal { font: 700 14px "Rajdhani", sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--borda); }
+  .hero .sobre { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--acento); margin-bottom: 10px; }
+  .hero .lead { max-width: 560px; margin-top: 14px; font-size: 16.5px; line-height: 1.6; color: color-mix(in srgb, var(--texto) 88%, transparent); }
   .twitch { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #9146ff; color: #fff; font: 700 14px "Rajdhani", sans-serif;
     letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
   .hero h1 { font: 900 clamp(38px, 8.5vw, 62px)/1 "Cinzel", serif; letter-spacing: .02em;
     background: linear-gradient(100deg, var(--nome1), var(--nome3) 30%, var(--nome2) 45%, var(--nome3) 60%, var(--nome1)); -webkit-background-clip: text;
     background-clip: text; color: transparent; filter: drop-shadow(0 0 18px var(--brilho)); }
-  .hero .skin { margin-top: 6px; color: var(--suave); }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .chip { padding: 5px 12px; background: rgba(0, 0, 0, .45); border: 1px solid color-mix(in srgb, var(--borda) 45%, transparent); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip { padding: 5px 12px; background: rgba(0, 0, 0, .5); border: 1px solid color-mix(in srgb, var(--borda) 45%, transparent);
+    font: 600 14.5px "Rajdhani", sans-serif; letter-spacing: .03em; backdrop-filter: blur(6px); }
   .chip b { color: var(--nome2); }
   .aovivo { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: #c4122f; color: #fff; font-weight: 700;
     letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
   .aovivo i { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pisca 1.2s ease-in-out infinite; }
   @keyframes pisca { 50% { opacity: .25; } }
+  .runa, .item, .frag, .aovivo, .jogo .res, .time .rot, .rapido .c .n { font-family: "Rajdhani", sans-serif; }
   .modo { position: fixed; right: 14px; bottom: 14px; z-index: 20; display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: var(--painel2);
     border: 1px solid var(--borda); box-shadow: 0 10px 30px rgba(0, 0, 0, .5); font-weight: 700; font-size: 14px; }
   .modo i { width: 8px; height: 8px; border-radius: 50%; background: var(--d1); box-shadow: 0 0 8px var(--d1); }
@@ -71,7 +98,9 @@
   .cab { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
   h2 { font: 900 24px "Cinzel", serif; color: var(--texto); }
   .sub { color: var(--suave); font-size: 15px; }
-  .painel { background: linear-gradient(180deg, var(--fundo1), var(--fundo2)); border: 1px solid color-mix(in srgb, var(--borda) 40%, transparent); padding: 18px; }
+  .painel { background: linear-gradient(180deg, var(--fundo1), var(--fundo2)); border: 1px solid color-mix(in srgb, var(--borda) 40%, transparent); padding: 18px;
+    backdrop-filter: blur(8px); }
+  h2 + .sub, .cab .sub { max-width: 620px; }
 
   .runas { display: grid; grid-template-columns: 1fr; gap: 18px; }
   @media (min-width: 640px) { .runas { grid-template-columns: 1.3fr 1fr; } }
@@ -103,7 +132,8 @@
   .nivel .camps { display: flex; flex-wrap: wrap; gap: 6px; }
   .nivel a img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
   .mus { display: grid; gap: 12px; margin-top: 14px; }
-  .mu { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px; background: var(--painel); border: 1px solid var(--linha); border-left: 4px solid var(--cor); }
+  .mu { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 18px; background: color-mix(in srgb, var(--painel) 88%, transparent);
+    border: 1px solid var(--linha); border-left: 4px solid var(--cor); backdrop-filter: blur(8px); }
   .mu.alvo { box-shadow: 0 0 0 2px var(--borda), 0 0 30px var(--brilho); }
   .mu > img { width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
   .mu .topo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -237,6 +267,13 @@
 </style>
 </head>
 <body>
+<div class="cena" aria-hidden="true">
+  <div class="cena-arte" id="cena-arte"><div class="arte" id="arte"></div></div>
+  <div class="nevoa n1"></div><div class="nevoa n2"></div>
+  <div class="pulso"></div>
+  <canvas id="brasas"></canvas>
+  <div class="cena-veu"></div>
+</div>
 <div id="app" class="carregando">carregando…</div>
 
 <dialog id="dlg-editor" class="gaveta" aria-label="Editar matchup"></dialog>
