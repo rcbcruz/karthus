@@ -345,6 +345,7 @@
   <div class="cena-veu"></div>
 </div>
 <header class="cabecalho" id="cabecalho"></header>
+<div class="temas" id="temas" role="dialog" aria-label="Tema da página"></div>
 <div id="app" class="carregando">carregando…</div>
 
 <dialog id="dlg-editor" class="gaveta" aria-label="Editar matchup"></dialog>
@@ -585,9 +586,7 @@
   function fraseDe(x) { return x && x.de ? ` · dados de ${esc(x.de)}` : ""; }
 
   function desenhar() {
-    const d = D || {}, s = d.skin || {};
-    Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
-    vestirCena(s);
+    const d = D || {};
     JG = new Set(d.junglers || []);
     // dados "ao vivo" só valem se o bot mandou há pouco (se o PC desligou no meio de uma partida, ela não fica "em andamento" para sempre)
     const fresco = !!d.atualizado && Date.now() / 1000 - d.atualizado < 600 && d.online !== false;
@@ -600,6 +599,8 @@
     const cab = `<a class="marca" href="#topo" aria-label="Voltar ao topo"><img src="${iconeCampeao(30)}" alt=""><span><small>${canal}</small><b>Guia do Karthus</b></span></a>
       <nav class="abas" id="abas" aria-label="Seções">${p ? `<a href="#agora">Partida</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#referencias">Referências</a>
         <a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
+      ${TEMAS ? `<button class="tema-btn" id="tema-btn" aria-haspopup="true" aria-expanded="${$("#temas").classList.contains("aberto")}" aria-controls="temas"
+        title="Trocar o tema da página"><img src="${arquivoTema(TEMA, "rosto")}" alt=""><span>Tema</span></button>` : ""}
       <a class="twitch" href="https://twitch.tv/${canal}" target="_blank" rel="noopener">${aoVivo ? "● ao vivo" : "▶ twitch"}</a>`;
     if (cab !== desenhar.cab) { $("#cabecalho").innerHTML = desenhar.cab = cab; }
     $("#app").className = "";
@@ -610,7 +611,7 @@
         <p class="lead">Como jogar de Karthus na selva contra cada campeão: por onde começar, feitiços, runas, itens e plano de jogo.
           Runas, build e estatísticas se atualizam sozinhas durante a live.</p>
         <div class="chips">${aoVivo ? `<span class="aovivo"><i></i>ao vivo agora</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
-          ${s.nome ? `<span class="chip">skin: <b>${esc(s.nome.replace(/^Karthus\s+/, ""))}</b></span>` : ""}${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
+          ${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
       </div>
       <main>
         ${p ? `<section id="agora"><div class="cab"><div><h2>Partida em andamento</h2><div class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}. Toque num inimigo para ver o guia.</div></div></div>${secAgora(p)}</section>`
@@ -622,7 +623,7 @@
         <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(build ? build.titulo : "")}${fraseDe(build)}</div></div></div>${secBuild(build)}</section>
         <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo das duas contas e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
       </main>
-      <footer><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
+      <footer><div class="patch" id="patch">${blocoPatch()}</div><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
         <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
       ${EDITAR ? `<div class="modo"><i></i>modo de edição${LOCAL ? " · no PC" : ""}</div>` : ""}`;
     ligarEventos();
@@ -654,9 +655,65 @@
     r.setProperty("--fx", (s.rosto ? s.rosto[0] : 60) + "%");
     r.setProperty("--fy", (s.rosto ? s.rosto[1] : 25) + "%");
     const imgArte = new Image();
-    imgArte.onload = () => { arte.classList.remove("ok"); setTimeout(() => { r.setProperty("--splash", `url("${s.splash}")`); arte.classList.add("ok"); }, arte.classList.contains("ok") ? 600 : 0); };
+    imgArte.onload = () => { if (cenaSkin !== s.splash) return;   // já trocaram de tema de novo
+      arte.classList.remove("ok"); setTimeout(() => { r.setProperty("--splash", `url("${s.splash}")`); arte.classList.add("ok"); }, arte.classList.contains("ok") ? 600 : 0); };
+    imgArte.onerror = () => { if (s.reserva && cenaSkin === s.splash) vestirCena({ ...s, splash: s.reserva, reserva: null }); };
     imgArte.src = s.splash;
   }
+
+  // ============================================================ tema da página (escolha de quem visita; padrão: Karthus Arcana)
+  let TEMAS = null, TEMA = { n: 35, nome: "Karthus Arcana", rosto: [52.7, 20.9], cores: {} };
+  const arquivoTema = (t, tipo) => new URL(`temas/${tipo}-${t.n}.jpg`, location.href).href;
+  const nomeTema = t => t.nome.replace(/^Karthus (?=[A-ZÀ-Ý])/, "");
+  async function carregarTemas() {
+    try { const r = await fetch("temas/temas.json", { cache: "no-cache" }); if (r.ok) TEMAS = await r.json(); } catch (e) {}
+    aplicarTema(+guardar.ler("karthus.tema") || (TEMAS ? TEMAS.padrao : 35));
+  }
+  function aplicarTema(n) {
+    const t = TEMAS ? TEMAS.temas.find(x => x.n === n) || TEMAS.temas.find(x => x.n === TEMAS.padrao) || TEMAS.temas[0] : TEMA;
+    TEMA = t;
+    Object.entries(t.cores).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
+    vestirCena({ splash: arquivoTema(t, "karthus"), rosto: t.rosto, reserva: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karthus_${t.n}.jpg` });
+    const img = $("#tema-btn img"); if (img) img.src = arquivoTema(t, "rosto");
+    document.querySelectorAll("[data-tema]").forEach(b => { b.classList.toggle("on", +b.dataset.tema === t.n); b.setAttribute("aria-pressed", +b.dataset.tema === t.n); });
+  }
+  function abrirTemas(abrir) {
+    const p = $("#temas");
+    if (abrir && !p.innerHTML) p.innerHTML = `<span class="rot">tema da página</span><div class="temas-lista">${TEMAS.temas.map(t =>
+      `<button data-tema="${t.n}" aria-pressed="${t.n === TEMA.n}" class="${t.n === TEMA.n ? "on" : ""}" style="--tb:${esc(t.cores.borda)}">
+        <img src="${arquivoTema(t, "rosto")}" alt="" loading="lazy"><span>${esc(nomeTema(t))}${t.n === TEMAS.padrao ? "<small>padrão</small>" : ""}</span></button>`).join("")}</div>`;
+    p.classList.toggle("aberto", abrir);
+    const b = $("#tema-btn"); if (b) b.setAttribute("aria-expanded", abrir);
+    if (abrir) (p.querySelector("button.on") || p.querySelector("button")).focus({ preventScroll: true });
+  }
+  document.addEventListener("click", ev => {
+    if (ev.target.closest("#tema-btn")) return abrirTemas(!$("#temas").classList.contains("aberto"));
+    const op = ev.target.closest("[data-tema]");
+    if (op) { aplicarTema(+op.dataset.tema); guardar.gravar("karthus.tema", op.dataset.tema); return; }
+    if ($("#temas").classList.contains("aberto") && !ev.target.closest("#temas")) abrirTemas(false);
+  });
+  addEventListener("keydown", ev => { if (ev.key === "Escape" && $("#temas").classList.contains("aberto")) { abrirTemas(false); $("#tema-btn").focus(); } });
+
+  // ============================================================ patch atual do LoL (versão 16.20 do jogo = "patch 26.20")
+  let PATCH = null;
+  async function carregarPatch() {
+    const fontes = [["https://raw.communitydragon.org/latest/content-metadata.json", j => j.version],
+                    ["https://ddragon.leagueoflegends.com/api/versions.json", j => j[0]]];
+    for (const [url, versao] of fontes) {
+      try {
+        const [maior, menor] = String(versao(await (await fetch(url)).json())).split(".").map(Number);
+        if (maior > 10 && menor >= 0) {
+          const ano = maior + 10;
+          PATCH = { nome: `${ano}.${menor}`, link: menor >= 10 ? `https://www.leagueoflegends.com/pt-br/news/game-updates/patch-${ano}-${menor}-notes/`
+                                                              : "https://www.leagueoflegends.com/pt-br/news/tags/patch-notes/" };
+          break;
+        }
+      } catch (e) {}
+    }
+    const el = $("#patch"); if (el) el.innerHTML = blocoPatch();
+  }
+  const blocoPatch = () => PATCH ? `<span class="rot">patch atual do LoL</span><b>${esc(PATCH.nome)}</b>
+    <a href="${esc(PATCH.link)}" target="_blank" rel="noopener">notas do patch ↗</a>` : "";
   (function animarCena() {
     const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches, cenaArte = $("#cena-arte");
     // parallax: a arte anda mais devagar que a página; no PC, acompanha um pouco o mouse
@@ -1063,6 +1120,8 @@
     }
   }
   (async () => {
+    carregarPatch();
+    await carregarTemas();
     if (!LOCAL && token) {   // chave guardada neste aparelho: confere se ainda vale
       try {
         const r = await fetch("https://api.github.com/user", { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
