@@ -250,17 +250,12 @@
         <section id="stats"><h2>Stats</h2><div class="sub">Elo e win rate</div>${secStats(d)}</section>
       </main>
       <footer>Atualiza sozinho durante a live · <a href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">twitch.tv/${esc(d.canal)}</a> · comandos no chat: !runas !build !tierlist !vs campeão</footer>`;
-    document.querySelectorAll(".filtro button").forEach(b => b.onclick = () => {
-      filtroMu = b.dataset.f;
-      document.querySelector("#matchups").innerHTML = `<h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}`;
-      desenharEventos(d);
-    });
     desenharEventos(d);
     focar();
     marcarAba();
   }
 
-  function desenharEventos(d) {
+  function desenharEventos(d) {   // filtro Junglers/Todos e busca das matchups
     document.querySelectorAll(".filtro button").forEach(b => b.onclick = () => {
       filtroMu = b.dataset.f;
       document.querySelector("#matchups").innerHTML = `<h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}`;
@@ -269,10 +264,8 @@
     const busca = document.getElementById("busca");
     if (busca) busca.oninput = () => {
       const t = semAcento(busca.value);
-      document.querySelectorAll(".mu").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
+      document.querySelectorAll("#mus .mu").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
     };
-    focar();
-    marcarAba();
   }
 
   function focar() {   // #vs-238 vindo do chat: rola até a matchup e destaca
