@@ -1,74 +1,18 @@
 {
  "33": {
-  "campeao": {
-   "id": 33,
-   "nome": "Rammus"
-  },
-  "dificuldade": 1,
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
-  "build_nota": "",
-  "inicio": {
-   "campo": "",
-   "texto": ""
-  },
-  "plano": "",
-  "dica": "",
-  "atualizado": "2026-10-14T23:10:07Z"
+  "apagado": true,
+  "atualizado": "2026-10-14T23:10:27Z"
  },
  "64": {
-  "campeao": {
-   "id": 64,
-   "nome": "Lee Sin"
-  },
-  "dificuldade": 3,
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
-  "build_nota": "",
-  "inicio": {
-   "campo": "",
-   "texto": ""
-  },
-  "plano": "",
-  "dica": "",
-  "atualizado": "2026-10-14T23:10:07Z"
+  "apagado": true,
+  "atualizado": "2026-10-14T23:10:27Z"
  },
  "121": {
-  "campeao": {
-   "id": 121,
-   "nome": "Kha'Zix"
-  },
-  "dificuldade": 5,
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
-  "build_nota": "",
-  "inicio": {
-   "campo": "",
-   "texto": ""
-  },
-  "plano": "",
-  "dica": "",
-  "atualizado": "2026-10-14T23:10:07Z"
+  "apagado": true,
+  "atualizado": "2026-10-14T23:10:27Z"
  },
  "238": {
-  "campeao": {
-   "id": 238,
-   "nome": "Zed"
-  },
-  "dificuldade": 4,
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
-  "build_nota": "",
-  "inicio": {
-   "campo": "",
-   "texto": ""
-  },
-  "plano": "",
-  "dica": "",
-  "atualizado": "2026-10-14T23:10:07Z"
+  "apagado": true,
+  "atualizado": "2026-10-14T23:10:27Z"
  }
 }
