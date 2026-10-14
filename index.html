@@ -83,11 +83,33 @@
     letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
   .abas a:hover { color: var(--texto); }
   .abas a.on { color: var(--borda); border-bottom-color: var(--borda); }
+  /* seletor de tema: a página não segue a skin da live; cada visitante escolhe (padrão: Arcana) */
+  .tema-btn { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 3px; flex: none; border: 1px solid var(--linha);
+    background: rgba(0, 0, 0, .25); color: var(--texto); font: 700 13px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase;
+    transition: border-color .2s; }
+  .tema-btn img { width: 26px; height: 26px; border-radius: 50%; box-shadow: 0 0 0 1px var(--borda); }
+  .tema-btn:hover, .tema-btn[aria-expanded="true"] { border-color: var(--borda); }
+  .temas { position: fixed; z-index: 40; top: calc(var(--h-cab) + 8px); right: max(16px, calc((100vw - 1100px) / 2)); width: min(360px, calc(100vw - 24px));
+    padding: 14px; background: color-mix(in srgb, var(--painel2) 96%, transparent); border: 1px solid var(--linha); border-top: 2px solid var(--borda);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .18s, transform .18s, visibility 0s .18s; }
+  .temas.aberto { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .temas > .rot { display: block; margin-bottom: 10px; }
+  .temas-lista { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .temas-lista button { display: flex; align-items: center; gap: 9px; padding: 6px 8px 6px 6px; border: 1px solid transparent; text-align: left;
+    font: 600 14px/1.15 "Rajdhani", sans-serif; color: var(--suave); transition: background .15s, color .15s; }
+  .temas-lista button:hover { background: rgba(255, 255, 255, .04); color: var(--texto); }
+  .temas-lista button.on { border-color: color-mix(in srgb, var(--borda) 60%, transparent); background: color-mix(in srgb, var(--borda) 10%, transparent); color: var(--texto); }
+  .temas-lista img { width: 34px; height: 34px; border-radius: 50%; flex: none; box-shadow: 0 0 0 2px var(--tb); }
+  .temas-lista small { display: block; font: 700 10px "Rajdhani", sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--borda); }
+  @media (prefers-reduced-motion: reduce) { .temas { transition: none; } }
   @media (max-width: 760px) {
     :root { --h-cab: 104px; }
     .cabecalho { flex-wrap: wrap; height: var(--h-cab); padding: 0 12px; gap: 0 10px; align-content: flex-start; }
     .cabecalho .marca { height: 58px; }
-    .cabecalho .twitch { margin-left: auto; }
+    .cabecalho .tema-btn { margin-left: auto; padding-right: 3px; }
+    .tema-btn span { display: none; }
+    .temas { left: 12px; right: 12px; width: auto; }
     .abas { order: 3; flex: 1 0 100%; justify-content: flex-start; height: 46px; margin: 0 -12px; padding: 0 44px 0 2px; border-top: 1px solid rgba(255, 255, 255, .06);
       -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
     .abas a { padding: 0 12px; }
@@ -226,6 +248,12 @@
   footer { max-width: 960px; margin: 0 auto; padding: 24px 16px 70px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha);
     display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; }
   footer button { color: var(--suave); text-decoration: underline; }
+  .patch { flex: 1 0 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 6px; padding: 12px 16px;
+    background: color-mix(in srgb, var(--painel) 85%, transparent); border: 1px solid var(--linha); border-left: 3px solid var(--borda); }
+  .patch:empty { display: none; }
+  .patch b { font: 900 22px/1 "Cinzel", serif; color: var(--nome2); }
+  .patch a { margin-left: auto; font: 700 13px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+  .patch a:hover { text-decoration: underline; }
   .carregando { padding: 80px 16px; text-align: center; color: var(--suave); }
 
   /* edição */
