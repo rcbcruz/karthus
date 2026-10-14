@@ -3,51 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>polgarlol · Karthus: runas, build e matchups</title>
-<meta name="description" content="Runas, build, tierlist de matchups e estatísticas do Karthus do polgarlol, atualizadas sozinhas durante a live.">
-<meta property="og:title" content="polgarlol · Karthus">
-<meta property="og:description" content="Runas, build, matchups e win rate do Karthus, ao vivo.">
+<title>polgarlol · Guia do Karthus</title>
+<meta name="description" content="Guia de matchups do Karthus jungle do polgarlol: dificuldade, feitiços, runas, itens e como jogar contra cada campeão, além de runas, build e estatísticas ao vivo.">
+<meta property="og:title" content="polgarlol · Guia do Karthus">
+<meta property="og:description" content="Matchups, runas, build e win rate do Karthus, ao vivo.">
 <meta property="og:image" content="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karthus_35.jpg">
 <meta name="theme-color" content="#120a10">
+<link rel="icon" href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/30.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap">
 <style>
-  /* Página pública do Karthus do polgarlol (GitHub Pages). Lê data.json do ramo "dados", escrito pelo karthus_bot.py.
-     As cores seguem a skin que ele está usando. Conferência local: index.html?dados=<url do json> */
+  /* Guia do Karthus do polgarlol. A mesma página serve para ver (GitHub Pages) e para editar:
+     - no PC (http://127.0.0.1:7730, servida pelo karthus_bot.py) já abre editando;
+     - na internet, "Editar" pede a chave do GitHub do dono da página (fica só naquele aparelho).
+     Dados: data.json (bot: partida, runas, build, stats) e matchups.json (as anotações), no ramo "dados" do repositório. */
   :root { --borda: #f1c27a; --acento: #d3233a; --texto: #f3e4d2; --fundo1: #240916; --fundo2: #10050c; --brilho: rgba(211, 35, 58, .55);
-          --nome1: #b9772c; --nome2: #fff4dc; --nome3: #f1c27a; --fundo: #0d0709; --painel: #160d12; --linha: #2c1d25; --suave: #a8959f; }
+          --nome1: #b9772c; --nome2: #fff4dc; --nome3: #f1c27a; --fundo: #0d0709; --painel: #160d12; --painel2: #1e1319; --linha: #2c1d25;
+          --suave: #a8959f; --fraco: #75656e; --d1: #4fbf7f; --d2: #a3c95a; --d3: #e0b84c; --d4: #e4793a; --d5: #e0405a; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 64px; }
-  body { background: var(--fundo); color: var(--texto); font: 16px/1.5 "Rajdhani", system-ui, sans-serif; font-weight: 500; }
+  body { background: var(--fundo); color: var(--texto); font: 500 16px/1.5 "Rajdhani", system-ui, sans-serif; }
   a { color: var(--borda); }
   img { display: block; }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  :focus-visible { outline: 2px solid var(--borda); outline-offset: 2px; }
   .rot { font: 700 12px "Rajdhani", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--suave); }
-  .cinzel { font-family: "Cinzel", serif; font-weight: 900; }
+  .vazio { color: var(--suave); }
+  .v { color: #6fe0a0; } .d { color: #ff7d8f; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; background: var(--borda); color: #180f08; font: 700 14px "Rajdhani", sans-serif;
+    letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .btn.sec { background: transparent; color: var(--texto); border: 1px solid var(--linha); }
+  .btn.sec:hover { border-color: var(--borda); }
+  .btn.perigo { background: transparent; color: #ff8f9d; border: 1px solid rgba(224, 64, 90, .45); }
+  .btn.mini { padding: 5px 10px; font-size: 12px; }
+  .btn:disabled { opacity: .5; cursor: default; }
 
   .hero { position: relative; padding: 22px 18px 26px; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
     background: linear-gradient(180deg, rgba(13, 7, 9, .15), var(--fundo) 96%), linear-gradient(90deg, rgba(13, 7, 9, .85), transparent 75%), var(--splash, none) center 22% / cover; }
-  .hero .topo { position: absolute; top: 16px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .hero .topo { position: absolute; top: 16px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
   .hero .canal { font: 700 14px "Rajdhani", sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--borda); }
-  .botao { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #9146ff; color: #fff; font: 700 14px "Rajdhani", sans-serif;
+  .twitch { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #9146ff; color: #fff; font: 700 14px "Rajdhani", sans-serif;
     letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
-  .hero h1 { font: 900 clamp(40px, 9vw, 64px)/1 "Cinzel", serif; letter-spacing: .02em;
+  .hero h1 { font: 900 clamp(38px, 8.5vw, 62px)/1 "Cinzel", serif; letter-spacing: .02em;
     background: linear-gradient(100deg, var(--nome1), var(--nome3) 30%, var(--nome2) 45%, var(--nome3) 60%, var(--nome1)); -webkit-background-clip: text;
     background-clip: text; color: transparent; filter: drop-shadow(0 0 18px var(--brilho)); }
   .hero .skin { margin-top: 6px; color: var(--suave); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .chip { padding: 5px 12px; background: rgba(0, 0, 0, .45); border: 1px solid color-mix(in srgb, var(--borda) 45%, transparent); font-weight: 600; }
   .chip b { color: var(--nome2); }
+  .aovivo { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: #c4122f; color: #fff; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
+  .aovivo i { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pisca 1.2s ease-in-out infinite; }
+  @keyframes pisca { 50% { opacity: .25; } }
+  .modo { position: fixed; right: 14px; bottom: 14px; z-index: 20; display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: var(--painel2);
+    border: 1px solid var(--borda); box-shadow: 0 10px 30px rgba(0, 0, 0, .5); font-weight: 700; font-size: 14px; }
+  .modo i { width: 8px; height: 8px; border-radius: 50%; background: var(--d1); box-shadow: 0 0 8px var(--d1); }
 
-  nav { position: sticky; top: 0; z-index: 5; display: flex; overflow-x: auto; background: color-mix(in srgb, var(--fundo) 92%, transparent);
-    backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
-  nav a { flex: 1; min-width: 88px; padding: 14px 10px; text-align: center; color: var(--suave); text-decoration: none; font: 700 15px "Rajdhani", sans-serif;
-    letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid transparent; }
+  nav { position: sticky; top: 0; z-index: 10; display: flex; overflow-x: auto; background: color-mix(in srgb, var(--fundo) 92%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); scrollbar-width: none; }
+  nav a { flex: 1; min-width: 84px; padding: 14px 10px; text-align: center; color: var(--suave); text-decoration: none; font: 700 15px "Rajdhani", sans-serif;
+    letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid transparent; white-space: nowrap; }
   nav a.on { color: var(--borda); border-bottom-color: var(--borda); }
 
-  main { max-width: 920px; margin: 0 auto; padding: 0 16px 60px; overflow-wrap: anywhere; }
+  main { max-width: 960px; margin: 0 auto; padding: 0 16px 60px; overflow-wrap: anywhere; }
   section { padding-top: 34px; }
+  .cab { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
   h2 { font: 900 24px "Cinzel", serif; color: var(--texto); }
-  .sub { color: var(--suave); margin: 2px 0 16px; font-size: 15px; }
+  .sub { color: var(--suave); font-size: 15px; }
   .painel { background: linear-gradient(180deg, var(--fundo1), var(--fundo2)); border: 1px solid color-mix(in srgb, var(--borda) 40%, transparent); padding: 18px; }
 
   .runas { display: grid; grid-template-columns: 1fr; gap: 18px; }
@@ -68,24 +91,50 @@
   .item img { width: 48px; height: 48px; border-radius: 6px; flex: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--borda) 50%, transparent); }
   .item small { display: block; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--acento); }
 
+  /* matchups */
+  .barra { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .seg { display: inline-flex; border: 1px solid var(--linha); }
+  .seg button { padding: 7px 14px; color: var(--suave); font: 700 14px "Rajdhani", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+  .seg button.on { color: var(--borda); background: var(--painel2); }
+  .busca { flex: 1; min-width: 180px; padding: 9px 14px; background: var(--painel); border: 1px solid var(--linha); }
   .nivel { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--linha); }
   .nivel:last-child { border-bottom: 0; }
   .nivel .nome { width: 104px; flex: none; padding-top: 8px; font: 700 14px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cor); }
   .nivel .camps { display: flex; flex-wrap: wrap; gap: 6px; }
   .nivel a img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
-  .busca { width: 100%; margin: 18px 0 12px; padding: 11px 14px; background: var(--painel); border: 1px solid var(--linha); color: var(--texto); font: inherit; }
-  .mus { display: grid; gap: 10px; }
-  .mu { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 14px; background: var(--painel); border: 1px solid var(--linha); border-left: 4px solid var(--cor); }
+  .mus { display: grid; gap: 12px; margin-top: 14px; }
+  .mu { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px; background: var(--painel); border: 1px solid var(--linha); border-left: 4px solid var(--cor); }
   .mu.alvo { box-shadow: 0 0 0 2px var(--borda), 0 0 30px var(--brilho); }
-  .mu > img { width: 64px; height: 64px; border-radius: 50%; }
-  .mu h3 { font: 900 19px "Cinzel", serif; }
-  .mu .nv { display: inline-block; margin-left: 8px; padding: 1px 8px; background: var(--cor); color: #140c08; font: 700 12px "Rajdhani", sans-serif;
-    letter-spacing: .12em; text-transform: uppercase; vertical-align: 3px; }
-  .mu .icones { display: flex; gap: 6px; margin: 8px 0 4px; align-items: center; }
-  .mu .icones img { width: 34px; height: 34px; border-radius: 6px; }
-  .mu .icones .r { border-radius: 50%; }
-  .mu p { margin-top: 6px; font-size: 16px; }
-  .mu p .rot { display: block; }
+  .mu > img { width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
+  .mu .topo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .mu h3 { font: 900 20px "Cinzel", serif; }
+  .tag { padding: 1px 8px; font: 700 12px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+  .tag.nv { background: var(--cor); color: #140c08; }
+  .tag.jg { border: 1px solid var(--linha); color: var(--suave); }
+  .mu .acoes { margin-left: auto; display: flex; gap: 6px; }
+  .grupo { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; }
+  .grupo > div { display: grid; gap: 6px; }
+  .icones { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .icones img { width: 34px; height: 34px; border-radius: 6px; }
+  .icones .r { border-radius: 50%; background: #000; }
+  .icones .p { width: 24px; height: 24px; }
+  .icones .chv { width: 40px; height: 40px; }
+  .icones .sep { width: 1px; height: 24px; background: var(--linha); margin: 0 3px; }
+  .icones .seta { color: var(--fraco); font-weight: 700; }
+  .plano { margin-top: 14px; white-space: pre-line; color: var(--texto); }
+  .plano .rot { display: block; margin-bottom: 4px; }
+  .dica { margin-top: 12px; padding: 8px 12px; border-left: 3px solid var(--acento); background: rgba(0, 0, 0, .25); }
+
+  .agora-num { display: flex; flex-wrap: wrap; gap: 10px 26px; }
+  .agora-num div { font: 900 24px/1.1 "Cinzel", serif; color: var(--nome2); }
+  .agora-num small { display: block; font: 700 11px "Rajdhani", sans-serif; letter-spacing: .2em; color: var(--suave); text-transform: uppercase; }
+  .times { display: grid; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linha); }
+  .time { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .time .rot { width: 76px; }
+  .time img { width: 42px; height: 42px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor, var(--linha)); }
+  .time button { border-radius: 50%; }
+  .oponente { margin-top: 14px; }
+  .oponente > .rot { color: var(--acento); margin-bottom: 8px; display: block; }
 
   .stats { display: grid; gap: 12px; grid-template-columns: 1fr; }
   @media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
@@ -95,59 +144,219 @@
   .wr { display: flex; align-items: center; gap: 18px; }
   .wr svg { width: 110px; height: 110px; flex: none; transform: rotate(-90deg); }
   .pct { font: 900 46px/1 "Cinzel", serif; color: var(--nome2); }
-  .v { color: #6fe0a0; } .d { color: #ff7d8f; }
   .jogo { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
   .jogo:last-child { border-bottom: 0; }
   .jogo img { width: 38px; height: 38px; border-radius: 50%; }
   .jogo .kda { font: 900 18px "Cinzel", serif; min-width: 92px; }
   .jogo .res { margin-left: auto; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
-  .vazio { color: var(--suave); }
-  footer { max-width: 920px; margin: 0 auto; padding: 24px 16px 40px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha); }
+  footer { max-width: 960px; margin: 0 auto; padding: 24px 16px 70px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha);
+    display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; }
+  footer button { color: var(--suave); text-decoration: underline; }
   .carregando { padding: 80px 16px; text-align: center; color: var(--suave); }
 
-  /* ao vivo + partida agora */
-  .aovivo { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: #c4122f; color: #fff; font-weight: 700;
-    letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
-  .aovivo i { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pisca 1.2s ease-in-out infinite; }
-  @keyframes pisca { 50% { opacity: .25; } }
-  .numeros { display: flex; flex-wrap: wrap; gap: 10px 26px; }
-  .numeros div { font: 900 24px/1.1 "Cinzel", serif; color: var(--nome2); }
-  .numeros small { display: block; font: 700 11px "Rajdhani", sans-serif; letter-spacing: .2em; color: var(--suave); text-transform: uppercase; }
-  .times { display: grid; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linha); }
-  .time { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .time .rot { width: 76px; }
-  .time img { width: 42px; height: 42px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor, var(--linha)); }
-  .oponente { margin-top: 14px; }
-  .oponente > .rot { color: var(--acento); margin-bottom: 8px; display: block; }
-  .filtro { display: flex; gap: 8px; margin-bottom: 12px; }
-  .filtro button { padding: 7px 14px; background: var(--painel); border: 1px solid var(--linha); color: var(--suave); font: 700 14px "Rajdhani", sans-serif;
-    letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
-  .filtro button.on { color: var(--borda); border-color: var(--borda); }
+  /* edição */
+  .rapido { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+  .rapido .c { display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--painel); border: 1px solid var(--linha); }
+  .rapido .c img { width: 36px; height: 36px; border-radius: 50%; flex: none; }
+  .rapido .c .n { font-weight: 600; font-size: 14px; line-height: 1.1; min-width: 0; }
+  .notas { display: flex; gap: 3px; margin-top: 4px; }
+  .notas button { width: 20px; height: 20px; font: 700 12px "Rajdhani", sans-serif; border: 1px solid var(--cor); color: var(--cor); }
+  .notas button.on { background: var(--cor); color: #140c08; }
+  dialog { color: var(--texto); background: var(--painel); border: 1px solid var(--linha); }
+  dialog::backdrop { background: rgba(0, 0, 0, .6); }
+  .gaveta { margin: 0 0 0 auto; height: 100vh; max-height: 100vh; width: min(560px, 100vw); padding: 0; border-width: 0 0 0 1px; }
+  .gaveta[open] { display: flex; flex-direction: column; }
+  .gaveta .g-topo { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid var(--linha); }
+  .gaveta .g-topo img { width: 56px; height: 56px; border-radius: 50%; }
+  .gaveta .g-topo h3 { font: 900 22px "Cinzel", serif; line-height: 1.1; }
+  .gaveta .g-corpo { flex: 1; overflow: auto; padding: 18px 20px 30px; }
+  .gaveta .g-rodape { display: flex; gap: 10px; align-items: center; padding: 14px 20px; border-top: 1px solid var(--linha); background: var(--painel2); }
+  .gaveta .g-rodape .esp { flex: 1; }
+  .fechar { font-size: 26px; line-height: 1; color: var(--suave); padding: 4px 8px; margin-left: auto; }
+  .bloco { margin-bottom: 22px; }
+  .bloco > .rot { display: block; margin-bottom: 8px; }
+  .dif { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .dif button { padding: 8px 0 6px; background: var(--painel2); border: 1px solid var(--linha); font: 700 12px "Rajdhani", sans-serif; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--suave); }
+  .dif button b { display: block; font: 900 18px "Cinzel", serif; color: var(--texto); }
+  .dif button.on { background: var(--cor); border-color: transparent; color: #140c08; }
+  .dif button.on b { color: #140c08; }
+  .esc { display: flex; flex-wrap: wrap; gap: 6px; }
+  .esc button { width: 40px; height: 40px; padding: 0; border: 2px solid transparent; opacity: .45; transition: opacity .12s; }
+  .esc button img { width: 100%; height: 100%; }
+  .esc button:hover { opacity: .85; }
+  .esc button.on { opacity: 1; border-color: var(--borda); }
+  .esc.redondo button, .esc.redondo img { border-radius: 50%; }
+  .esc.grande button { width: 52px; height: 52px; }
+  .esc.peq button { width: 30px; height: 30px; }
+  .linha-runa { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .linha-runa .rot { width: 64px; flex: none; }
+  .escolhido { font-size: 14px; color: var(--suave); margin-top: 6px; min-height: 18px; }
+  .campo { width: 100%; padding: 9px 12px; background: var(--painel2); border: 1px solid var(--linha); }
+  textarea.campo { min-height: 160px; resize: vertical; line-height: 1.45; }
+  .conta-car { text-align: right; font-size: 12px; color: var(--fraco); margin-top: 4px; }
+  .build-sel { display: flex; flex-wrap: wrap; gap: 8px; min-height: 52px; padding: 8px; background: var(--painel2); border: 1px dashed var(--linha); }
+  .build-sel .it { position: relative; }
+  .build-sel .it img { width: 46px; height: 46px; border-radius: 6px; }
+  .build-sel .it .ord { position: absolute; left: -4px; top: -6px; background: var(--borda); color: #140c08; font: 700 11px "Rajdhani"; padding: 0 4px; }
+  .build-sel .it .ctl { display: flex; justify-content: space-between; margin-top: 2px; }
+  .build-sel .it .ctl button { font-size: 12px; color: var(--suave); padding: 0 3px; }
+  .resultados { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin-top: 8px; max-height: 260px; overflow: auto; }
+  .resultados button { display: flex; align-items: center; gap: 8px; padding: 5px; text-align: left; background: var(--painel2); border: 1px solid transparent; font-size: 13px; line-height: 1.15; }
+  .resultados button:hover { border-color: var(--borda); }
+  .resultados img { width: 32px; height: 32px; border-radius: 4px; flex: none; }
+  .janela { width: min(560px, calc(100vw - 24px)); padding: 22px; margin: auto; }
+  .janela h3 { font: 900 20px "Cinzel", serif; color: var(--borda); margin-bottom: 10px; }
+  .janela p, .janela ol { color: var(--suave); margin-bottom: 10px; }
+  .janela ol { padding-left: 20px; }
+  .janela code { background: var(--painel2); color: var(--texto); padding: 1px 6px; }
+  .janela .linha-form { display: flex; gap: 8px; margin-top: 10px; }
+  .codigo { font: 900 32px "Cinzel", serif; letter-spacing: .12em; text-align: center; padding: 12px; background: var(--painel2); margin: 10px 0; }
+  .erro { color: #ff8f9d; margin-top: 8px; }
+  .escolher { width: min(860px, calc(100vw - 24px)); height: min(80vh, 760px); padding: 0; margin: auto; }
+  .escolher[open] { display: flex; flex-direction: column; }
+  .escolher .barra { padding: 14px 16px 0; }
+  .escolher .grade { flex: 1; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; padding: 14px 16px 20px; align-content: start; }
+  .escolher .grade button { padding: 8px 4px; background: var(--painel2); border: 1px solid transparent; text-align: center; font-size: 13px; position: relative; }
+  .escolher .grade button:hover { border-color: var(--borda); }
+  .escolher .grade img { width: 50px; height: 50px; border-radius: 50%; margin: 0 auto 4px; }
+  .escolher .grade .marca { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--cor); }
+  .secao-config { padding: 14px 0; border-top: 1px solid var(--linha); }
+  .secao-config:first-of-type { border-top: 0; }
+  .secao-config h4 { font: 700 15px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--texto); margin-bottom: 6px; }
+  .aviso { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%) translateY(20px); opacity: 0; transition: .25s; z-index: 50; padding: 10px 16px;
+    background: var(--painel2); border: 1px solid var(--borda); font-weight: 700; pointer-events: none; }
+  .aviso.ver { opacity: 1; transform: translateX(-50%); }
+  @media (max-width: 560px) {
+    .mu { grid-template-columns: 48px 1fr; padding: 14px; }
+    .mu > img { width: 48px; height: 48px; }
+    .mu .acoes { margin-left: 0; width: 100%; }
+  }
 </style>
 </head>
 <body>
 <div id="app" class="carregando">carregando…</div>
+
+<dialog id="dlg-editor" class="gaveta" aria-label="Editar matchup"></dialog>
+<dialog id="dlg-escolher" class="escolher" aria-label="Escolher campeão"></dialog>
+<dialog id="dlg-entrar" class="janela" aria-label="Entrar no modo de edição"></dialog>
+<dialog id="dlg-config" class="janela" aria-label="Configurações"></dialog>
+<div class="aviso" id="aviso" role="status"></div>
+
 <script>
-  const COR = { 1: "#4fbf7f", 2: "#a3c95a", 3: "#e0b84c", 4: "#e4793a", 5: "#e0405a" };
+  // ============================================================ ambiente e utilidades
+  const LOCAL = ["127.0.0.1", "localhost"].includes(location.hostname);
+  const REPO = LOCAL ? null : { dono: location.hostname.split(".")[0], nome: location.pathname.split("/").filter(Boolean)[0] || "karthus" };
+  const CD = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global";
+  const COR = { 1: "var(--d1)", 2: "var(--d2)", 3: "var(--d3)", 4: "var(--d4)", 5: "var(--d5)" };
+  const NIVEL = { 1: "fácil", 2: "tranquila", 3: "média", 4: "difícil", 5: "pesadelo" };
+  const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const img = (x, cls = "", extra = "") => x && x.icone ? `<img class="${cls}" src="${esc(x.icone)}" alt="${esc(x.nome || "")}" title="${esc(x.nome || "")}" loading="lazy" ${extra}>` : "";
-  const semAcento = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-  const de = x => x && x.de ? ` · dados de ${esc(x.de)}` : "";
-
-  async function carregar() {
-    const q = new URLSearchParams(location.search);
-    if (q.get("dados")) return fetch(q.get("dados"), { cache: "no-store" }).then(r => r.json());
-    const dono = location.hostname.split(".")[0], repo = location.pathname.split("/").filter(Boolean)[0];
-    try {   // API do GitHub: sempre a versão mais nova
-      const r = await fetch(`https://api.github.com/repos/${dono}/${repo}/contents/data.json?ref=dados`, { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-store" });
-      if (r.ok) return r.json();
-    } catch (e) {}
-    return fetch(`https://raw.githubusercontent.com/${dono}/${repo}/dados/data.json?t=${Date.now()}`).then(r => r.json());
+  const iconeCampeao = id => `${CD}/default/v1/champion-icons/${id}.png`;
+  const iconeCD = caminho => caminho ? `${CD}/default/${caminho.replace(/^\/lol-game-data\/assets\//i, "").toLowerCase()}` : "";
+  const semAcento = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const pct = (v, t) => Math.round(v / Math.max(1, t) * 100);
+  const guardar = { ler: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                    gravar: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
+  function avisar(txt) {
+    const a = $("#aviso"); a.textContent = txt; a.classList.add("ver");
+    clearTimeout(avisar.t); avisar.t = setTimeout(() => a.classList.remove("ver"), 2600);
   }
-
   function haQuanto(seg) {
     const m = Math.max(0, Math.round((Date.now() / 1000 - seg) / 60));
     return m < 1 ? "agora mesmo" : m < 60 ? `há ${m} min` : m < 1440 ? `há ${Math.round(m / 60)} h` : `há ${Math.round(m / 1440)} dias`;
+  }
+  const b64e = s => { let x = ""; new TextEncoder().encode(s).forEach(c => { x += String.fromCharCode(c); }); return btoa(x); };
+  const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, "")), c => c.charCodeAt(0)));
+
+  // ============================================================ acesso aos dados (PC: servidor do bot · internet: GitHub)
+  let token = LOCAL ? null : guardar.ler("karthus.token");
+  let EDITAR = LOCAL;
+  const api = (caminho, corpo) => fetch(caminho, corpo === undefined ? { cache: "no-store" } :
+    { method: "POST", headers: { "Content-Type": "application/json", "X-Karthus": "1" }, body: JSON.stringify(corpo) }).then(r => r.json());
+  function gh(caminho, op = {}, comChave = true) {
+    const h = { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28", ...(op.headers || {}) };
+    if (comChave && token) h.Authorization = `Bearer ${token}`;
+    return fetch("https://api.github.com" + caminho, { ...op, headers: h, cache: op.cache || "no-cache" });
+  }
+  async function arquivoDoRepo(nome) {   // API (revalida com ETag: respostas 304 não contam no limite) e, se falhar, o CDN
+    try {
+      const r = await gh(`/repos/${REPO.dono}/${REPO.nome}/contents/${nome}?ref=dados`, { headers: { Accept: "application/vnd.github.raw+json" } }, !!token);
+      if (r.ok) return r.json();
+      if (r.status === 404) return null;
+    } catch (e) {}
+    const r = await fetch(`https://raw.githubusercontent.com/${REPO.dono}/${REPO.nome}/dados/${nome}?t=${Math.floor(Date.now() / 60000)}`);
+    return r.ok ? r.json() : null;
+  }
+  const carregarDados = () => LOCAL ? api("/api/publico") : arquivoDoRepo("data.json");
+  const carregarMatchups = async () => (LOCAL ? await api("/api/matchups") : await arquivoDoRepo("matchups.json")) || {};
+
+  async function salvarMatchups(mudancas) {   // {id: entrada ou null (apagar)} -> todas as matchups depois de salvar
+    if (LOCAL) return api("/api/matchups", { mudancas });
+    const caminho = `/repos/${REPO.dono}/${REPO.nome}/contents/matchups.json`;
+    for (let tentativa = 0; tentativa < 3; tentativa++) {
+      const r = await gh(`${caminho}?ref=dados`, { cache: "no-store" });
+      let atual = {}, sha;
+      if (r.ok) { const j = await r.json(); sha = j.sha; atual = JSON.parse(b64d(j.content) || "{}"); }
+      else if (r.status !== 404) throw new Error(`O GitHub respondeu ${r.status} ao ler as matchups.`);
+      const agora = new Date().toISOString().replace(/\.\d+Z$/, "Z");
+      for (const [id, e] of Object.entries(mudancas)) atual[id] = e ? { ...e, atualizado: agora } : { apagado: true, atualizado: agora };
+      const ordenado = Object.fromEntries(Object.entries(atual).sort((a, b) => +a[0] - +b[0]));
+      const p = await gh(caminho, { method: "PUT", cache: "no-store", body: JSON.stringify({ message: "matchups (editado pela página)",
+        content: b64e(JSON.stringify(ordenado, null, 1)), branch: "dados", ...(sha ? { sha } : {}) }) });
+      if (p.ok) return ordenado;
+      if (p.status === 401 || p.status === 403) throw new Error("Essa chave não pode gravar no repositório (precisa de Contents: Read and write).");
+      if (![409, 422].includes(p.status)) throw new Error(`O GitHub respondeu ${p.status} ao salvar.`);
+    }
+    throw new Error("Outro salvamento aconteceu ao mesmo tempo. Tente de novo.");
+  }
+
+  // ============================================================ estado
+  let D = null, MU = {}, JG = new Set(), filtroMu = null, rapido = false;
+  const matchups = () => Object.entries(MU).filter(([, m]) => m && !m.apagado && m.campeao).map(([id, m]) => ({ id: +id, ...m }));
+  const ehJungler = id => JG.has(+id);
+
+  // ============================================================ visualização
+  function cartaoMu(m, semId) {
+    const c = m.campeao, r = m.runas || {}, id = c.id;
+    const runas = r.chave ? `<div><span class="rot">runas</span><div class="icones">${img(r.chave, "r chv")}${(r.primarias || []).map(x => img(x, "r p")).join("")}
+      ${r.secundaria ? `<span class="sep"></span>${img(r.secundaria, "r p")}${(r.secundarias || []).map(x => img(x, "r p")).join("")}` : ""}
+      ${(r.fragmentos || []).length ? `<span class="sep"></span>${r.fragmentos.map(x => img(x, "r p", 'style="width:18px;height:18px"')).join("")}` : ""}</div></div>` : "";
+    const nomeR = r.chave ? `${esc(r.chave.nome)}${r.secundaria ? ` + ${esc(r.secundaria.nome)}` : ""}` : "";
+    return `<article class="mu" ${semId ? "" : `id="vs-${id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
+      <img src="${iconeCampeao(id)}" alt="" loading="lazy"><div>
+        <div class="topo"><h3>${esc(c.nome)}</h3>${m.dificuldade ? `<span class="tag nv">${NIVEL[m.dificuldade]}</span>` : ""}${ehJungler(id) ? `<span class="tag jg">jungler</span>` : ""}
+          <span class="acoes">${semId ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
+          ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
+        ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">Ainda não tem guia para essa matchup.</p>` : ""}
+        ${(m.feiticos || []).length || runas ? `<div class="grupo">
+          ${(m.feiticos || []).length ? `<div><span class="rot">feitiços</span><div class="icones">${m.feiticos.map(f => img(f)).join("")}</div></div>` : ""}${runas}</div>` : ""}
+        ${nomeR ? `<div class="vazio" style="font-size:14px;margin-top:4px">${nomeR}</div>` : ""}
+        ${(m.itens || []).length ? `<div class="grupo"><div><span class="rot">itens</span><div class="icones">${m.itens.map(i => img(i)).join('<span class="seta">›</span>')}</div></div></div>` : ""}
+        ${m.plano ? `<div class="plano"><span class="rot">como jogar</span>${esc(m.plano)}</div>` : ""}
+        ${m.dica ? `<div class="dica">${esc(m.dica)}</div>` : ""}
+      </div></article>`;
+  }
+
+  function secMatchups() {
+    const todas = matchups();
+    const temJg = todas.some(m => ehJungler(m.id));
+    if (filtroMu === null) filtroMu = temJg ? "junglers" : "todos";
+    const lista = (filtroMu === "junglers" ? todas.filter(m => ehJungler(m.id)) : todas)
+      .sort((a, b) => (b.dificuldade || 0) - (a.dificuldade || 0) || a.campeao.nome.localeCompare(b.campeao.nome, "pt"));
+    const niveis = [1, 2, 3, 4, 5].map(n => ({ n, cs: lista.filter(m => m.dificuldade === n) })).filter(x => x.cs.length);
+    const edicao = EDITAR ? `<button class="btn" id="novo">+ escrever guia</button><button class="btn sec" id="rapido">${rapido ? "fechar classificação" : "classificar rápido"}</button>` : "";
+    let html = `<div class="barra"><div class="seg" id="filtro-mu"><button data-f="junglers" class="${filtroMu === "junglers" ? "on" : ""}">Junglers</button>
+      <button data-f="todos" class="${filtroMu === "todos" ? "on" : ""}">Todos</button></div>${edicao}</div>`;
+    if (rapido) html += secRapido();
+    if (!todas.length) return html + `<div class="painel vazio">${EDITAR ? "Nenhum guia escrito ainda. Use \"classificar rápido\" para dar as notas de dificuldade e \"+ escrever guia\" para os detalhes."
+                                                                     : "Os guias de matchup ainda estão sendo escritos."}</div>`;
+    if (niveis.length) html += `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}"><span class="nome">${NIVEL[x.n]}</span>
+      <div class="camps">${x.cs.map(m => `<a href="#vs-${m.id}" title="${esc(m.campeao.nome)}"><img src="${iconeCampeao(m.id)}" alt="${esc(m.campeao.nome)}" loading="lazy"></a>`).join("")}</div></div>`).join("")}</div>`;
+    html += `<div class="barra" style="margin-top:14px"><input class="busca" id="busca-mu" placeholder="Buscar campeão…" autocomplete="off"></div>
+      <div class="mus" id="mus">${lista.map(m => cartaoMu(m)).join("") || `<p class="vazio">Nenhum guia neste filtro.</p>`}</div>`;
+    return html;
   }
 
   function secRunas(d) {
@@ -163,139 +372,434 @@
         <div class="frag">${(d.fragmentos || []).map(x => `<span>${img(x)}${esc(x.nome)}</span>`).join("")}</div>
       </div></div>`;
   }
-
   function secBuild(d) {
     if (!d) return `<p class="vazio">Sem build ainda.</p>`;
     return `<div class="painel itens">${(d.itens || []).map(i => `<div class="item">${img(i)}<div>${i.botas ? "<small>botas</small>" : ""}${esc(i.nome)}</div></div>`).join("")}</div>`;
   }
-
-  function cartaoMu(m, semId) {
-    const c = m.campeao;
-    return `<article class="mu" ${semId ? "" : `id="vs-${c.id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
-      ${img(c)}<div><h3>${esc(c.nome)}${m.nivel ? `<span class="nv">${esc(m.nivel)}</span>` : ""}</h3>
-      ${m.sem_nota ? `<p class="vazio">Ainda não anotei essa matchup.</p>` : ""}
-      ${m.feiticos.length || m.keystone ? `<div class="icones">${m.feiticos.map(f => img(f)).join("")}${img(m.keystone, "r")}${img(m.secundaria, "r", 'style="width:26px;height:26px"')}</div>` : ""}
-      ${m.runas ? `<p><span class="rot">runas</span>${esc(m.runas)}</p>` : ""}
-      ${m.build ? `<p><span class="rot">build</span>${esc(m.build)}</p>` : ""}
-      ${m.dicas ? `<p><span class="rot">dica</span>${esc(m.dicas)}</p>` : ""}</div></article>`;
-  }
-
-  // filtro das matchups: "junglers" (padrão quando há junglers anotados: o Karthus dele é de selva) ou "todos"
-  let filtroMu = null;
-  const NIVEIS = { 1: "fácil", 2: "tranquila", 3: "média", 4: "difícil", 5: "pesadelo" };
-  function secMatchups(d) {
-    const todos = d.matchups || [];
-    if (!todos.length) return `<p class="vazio">As anotações de matchup ainda não foram publicadas.</p>`;
-    const temJg = todos.some(m => m.jungler);
-    if (filtroMu === null) filtroMu = temJg ? "junglers" : "todos";
-    const lista = filtroMu === "junglers" ? todos.filter(m => m.jungler) : todos;
-    const niveis = [1, 2, 3, 4, 5].map(n => ({ n, campeoes: lista.filter(m => m.dificuldade === n).map(m => m.campeao) })).filter(x => x.campeoes.length);
-    const filtro = temJg ? `<div class="filtro"><button data-f="junglers" class="${filtroMu === "junglers" ? "on" : ""}">Junglers</button>
-      <button data-f="todos" class="${filtroMu === "todos" ? "on" : ""}">Todos</button></div>` : "";
-    const tl = niveis.length ? `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}">
-        <span class="nome">${NIVEIS[x.n]}</span><div class="camps">${x.campeoes.map(c => `<a href="#vs-${c.id}">${img(c)}</a>`).join("")}</div></div>`).join("")}</div>` : "";
-    return `${filtro}${tl}<input class="busca" id="busca" placeholder="Buscar campeão…" autocomplete="off"><div class="mus" id="mus">${lista.map(m => cartaoMu(m)).join("")}</div>`;
-  }
-
-  function mmss(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
-  function secAgora(p) {
-    const time = (lista, rot) => `<div class="time"><span class="rot">${rot}</span>${lista.map(c => c.anotado
-      ? `<a href="#vs-${c.id}" style="--cor:${COR[c.dificuldade] || "var(--borda)"}" title="${esc(c.nome)}">${img(c)}</a>` : img(c)).join("")}</div>`;
-    return `<div class="painel"><div class="numeros"><div>${esc(p.kda)}<small>KDA</small></div><div>${p.cs}<small>CS</small></div>
-        <div>${p.nivel}<small>nível</small></div><div>${mmss(p.tempo)}<small>tempo de jogo</small></div></div>
-        ${p.itens.length ? `<div class="itens" style="margin-top:16px">${p.itens.map(i => `<div class="item">${img(i)}<div>${esc(i.nome)}</div></div>`).join("")}</div>` : ""}
-        <div class="times">${time(p.aliados, "aliados")}${time(p.inimigos, "inimigos")}</div></div>
-      ${p.oponente ? `<div class="oponente"><span class="rot">${esc(p.oponente.quem || "oponente direto")}</span>${cartaoMu(p.oponente, true)}</div>` : ""}`;
-  }
-
-  function anel(pct) {
+  function anel(p) {
     const c = 2 * Math.PI * 46;
     return `<svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="none" stroke="var(--linha)" stroke-width="9"/>
-      <circle cx="55" cy="55" r="46" fill="none" stroke="var(--borda)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - pct / 100)}"/></svg>`;
+      <circle cx="55" cy="55" r="46" fill="none" stroke="var(--borda)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p / 100)}"/></svg>`;
   }
-
   function secStats(d) {
     const k = d.karthus, r = d.ranqueada;
     const contas = (d.elo || []).map(e => `<div class="conta"><span><a href="${esc(e.opgg)}" target="_blank" rel="noopener">${esc(e.conta)}</a></span>
-      <span>${e.elo ? `<b>${esc(e.elo)}</b> · ${Math.round(e.v / Math.max(1, e.v + e.d) * 100)}% (${e.v}V ${e.d}D)${e.de ? ` · em ${esc(e.de)}` : ""}` : `<span class="vazio">sem dados ainda</span>`}</span></div>`).join("");
-    const wr = k ? `<div class="painel"><div class="rot">Karthus · últimas ${k.jogos}</div><div class="wr" style="margin-top:10px">${anel(Math.round(k.v / k.jogos * 100))}
-        <div><div class="pct">${Math.round(k.v / k.jogos * 100)}%</div><div><span class="v">${k.v}V</span> · <span class="d">${k.jogos - k.v}D</span></div>
+      <span>${e.elo ? `<b>${esc(e.elo)}</b> · ${pct(e.v, e.v + e.d)}% (${e.v}V ${e.d}D)${e.de ? ` · em ${esc(e.de)}` : ""}` : `<span class="vazio">sem dados ainda</span>`}</span></div>`).join("");
+    const wr = k ? `<div class="painel"><div class="rot">Karthus · últimas ${k.jogos}</div><div class="wr" style="margin-top:10px">${anel(pct(k.v, k.jogos))}
+        <div><div class="pct">${pct(k.v, k.jogos)}%</div><div><span class="v">${k.v}V</span> · <span class="d">${k.jogos - k.v}D</span></div>
         <div class="vazio">KDA ${k.k} / ${k.d} / ${k.a} · melhor ${esc(k.melhor)}</div></div></div></div>` : "";
-    const temporada = r ? `<div class="painel"><div class="rot">${esc(r.fila)} na temporada</div><div class="wr" style="margin-top:10px">${anel(Math.round(r.v / (r.v + r.d) * 100))}
-        <div><div class="pct">${Math.round(r.v / (r.v + r.d) * 100)}%</div><div><span class="v">${r.v}V</span> · <span class="d">${r.d}D</span></div></div></div></div>` : "";
+    const temporada = r ? `<div class="painel"><div class="rot">${esc(r.fila)} na temporada</div><div class="wr" style="margin-top:10px">${anel(pct(r.v, r.v + r.d))}
+        <div><div class="pct">${pct(r.v, r.v + r.d)}%</div><div><span class="v">${r.v}V</span> · <span class="d">${r.d}D</span></div></div></div></div>` : "";
     const ult = (d.ultimas || []).map(j => `<div class="jogo">${img(j.campeao)}<span class="kda">${j.k}/${j.d}/${j.a}</span><span class="vazio">${esc(j.f)}</span>
         <span class="res ${j.remake ? "" : j.v ? "v" : "d"}">${j.remake ? "remake" : j.v ? "vitória" : "derrota"}</span></div>`).join("");
     return `<div class="stats"><div class="painel"><div class="rot">Elo Solo/Duo</div>${contas}</div>${wr}${temporada}
       ${ult ? `<div class="painel"><div class="rot">Últimas partidas</div>${ult}</div>` : ""}</div>`;
   }
-
-  function desenhar(d) {
-    const s = d.skin || {};
-    Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
-    const k = d.karthus, solo = (d.elo || []).find(e => e.elo), p = d.partida;
-    document.getElementById("app").className = "";
-    document.getElementById("app").innerHTML = `
-      <header class="hero" style="--splash:url('${esc(s.splash || "")}')">
-        <div class="topo"><span class="canal">${esc(d.canal)}</span><a class="botao" href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">${d.ao_vivo ? "● assistir ao vivo" : "▶ twitch"}</a></div>
-        <h1>Karthus</h1><div class="skin">skin de agora: ${esc(s.nome || "")}</div>
-        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${Math.round(k.v / k.jogos * 100)}%</b> nas últimas ${k.jogos}</span>` : ""}
-          <span class="chip">atualizado ${haQuanto(d.atualizado)}</span></div>
-      </header>
-      <nav id="abas">${p ? `<a href="#agora">Agora</a>` : ""}<a href="#runas">Runas</a><a href="#build">Build</a><a href="#matchups">Matchups</a><a href="#stats">Stats</a></nav>
-      <main>
-        ${p ? `<section id="agora"><h2>Partida agora</h2><div class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}</div>${secAgora(p)}</section>` : ""}
-        <section id="runas"><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${de(d.runas)}</div>${secRunas(d.runas)}</section>
-        <section id="build"><h2>Build</h2><div class="sub">${esc(d.build ? d.build.titulo : "")}${de(d.build)}</div>${secBuild(d.build)}</section>
-        <section id="matchups"><h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}</section>
-        <section id="stats"><h2>Stats</h2><div class="sub">Elo e win rate</div>${secStats(d)}</section>
-      </main>
-      <footer>Atualiza sozinho durante a live · <a href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">twitch.tv/${esc(d.canal)}</a> · comandos no chat: !runas !build !tierlist !vs campeão</footer>`;
-    desenharEventos(d);
-    focar();
-    marcarAba();
+  function mmss(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
+  function linhaTime(lista, rot) {
+    return `<div class="time"><span class="rot">${rot}</span>${lista.map(c => c.anotado || EDITAR
+      ? `<a href="#vs-${c.id}" ${EDITAR && !c.anotado ? `data-editar="${c.id}"` : ""} style="--cor:${COR[c.dificuldade] || "var(--linha)"}" title="${esc(c.nome)}">${img(c)}</a>` : img(c)).join("")}</div>`;
+  }
+  function secAgora(p) {
+    return `<div class="painel"><div class="agora-num"><div>${esc(p.kda)}<small>KDA</small></div><div>${p.cs}<small>CS</small></div>
+        <div>${p.nivel}<small>nível</small></div><div>${mmss(p.tempo)}<small>tempo de jogo</small></div></div>
+        ${p.itens.length ? `<div class="itens" style="margin-top:16px">${p.itens.map(i => `<div class="item">${img(i)}<div>${esc(i.nome)}</div></div>`).join("")}</div>` : ""}
+        <div class="times">${linhaTime(p.aliados, "aliados")}${linhaTime(p.inimigos, "inimigos")}</div></div>
+      ${p.oponente ? `<div class="oponente"><span class="rot">${esc(p.oponente.quem || "oponente direto")}</span>${cartaoMu(MU[p.oponente.campeao.id] && !MU[p.oponente.campeao.id].apagado
+          ? { ...MU[p.oponente.campeao.id], campeao: p.oponente.campeao } : p.oponente, true)}</div>` : ""}`;
   }
 
-  function desenharEventos(d) {   // filtro Junglers/Todos e busca das matchups
-    document.querySelectorAll(".filtro button").forEach(b => b.onclick = () => {
-      filtroMu = b.dataset.f;
-      document.querySelector("#matchups").innerHTML = `<h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}`;
-      desenharEventos(d);
-    });
-    const busca = document.getElementById("busca");
+  function desenhar() {
+    const d = D || {}, s = d.skin || {};
+    Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
+    JG = new Set(d.junglers || []);
+    const k = d.karthus, solo = (d.elo || []).find(e => e.elo), p = d.partida, sel = d.selecao;
+    const y = scrollY;
+    $("#app").className = "";
+    $("#app").innerHTML = `
+      <header class="hero" style="--splash:url('${esc(s.splash || "")}')">
+        <div class="topo"><span class="canal">${esc(d.canal || "polgarlol")}</span><a class="twitch" href="https://twitch.tv/${esc(d.canal || "polgarlol")}" target="_blank" rel="noopener">${d.ao_vivo ? "● assistir ao vivo" : "▶ twitch"}</a></div>
+        <h1>Guia do Karthus</h1><div class="skin">jungle · skin de agora: ${esc(s.nome || "")}</div>
+        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
+          ${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
+      </header>
+      <nav id="abas">${p ? `<a href="#agora">Agora</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
+      <main>
+        ${p ? `<section id="agora"><div class="cab"><h2>Partida agora</h2><span class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}</span></div>${secAgora(p)}</section>`
+            : sel && sel.inimigos.length ? `<section id="agora"><div class="cab"><h2>Seleção de campeões</h2><span class="sub">inimigos que já apareceram</span></div>
+                <div class="painel">${linhaTime(sel.inimigos, "inimigos")}</div></section>` : ""}
+        <section id="matchups"><div class="cab"><div><h2>Matchups</h2><div class="sub">Como jogar de Karthus jungle contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.</div></div></div>${secMatchups()}</section>
+        <section id="runas"><div class="cab"><h2>Runas</h2><span class="sub">${esc(d.runas ? d.runas.titulo : "")}${d.runas && d.runas.de ? ` · dados de ${esc(d.runas.de)}` : ""}</span></div>${secRunas(d.runas)}</section>
+        <section id="build"><div class="cab"><h2>Build</h2><span class="sub">${esc(d.build ? d.build.titulo : "")}${d.build && d.build.de ? ` · dados de ${esc(d.build.de)}` : ""}</span></div>${secBuild(d.build)}</section>
+        <section id="stats"><div class="cab"><h2>Stats</h2><span class="sub">elo e win rate</span></div>${secStats(d)}</section>
+      </main>
+      <footer><span>Atualiza sozinho durante a live · comandos no chat: <b>!matchup</b> <b>!vs campeão</b> <b>!runas</b> <b>!build</b> <b>!tierlist</b></span>
+        <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
+      ${EDITAR ? `<div class="modo"><i></i>modo de edição${LOCAL ? " · no PC" : ""}</div>` : ""}`;
+    ligarEventos();
+    if (desenhar.feito) scrollTo(0, y); else { desenhar.feito = true; focar(); }
+    marcarAba();
+  }
+  function redesenharMatchups() {
+    const s = $("#matchups");
+    if (!s) return desenhar();
+    s.innerHTML = `<div class="cab"><div><h2>Matchups</h2><div class="sub">Como jogar de Karthus jungle contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.</div></div></div>${secMatchups()}`;
+    ligarEventos();
+  }
+
+  function ligarEventos() {
+    document.querySelectorAll("#filtro-mu button").forEach(b => b.onclick = () => { filtroMu = b.dataset.f; redesenharMatchups(); });
+    const busca = $("#busca-mu");
     if (busca) busca.oninput = () => {
       const t = semAcento(busca.value);
       document.querySelectorAll("#mus .mu").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
     };
+    if ($("#novo")) $("#novo").onclick = () => escolherCampeao(id => abrirEditor(id));
+    if ($("#rapido")) $("#rapido").onclick = () => { rapido = !rapido; redesenharMatchups(); if (rapido) prepararRapido(); };
+    if ($("#entrar")) $("#entrar").onclick = abrirEntrar;
+    if ($("#sair-edicao")) $("#sair-edicao").onclick = () => { token = null; guardar.gravar("karthus.token", null); EDITAR = false; rapido = false; desenhar(); avisar("Você saiu do modo de edição."); };
+    if ($("#abrir-config")) $("#abrir-config").onclick = abrirConfig;
+    ligarRapido();
   }
-
-  function focar() {   // #vs-238 vindo do chat: rola até a matchup e destaca
+  document.addEventListener("click", ev => {
+    const ed = ev.target.closest("[data-editar]");
+    if (ed && EDITAR) { ev.preventDefault(); abrirEditor(+ed.dataset.editar); return; }
+    const cp = ev.target.closest("[data-copiar]");
+    if (cp) {
+      const url = location.origin + location.pathname.replace(/index\.html$/, "") + "#vs-" + cp.dataset.copiar;
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => avisar("Link copiado."), () => prompt("Link do guia:", url));
+    }
+  });
+  function focar() {
     document.querySelectorAll(".mu.alvo").forEach(m => m.classList.remove("alvo"));
     const alvo = location.hash.startsWith("#vs-") && document.querySelector(location.hash);
     if (alvo) { alvo.classList.add("alvo"); alvo.scrollIntoView({ block: "center" }); }
-    else if (location.hash) { const s = document.querySelector(location.hash); if (s) s.scrollIntoView(); }
+    else if (location.hash.startsWith("#vs-")) { const s = $("#matchups"); if (s) s.scrollIntoView(); }
+    else if (location.hash && location.hash.length > 1) { const s = document.querySelector(location.hash); if (s) s.scrollIntoView(); }
   }
   function marcarAba() {
-    const secoes = [...document.querySelectorAll("section")];
+    const secoes = [...document.querySelectorAll("main section")];
     const atual = secoes.filter(s => s.getBoundingClientRect().top < 120).pop() || secoes[0];
-    document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", atual && a.getAttribute("href") === "#" + atual.id));
+    document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", !!atual && a.getAttribute("href") === "#" + atual.id));
   }
   addEventListener("scroll", marcarAba, { passive: true });
   addEventListener("hashchange", focar);
 
-  let primeira = true;
-  async function atualizar() {
+  // ============================================================ dados fixos do jogo (só no modo de edição)
+  let EST = null;
+  async function estaticos() {
+    if (EST) return EST;
+    const [camps, feit, perks, estilos, itens] = await Promise.all(["champion-summary", "summoner-spells", "perks", "perkstyles", "items"]
+      .map(n => fetch(`${CD}/pt_br/v1/${n}.json`).then(r => r.json())));
+    const ordemF = [4, 11, 14, 3, 12, 21, 1, 6, 7];   // Flash, Golpear, Incendiar, Exaustão, Teleporte, Barreira, Purificar, Fantasma, Curar
+    const perk = {};
+    perks.forEach(p => { perk[p.id] = { id: p.id, nome: p.name, icone: iconeCD(p.iconPath) }; });
+    EST = {
+      campeoes: camps.filter(c => c.id > 0 && c.id < 10000 && c.id !== 30).map(c => ({ id: c.id, nome: c.name, alias: c.alias })).sort((a, b) => a.nome.localeCompare(b.nome, "pt")),
+      feiticos: feit.filter(f => ordemF.includes(f.id)).sort((a, b) => ordemF.indexOf(a.id) - ordemF.indexOf(b.id)).map(f => ({ id: f.id, nome: f.name, icone: iconeCD(f.iconPath) })),
+      perk,
+      estilos: (estilos.styles || estilos).map(s => ({ id: s.id, nome: s.name, icone: iconeCD(s.iconPath), linhas: s.slots.map(l => ({ tipo: l.type, perks: l.perks })) })),
+      itens: itens.filter(i => i.id < 10000 && i.inStore !== false && i.priceTotal > 0 && !i.requiredChampion && !i.requiredAlly
+                         && !(i.categories || []).some(c => c === "Trinket" || c === "Consumable"))
+        .map(i => ({ id: i.id, nome: i.name, icone: iconeCD(i.iconPath), preco: i.priceTotal, cat: i.categories || [], fim: !(i.to || []).length }))
+        .sort((a, b) => b.preco - a.preco),
+    };
+    return EST;
+  }
+
+  // ============================================================ escolher campeão (+ escrever guia)
+  async function escolherCampeao(aoEscolher) {
+    const dlg = $("#dlg-escolher");
+    dlg.innerHTML = `<div class="barra"><input class="busca" id="esc-busca" placeholder="Buscar campeão…" autocomplete="off">
+      <div class="seg" id="esc-filtro"><button data-f="junglers" class="on">Junglers</button><button data-f="todos">Todos</button></div>
+      <button class="fechar" id="esc-fechar" aria-label="Fechar">×</button></div><div class="grade" id="esc-grade"><p class="vazio">carregando…</p></div>`;
+    dlg.showModal();
+    $("#esc-fechar").onclick = () => dlg.close();
+    const E = await estaticos();
+    let f = "junglers";
+    const pintar = () => {
+      const q = semAcento($("#esc-busca").value);
+      $("#esc-grade").innerHTML = E.campeoes.filter(c => (f === "todos" || ehJungler(c.id)) && (!q || semAcento(c.nome).includes(q) || semAcento(c.alias).includes(q)))
+        .map(c => { const m = MU[c.id]; const ok = m && !m.apagado;
+          return `<button data-id="${c.id}" title="${esc(c.nome)}"><img src="${iconeCampeao(c.id)}" alt="" loading="lazy">${esc(c.nome)}${ok && m.dificuldade ? `<span class="marca" style="--cor:${COR[m.dificuldade]}"></span>` : ""}</button>`; }).join("")
+        || `<p class="vazio">Nenhum campeão com esse nome.</p>`;
+    };
+    $("#esc-busca").oninput = pintar;
+    $("#esc-filtro").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; f = b.dataset.f;
+      $("#esc-filtro").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); pintar(); };
+    $("#esc-grade").onclick = ev => { const b = ev.target.closest("button[data-id]"); if (b) { dlg.close(); aoEscolher(+b.dataset.id); } };
+    pintar();
+    $("#esc-busca").focus();
+  }
+
+  // ============================================================ editor de uma matchup
+  let ED = null;
+  function paraEdicao(id, m) {   // formato salvo -> estado do editor (só ids)
+    const r = (m && m.runas) || {};
+    return { id, nome: (m && m.campeao && m.campeao.nome) || (EST.campeoes.find(c => c.id === id) || {}).nome || String(id),
+      dificuldade: (m && m.dificuldade) || 0, feiticos: ((m && m.feiticos) || []).map(f => f.id),
+      primaria: r.primaria ? r.primaria.id : 0, chave: r.chave ? r.chave.id : 0, primarias: [0, 1, 2].map(i => (r.primarias || [])[i] ? r.primarias[i].id : 0),
+      secundaria: r.secundaria ? r.secundaria.id : 0, secundarias: (r.secundarias || []).map(x => x.id), fragmentos: [0, 1, 2].map(i => (r.fragmentos || [])[i] ? r.fragmentos[i].id : 0),
+      itens: ((m && m.itens) || []).map(i => i.id), plano: (m && m.plano) || "", dica: (m && m.dica) || "" };
+  }
+  function paraSalvar(e) {       // estado do editor -> formato salvo (com nomes e ícones, pronto para a página e o bot)
+    const E = EST, est = id => { const s = E.estilos.find(x => x.id === id); return s ? { id: s.id, nome: s.nome, icone: s.icone } : null; };
+    const runas = e.chave ? { primaria: est(e.primaria), chave: E.perk[e.chave], primarias: e.primarias.filter(Boolean).map(i => E.perk[i]),
+      secundaria: est(e.secundaria), secundarias: e.secundarias.map(i => E.perk[i]), fragmentos: e.fragmentos.filter(Boolean).map(i => E.perk[i]) } : null;
+    return { campeao: { id: e.id, nome: e.nome }, dificuldade: e.dificuldade, feiticos: e.feiticos.map(i => E.feiticos.find(f => f.id === i)).filter(Boolean),
+      runas, itens: e.itens.map(i => E.itens.find(x => x.id === i)).filter(Boolean).map(({ id, nome, icone }) => ({ id, nome, icone })),
+      plano: e.plano.trim(), dica: e.dica.trim() };
+  }
+  const vazio = e => !e.dificuldade && !e.feiticos.length && !e.chave && !e.itens.length && !e.plano.trim() && !e.dica.trim();
+
+  async function abrirEditor(id) {
+    const dlg = $("#dlg-editor");
+    dlg.innerHTML = `<div class="g-topo"><img src="${iconeCampeao(id)}" alt=""><div><h3>carregando…</h3></div><button class="fechar" aria-label="Fechar">×</button></div>`;
+    dlg.showModal();
+    dlg.querySelector(".fechar").onclick = () => dlg.close();
+    await estaticos();
+    const m = MU[id] && !MU[id].apagado ? MU[id] : null;
+    ED = paraEdicao(id, m);
+    ED.existia = !!m;
+    pintarEditor();
+  }
+
+  function linhaEscolha(ids, marcados, extra = "") {
+    return ids.map(i => { const p = EST.perk[i]; return p ? `<button class="${marcados.includes(i) ? "on" : ""}" data-p="${i}" title="${esc(p.nome)}" aria-label="${esc(p.nome)}" ${extra}><img src="${esc(p.icone)}" alt=""></button>` : ""; }).join("");
+  }
+
+  function pintarEditor() {
+    const E = EST, e = ED, dlg = $("#dlg-editor");
+    const prim = E.estilos.find(s => s.id === e.primaria), sec = E.estilos.find(s => s.id === e.secundaria);
+    const fragsBase = (prim || E.estilos[0]).linhas.filter(l => l.tipo === "kStatMod");
+    const nomeP = i => (E.perk[i] || {}).nome || "";
+    dlg.innerHTML = `
+      <div class="g-topo"><img src="${iconeCampeao(e.id)}" alt=""><div><h3>Karthus vs ${esc(e.nome)}</h3><div class="sub">${ehJungler(e.id) ? "jungler · " : ""}guia da matchup</div></div>
+        <button class="fechar" id="ed-fechar" aria-label="Fechar">×</button></div>
+      <div class="g-corpo">
+        <div class="bloco"><span class="rot">Dificuldade para o Karthus</span><div class="dif" id="ed-dif">
+          ${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}" class="${e.dificuldade === n ? "on" : ""}" style="--cor:${COR[n]}"><b>${n}</b>${NIVEL[n]}</button>`).join("")}</div></div>
+        <div class="bloco"><span class="rot">Feitiços (escolha 2)</span><div class="esc" id="ed-feit">
+          ${E.feiticos.map(f => `<button class="${e.feiticos.includes(f.id) ? "on" : ""}" data-f="${f.id}" title="${esc(f.nome)}" aria-label="${esc(f.nome)}"><img src="${esc(f.icone)}" alt=""></button>`).join("")}</div>
+          <div class="escolhido">${esc(e.feiticos.map(i => (E.feiticos.find(f => f.id === i) || {}).nome).join(" + "))}</div></div>
+        <div class="bloco"><span class="rot">Runas · árvore principal</span><div class="esc redondo" id="ed-prim">
+          ${E.estilos.map(s => `<button class="${s.id === e.primaria ? "on" : ""}" data-s="${s.id}" title="${esc(s.nome)}" aria-label="${esc(s.nome)}"><img src="${esc(s.icone)}" alt=""></button>`).join("")}</div>
+          ${prim ? `<div class="linha-runa"><span class="rot">principal</span><div class="esc redondo grande" data-linha="chave">${linhaEscolha(prim.linhas[0].perks, [e.chave])}</div></div>
+            ${prim.linhas.slice(1, 4).map((l, i) => `<div class="linha-runa"><span class="rot">${i + 1}ª linha</span><div class="esc redondo" data-linha="p${i}">${linhaEscolha(l.perks, [e.primarias[i]])}</div></div>`).join("")}
+            <div class="escolhido">${esc([nomeP(e.chave), ...e.primarias.map(nomeP)].filter(Boolean).join(" · "))}</div>` : ""}</div>
+        ${prim ? `<div class="bloco"><span class="rot">Runas · árvore secundária (2 runas)</span><div class="esc redondo" id="ed-sec">
+          ${E.estilos.filter(s => s.id !== e.primaria).map(s => `<button class="${s.id === e.secundaria ? "on" : ""}" data-s="${s.id}" title="${esc(s.nome)}" aria-label="${esc(s.nome)}"><img src="${esc(s.icone)}" alt=""></button>`).join("")}</div>
+          ${sec ? sec.linhas.slice(1, 4).map((l, i) => `<div class="linha-runa"><span class="rot">${i + 1}ª linha</span><div class="esc redondo" data-linha="s${i}">${linhaEscolha(l.perks, e.secundarias)}</div></div>`).join("") : ""}
+          <div class="escolhido">${esc(e.secundarias.map(nomeP).join(" · "))}</div></div>
+        <div class="bloco"><span class="rot">Fragmentos</span>${fragsBase.map((l, i) => `<div class="linha-runa"><span class="rot">${["ataque", "flex", "defesa"][i] || ""}</span>
+          <div class="esc redondo peq" data-linha="f${i}">${linhaEscolha(l.perks, [e.fragmentos[i]])}</div></div>`).join("")}
+          <div class="escolhido">${esc(e.fragmentos.map(nomeP).filter(Boolean).join(" · "))}</div>
+          ${e.chave ? `<button class="btn sec mini" id="ed-limpar-runas" style="margin-top:8px">limpar runas</button>` : ""}</div>` : ""}
+        <div class="bloco"><span class="rot">Itens · build em ordem (até 7)</span>
+          <div class="build-sel" id="ed-build">${e.itens.length ? e.itens.map((i, n) => { const it = E.itens.find(x => x.id === i) || { nome: String(i), icone: "" };
+            return `<div class="it"><span class="ord">${n + 1}</span><img src="${esc(it.icone)}" alt="${esc(it.nome)}" title="${esc(it.nome)}">
+              <div class="ctl"><button data-mover="${n}" data-dir="-1" aria-label="Mover para a esquerda">‹</button><button data-tirar="${n}" aria-label="Tirar">×</button><button data-mover="${n}" data-dir="1" aria-label="Mover para a direita">›</button></div></div>`; }).join("")
+            : `<span class="vazio" style="align-self:center">clique nos itens abaixo para montar a build</span>`}</div>
+          <input class="campo" id="ed-item-busca" placeholder="Buscar item… (ex.: zhonya, liandry, botas)" autocomplete="off" style="margin-top:8px">
+          <div class="resultados" id="ed-itens"></div></div>
+        <div class="bloco"><span class="rot">Como jogar (plano de jogo)</span>
+          <textarea class="campo" id="ed-plano" maxlength="3000" placeholder="O que fazer nessa matchup: rota de farm inicial, quando ele é mais forte que você, onde invadir ou evitar, quando usar o R, como ganhar a partida…">${esc(e.plano)}</textarea>
+          <div class="conta-car"><span id="ed-plano-n">${e.plano.length}</span>/3000</div></div>
+        <div class="bloco"><span class="rot">Dica rápida (vai no chat e no cartão da live)</span>
+          <input class="campo" id="ed-dica" maxlength="160" value="${esc(e.dica)}" placeholder="ex.: guarde o W para quando ele te pular">
+          <div class="conta-car"><span id="ed-dica-n">${e.dica.length}</span>/160</div></div>
+      </div>
+      <div class="g-rodape">${e.existia ? `<button class="btn perigo" id="ed-apagar">apagar guia</button>` : ""}<span class="esp"></span><span class="sub" id="ed-status"></span>
+        <button class="btn sec" id="ed-cancelar">cancelar</button><button class="btn" id="ed-salvar">salvar</button></div>`;
+    ligarEditor();
+    pintarItens();
+  }
+
+  function pintarItens() {
+    const E = EST, q = semAcento(($("#ed-item-busca") || {}).value || "");
+    let lista = q ? E.itens.filter(i => semAcento(i.nome).includes(q))
+                  : E.itens.filter(i => (i.fim && i.preco >= 2200 && i.cat.includes("SpellDamage")) || (i.cat.includes("Boots") && i.preco >= 900) || i.cat.includes("Jungle"));
+    lista = lista.filter(i => !ED.itens.includes(i.id)).slice(0, 40);
+    $("#ed-itens").innerHTML = lista.map(i => `<button data-item="${i.id}" title="${esc(i.nome)}"><img src="${esc(i.icone)}" alt="" loading="lazy">${esc(i.nome)}</button>`).join("")
+      || `<p class="vazio">Nenhum item com esse nome.</p>`;
+  }
+
+  function ligarEditor() {
+    const e = ED, dlg = $("#dlg-editor"), lerTextos = () => { e.plano = $("#ed-plano").value; e.dica = $("#ed-dica").value; };
+    const repintar = () => { lerTextos(); const y = dlg.querySelector(".g-corpo").scrollTop; pintarEditor(); dlg.querySelector(".g-corpo").scrollTop = y; };
+    $("#ed-fechar").onclick = $("#ed-cancelar").onclick = () => dlg.close();
+    $("#ed-dif").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; e.dificuldade = e.dificuldade === +b.dataset.n ? 0 : +b.dataset.n; repintar(); };
+    $("#ed-feit").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; const f = +b.dataset.f;
+      e.feiticos = e.feiticos.includes(f) ? e.feiticos.filter(x => x !== f) : [...e.feiticos, f].slice(-2); repintar(); };
+    $("#ed-prim").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; const s = +b.dataset.s;
+      if (s !== e.primaria) { e.primaria = s; e.chave = 0; e.primarias = [0, 0, 0]; if (e.secundaria === s) { e.secundaria = 0; e.secundarias = []; } } repintar(); };
+    if ($("#ed-sec")) $("#ed-sec").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; const s = +b.dataset.s;
+      if (s !== e.secundaria) { e.secundaria = s; e.secundarias = []; } repintar(); };
+    dlg.querySelectorAll("[data-linha]").forEach(div => div.onclick = ev => {
+      const b = ev.target.closest("button[data-p]"); if (!b) return;
+      const p = +b.dataset.p, l = div.dataset.linha;
+      if (l === "chave") e.chave = e.chave === p ? 0 : p;
+      else if (l[0] === "p") { const i = +l[1]; e.primarias[i] = e.primarias[i] === p ? 0 : p; }
+      else if (l[0] === "f") { const i = +l[1]; e.fragmentos[i] = e.fragmentos[i] === p ? 0 : p; }
+      else if (l[0] === "s") {           // secundária: 2 runas de linhas diferentes
+        const sec = EST.estilos.find(s => s.id === e.secundaria), linhaDe = x => sec.linhas.findIndex(L => L.perks.includes(x));
+        if (e.secundarias.includes(p)) e.secundarias = e.secundarias.filter(x => x !== p);
+        else { e.secundarias = e.secundarias.filter(x => linhaDe(x) !== +l[1]); e.secundarias.push(p); if (e.secundarias.length > 2) e.secundarias.shift(); }
+      }
+      repintar();
+    });
+    if ($("#ed-limpar-runas")) $("#ed-limpar-runas").onclick = () => { Object.assign(e, { primaria: 0, chave: 0, primarias: [0, 0, 0], secundaria: 0, secundarias: [], fragmentos: [0, 0, 0] }); repintar(); };
+    $("#ed-item-busca").oninput = pintarItens;
+    $("#ed-itens").onclick = ev => { const b = ev.target.closest("button[data-item]"); if (!b || e.itens.length >= 7) return; e.itens.push(+b.dataset.item);
+      const q = $("#ed-item-busca").value; repintar(); $("#ed-item-busca").value = q; pintarItens(); $("#ed-item-busca").focus(); };
+    $("#ed-build").onclick = ev => {
+      const t = ev.target.closest("[data-tirar]"), mv = ev.target.closest("[data-mover]");
+      if (t) e.itens.splice(+t.dataset.tirar, 1);
+      else if (mv) { const i = +mv.dataset.mover, j = i + +mv.dataset.dir; if (j >= 0 && j < e.itens.length) [e.itens[i], e.itens[j]] = [e.itens[j], e.itens[i]]; }
+      else return;
+      repintar();
+    };
+    $("#ed-plano").oninput = () => { $("#ed-plano-n").textContent = $("#ed-plano").value.length; };
+    $("#ed-dica").oninput = () => { $("#ed-dica-n").textContent = $("#ed-dica").value.length; };
+    $("#ed-salvar").onclick = async () => {
+      lerTextos();
+      const btn = $("#ed-salvar"); btn.disabled = true; $("#ed-status").textContent = "salvando…";
+      try {
+        MU = await salvarMatchups({ [e.id]: vazio(e) ? null : paraSalvar(e) });
+        dlg.close(); redesenharMatchups(); avisar(vazio(e) ? "Guia apagado." : `Guia de ${e.nome} salvo.`);
+      } catch (err) { $("#ed-status").textContent = ""; btn.disabled = false; alert(err.message || "Não consegui salvar."); }
+    };
+    if ($("#ed-apagar")) $("#ed-apagar").onclick = async () => {
+      if (!confirm(`Apagar o guia de ${e.nome}?`)) return;
+      try { MU = await salvarMatchups({ [e.id]: null }); dlg.close(); redesenharMatchups(); avisar("Guia apagado."); }
+      catch (err) { alert(err.message || "Não consegui apagar."); }
+    };
+  }
+
+  // ============================================================ classificar rápido (notas de 1 a 5 direto na grade)
+  let pendentes = {}, tPend = null;
+  function secRapido() {
+    if (!EST) return `<div class="painel" style="margin-bottom:12px"><p class="vazio">carregando campeões…</p></div>`;
+    const lista = EST.campeoes.filter(c => filtroMu === "todos" || ehJungler(c.id));
+    return `<div class="painel" style="margin-bottom:12px"><div class="sub">Clique no número para dar a dificuldade (1 fácil … 5 pesadelo); clique de novo para tirar. Salva sozinho.
+      <span id="rap-status"></span></div><div class="rapido" id="rap-grade">${lista.map(c => {
+        const m = MU[c.id], n = m && !m.apagado ? m.dificuldade || 0 : 0;
+        return `<div class="c"><img src="${iconeCampeao(c.id)}" alt="" loading="lazy"><div style="min-width:0"><div class="n">${esc(c.nome)}</div>
+          <div class="notas" data-id="${c.id}">${[1, 2, 3, 4, 5].map(k => `<button class="${n === k ? "on" : ""}" data-n="${k}" style="--cor:${COR[k]}" aria-label="${NIVEL[k]}">${k}</button>`).join("")}</div></div></div>`;
+      }).join("")}</div></div>`;
+  }
+  async function prepararRapido() { await estaticos(); if (rapido) redesenharMatchups(); }
+  function ligarRapido() {
+    const g = $("#rap-grade");
+    if (!g) return;
+    g.onclick = ev => {
+      const b = ev.target.closest(".notas button"); if (!b) return;
+      const id = +b.parentElement.dataset.id, k = +b.dataset.n, c = EST.campeoes.find(x => x.id === id);
+      const atual = MU[id] && !MU[id].apagado ? MU[id] : null, nova = (atual ? atual.dificuldade : 0) === k ? 0 : k;
+      const base = atual || { campeao: { id, nome: c.nome }, feiticos: [], runas: null, itens: [], plano: "", dica: "" };
+      const entrada = { ...base, dificuldade: nova };
+      delete entrada.atualizado;
+      const semNada = !nova && !(entrada.feiticos || []).length && !entrada.runas && !(entrada.itens || []).length && !entrada.plano && !entrada.dica;
+      pendentes[id] = semNada ? null : entrada;
+      MU[id] = semNada ? { apagado: true } : entrada;
+      b.parentElement.querySelectorAll("button").forEach(x => x.classList.toggle("on", +x.dataset.n === nova));
+      $("#rap-status").textContent = " · salvando…";
+      clearTimeout(tPend);
+      tPend = setTimeout(async () => {
+        const lote = pendentes; pendentes = {};
+        try { MU = await salvarMatchups(lote); if ($("#rap-status")) $("#rap-status").textContent = " · salvo ✓"; }
+        catch (err) { Object.assign(pendentes, lote); if ($("#rap-status")) $("#rap-status").textContent = " · não salvou: " + (err.message || "erro"); }
+      }, 1500);
+    };
+  }
+
+  // ============================================================ entrar no modo de edição (internet)
+  function abrirEntrar() {
+    const dlg = $("#dlg-entrar");
+    dlg.innerHTML = `<h3>Editar a página</h3>
+      <p>Só o dono da página consegue editar. Cole a sua chave do GitHub (a mesma que o bot usa). Ela fica guardada só neste aparelho.</p>
+      <p>Para pegar a chave: no PC, abra o editor (<code>http://127.0.0.1:7730</code>) → <b>configurações do bot</b> → <b>copiar minha chave</b>.</p>
+      <div class="linha-form"><input class="campo" id="ent-chave" type="password" placeholder="github_pat_…" autocomplete="off"><button class="btn" id="ent-ok">entrar</button></div>
+      <div class="erro" id="ent-erro"></div>
+      <div class="linha-form" style="justify-content:flex-end"><button class="btn sec" id="ent-fechar">fechar</button></div>`;
+    dlg.showModal();
+    $("#ent-fechar").onclick = () => dlg.close();
+    $("#ent-ok").onclick = async () => {
+      const chave = $("#ent-chave").value.trim();
+      $("#ent-erro").textContent = "conferindo…";
+      try {
+        const r = await fetch("https://api.github.com/user", { headers: { Authorization: `Bearer ${chave}`, Accept: "application/vnd.github+json" }, cache: "no-store" });
+        if (!r.ok) throw new Error("O GitHub não aceitou essa chave.");
+        const u = await r.json();
+        if ((u.login || "").toLowerCase() !== REPO.dono.toLowerCase()) throw new Error(`Essa chave é da conta ${u.login}, não da dona da página.`);
+        token = chave; guardar.gravar("karthus.token", chave); EDITAR = true;
+        MU = await carregarMatchups();
+        dlg.close(); desenhar(); avisar("Modo de edição ligado.");
+      } catch (err) { $("#ent-erro").textContent = err.message || "Não consegui conferir a chave."; }
+    };
+  }
+
+  // ============================================================ configurações (só no PC): bot da Twitch, página, chave
+  async function abrirConfig() {
+    const dlg = $("#dlg-config");
+    dlg.innerHTML = `<h3>Configurações</h3><div id="cfg-corpo"><p class="vazio">carregando…</p></div>
+      <div class="linha-form" style="justify-content:flex-end"><button class="btn sec" id="cfg-fechar">fechar</button></div>`;
+    dlg.showModal();
+    $("#cfg-fechar").onclick = () => { dlg.close(); clearInterval(abrirConfig.t); };
+    const pintar = async () => {
+      const [tw, g] = await Promise.all([api("/api/twitch"), api("/api/github")]);
+      let html = `<div class="secao-config"><h4>Bot da Twitch</h4>`;
+      if (tw.pendente) html += `<p>Abra <a href="${esc(tw.pendente.link)}" target="_blank">twitch.tv/activate</a> logado como <b>polgarlol</b> e digite:</p><div class="codigo">${esc(tw.pendente.codigo)}</div>`;
+      else if (tw.login) html += `<p>${tw.conectado ? `<span class="v">●</span> No chat como <b>${esc(tw.login)}</b>, respondendo os comandos.` : tw.bot_no_chat ? "Entrando no chat…" : `Autorizado como <b>${esc(tw.login)}</b>; entra no chat quando o OBS estiver aberto.`}</p>
+        <button class="btn perigo mini" id="tw-sair">desconectar</button>`;
+      else html += `<p>Crie um app em <a href="https://dev.twitch.tv/console/apps/create" target="_blank">dev.twitch.tv</a> (Categoria: Chat Bot · Tipo: Público · URL: <code>http://localhost</code>) e cole o ID do cliente:</p>
+        <div class="linha-form"><input class="campo" id="tw-cid" value="${esc(tw.client_id)}" placeholder="ID do cliente"><button class="btn" id="tw-ok">conectar</button></div>`;
+      if (tw.erro) html += `<p class="erro">${esc(tw.erro)}</p>`;
+      html += `<div class="linha-form"><input class="campo" id="tw-teste" value="!matchup" aria-label="Comando para testar"><button class="btn sec" id="tw-testar">testar comando</button></div><p id="tw-resp" class="vazio"></p></div>`;
+      html += `<div class="secao-config"><h4>Página na internet</h4>`;
+      if (g.ok) html += `<p>No ar em <a href="${esc(g.link)}" target="_blank">${esc(g.link)}</a>${g.ultimo_envio ? ` · dados enviados às ${esc(g.ultimo_envio)}` : ""}.</p>
+        ${g.pages_manual ? `<p class="erro">Falta ligar o GitHub Pages: Settings → Pages → Branch <b>main</b> / <b>(root)</b> → Save.</p>` : ""}
+        <p>Para editar pelo celular ou outro PC: copie a chave, abra a página, clique em <b>editar</b> (no rodapé) e cole.</p>
+        <div class="linha-form"><button class="btn" id="gh-chave">copiar minha chave</button><button class="btn perigo mini" id="gh-sair">desligar a página</button></div>`;
+      else html += `<p>Crie um repositório público <code>karthus</code> e uma chave (fine-grained) com <b>Contents</b> e <b>Pages</b> = Read and write só nesse repositório, e cole aqui:</p>
+        <div class="linha-form"><input class="campo" id="gh-token" type="password" placeholder="github_pat_…"><input class="campo" id="gh-repo" value="${esc(g.repo || "karthus")}" style="max-width:130px"><button class="btn" id="gh-ok">ligar</button></div>`;
+      if (g.erro) html += `<p class="erro">${esc(g.erro)}</p>`;
+      html += `</div>`;
+      $("#cfg-corpo").innerHTML = html;
+      if ($("#tw-sair")) $("#tw-sair").onclick = () => api("/api/twitch/sair", {}).then(pintar);
+      if ($("#tw-ok")) $("#tw-ok").onclick = () => api("/api/twitch/iniciar", { client_id: $("#tw-cid").value }).then(pintar);
+      $("#tw-testar").onclick = () => api("/api/testar", { texto: $("#tw-teste").value }).then(r => { $("#tw-resp").textContent = r.resposta; });
+      if ($("#gh-sair")) $("#gh-sair").onclick = () => { if (confirm("Desligar a página na internet?")) api("/api/github/sair", {}).then(pintar); };
+      if ($("#gh-ok")) $("#gh-ok").onclick = () => { $("#gh-ok").disabled = true; api("/api/github/configurar", { token: $("#gh-token").value, repo: $("#gh-repo").value }).then(pintar); };
+      if ($("#gh-chave")) $("#gh-chave").onclick = () => api("/api/github/chave", {}).then(r => navigator.clipboard.writeText(r.token)).then(() => avisar("Chave copiada. Não mostre na live."), () => avisar("Não consegui copiar."));
+    };
+    await pintar();
+  }
+
+  // ============================================================ início e atualização
+  async function atualizar(primeira) {
     try {
-      const d = await carregar();
-      const y = scrollY;
-      desenhar(d);
-      if (!primeira) scrollTo(0, y);
-      primeira = false;
+      const editando = $("#dlg-editor").open || $("#dlg-escolher").open || Object.keys(pendentes).length;
+      const [d, mu] = await Promise.all([carregarDados(), editando ? Promise.resolve(MU) : carregarMatchups()]);
+      D = d || {}; MU = mu || {};
+      if (!editando) desenhar();
     } catch (e) {
-      if (primeira) document.getElementById("app").textContent = "Não consegui carregar os dados agora. Tente de novo em instantes.";
+      if (primeira) $("#app").textContent = "Não consegui carregar os dados agora. Tente de novo em instantes.";
     }
   }
-  atualizar();
-  setInterval(atualizar, 120000);
+  (async () => {
+    if (!LOCAL && token) {   // chave guardada neste aparelho: confere se ainda vale
+      try {
+        const r = await fetch("https://api.github.com/user", { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
+        const u = r.ok ? await r.json() : {};
+        EDITAR = (u.login || "").toLowerCase() === REPO.dono.toLowerCase();
+        if (!EDITAR) { token = null; guardar.gravar("karthus.token", null); }
+      } catch (e) {}
+    }
+    await atualizar(true);
+    setInterval(() => atualizar(false), LOCAL ? 30000 : 120000);
+    if (LOCAL) setInterval(() => fetch("/api/ping").catch(() => {}), 60000);
+  })();
 </script>
 </body>
 </html>
