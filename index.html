@@ -21,7 +21,7 @@
           --nome1: #b9772c; --nome2: #fff4dc; --nome3: #f1c27a; --fundo: #0d0709; --painel: #160d12; --painel2: #1e1319; --linha: #2c1d25;
           --suave: #a8959f; --fraco: #75656e; --d1: #4fbf7f; --d2: #a3c95a; --d3: #e0b84c; --d4: #e4793a; --d5: #e0405a; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 64px; background: var(--fundo); }
+  html { scroll-behavior: smooth; background: var(--fundo); }
   /* textos corridos em Inter (lê melhor em parágrafo); rótulos e botões em Rajdhani; títulos em Cinzel */
   body { color: var(--texto); font: 400 15.5px/1.6 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
@@ -64,9 +64,36 @@
   .btn.mini { padding: 5px 10px; font-size: 12px; }
   .btn:disabled { opacity: .5; cursor: default; }
 
-  .hero { position: relative; max-width: 960px; margin: 0 auto; padding: 84px 18px 34px; min-height: min(62vh, 560px); display: flex; flex-direction: column; justify-content: flex-end; }
-  .hero .topo { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-  .hero .canal { font: 700 14px "Rajdhani", sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--borda); }
+  /* ---------- cabeçalho fixo no topo desde o início: marca · abas · Twitch (no celular: duas linhas) ---------- */
+  :root { --h-cab: 64px; }
+  html { scroll-padding-top: calc(var(--h-cab) + 14px); }
+  .cabecalho { position: fixed; top: 0; left: 0; right: 0; z-index: 30; height: var(--h-cab); display: flex; align-items: center; gap: 16px;
+    padding: 0 max(16px, calc((100vw - 1100px) / 2)); background: rgba(10, 6, 8, .55); backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15); border-bottom: 1px solid rgba(255, 255, 255, .06); transition: background .3s, box-shadow .3s; }
+  .cabecalho:empty { display: none; }
+  .cabecalho.rolou { background: rgba(10, 6, 8, .9); box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
+  .cabecalho .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--texto); flex: none; }
+  .cabecalho .marca img { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 0 2px var(--borda); }
+  .cabecalho .marca span { display: grid; line-height: 1.1; }
+  .cabecalho .marca small { font: 700 11px "Rajdhani", sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--borda); }
+  .cabecalho .marca b { font: 900 16px "Cinzel", serif; letter-spacing: .02em; }
+  .abas { flex: 1; display: flex; justify-content: center; align-self: stretch; overflow-x: auto; scrollbar-width: none; }
+  .abas::-webkit-scrollbar { display: none; }
+  .abas a { display: flex; align-items: center; padding: 0 14px; color: var(--suave); text-decoration: none; font: 700 14px "Rajdhani", sans-serif;
+    letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+  .abas a:hover { color: var(--texto); }
+  .abas a.on { color: var(--borda); border-bottom-color: var(--borda); }
+  @media (max-width: 760px) {
+    :root { --h-cab: 104px; }
+    .cabecalho { flex-wrap: wrap; height: var(--h-cab); padding: 0 12px; gap: 0 10px; align-content: flex-start; }
+    .cabecalho .marca { height: 58px; }
+    .cabecalho .twitch { margin-left: auto; }
+    .abas { order: 3; flex: 1 0 100%; justify-content: flex-start; height: 46px; margin: 0 -12px; padding: 0 44px 0 2px; border-top: 1px solid rgba(255, 255, 255, .06);
+      -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
+    .abas a { padding: 0 12px; }
+  }
+  .hero { position: relative; max-width: 960px; margin: 0 auto; padding: calc(var(--h-cab) + 48px) 18px 34px; min-height: min(66vh, 600px);
+    display: flex; flex-direction: column; justify-content: flex-end; }
   .hero .sobre { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--acento); margin-bottom: 10px; }
   .hero .lead { max-width: 560px; margin-top: 14px; font-size: 16.5px; line-height: 1.6; color: color-mix(in srgb, var(--texto) 88%, transparent); }
   .twitch { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #9146ff; color: #fff; font: 700 14px "Rajdhani", sans-serif;
@@ -87,11 +114,26 @@
     border: 1px solid var(--borda); box-shadow: 0 10px 30px rgba(0, 0, 0, .5); font-weight: 700; font-size: 14px; }
   .modo i { width: 8px; height: 8px; border-radius: 50%; background: var(--d1); box-shadow: 0 0 8px var(--d1); }
 
-  nav { position: sticky; top: 0; z-index: 10; display: flex; overflow-x: auto; background: color-mix(in srgb, var(--fundo) 92%, transparent);
-    backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); scrollbar-width: none; }
-  nav a { flex: 1; min-width: 84px; padding: 14px 10px; text-align: center; color: var(--suave); text-decoration: none; font: 700 15px "Rajdhani", sans-serif;
-    letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid transparent; white-space: nowrap; }
-  nav a.on { color: var(--borda); border-bottom-color: var(--borda); }
+  /* começo da partida, nota da build e referências */
+  .campo-ini { display: inline-block; padding: 1px 9px; margin-right: 6px; font: 700 12px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid var(--cc, var(--borda)); color: var(--cc, var(--borda)); }
+  .campos-ini { display: flex; flex-wrap: wrap; gap: 6px; }
+  .campos-ini button { padding: 6px 12px; border: 1px solid var(--linha); font: 700 13px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--suave); transition: color .12s, border-color .12s; }
+  .campos-ini button:hover { color: var(--texto); }
+  .campos-ini button.on { border-color: var(--cc); color: var(--cc); background: color-mix(in srgb, var(--cc) 14%, transparent); }
+  .nota-build { margin-top: 6px; font-size: 14.5px; color: color-mix(in srgb, var(--texto) 80%, transparent); }
+  .bloco-mu { margin-top: 14px; }
+  .bloco-mu > .rot { display: block; margin-bottom: 4px; }
+  .refs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+  .ref { padding: 16px 18px; background: color-mix(in srgb, var(--painel) 88%, transparent); border: 1px solid var(--linha); border-top: 3px solid var(--borda);
+    backdrop-filter: blur(8px); display: flex; flex-direction: column; gap: 8px; }
+  .ref-topo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .ref-topo b { font: 900 18px "Cinzel", serif; }
+  .ref p { color: color-mix(in srgb, var(--texto) 85%, transparent); font-size: 14.5px; }
+  .ref-links { display: flex; gap: 8px; align-items: center; margin-top: auto; flex-wrap: wrap; }
+  .ref-links a { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--linha); text-decoration: none; }
+  .ref-links a:hover { border-color: var(--borda); }
 
   main { max-width: 960px; margin: 0 auto; padding: 0 16px 60px; overflow-wrap: anywhere; }
   section { padding-top: 34px; }
@@ -274,9 +316,11 @@
   <canvas id="brasas"></canvas>
   <div class="cena-veu"></div>
 </div>
+<header class="cabecalho" id="cabecalho"></header>
 <div id="app" class="carregando">carregando…</div>
 
 <dialog id="dlg-editor" class="gaveta" aria-label="Editar matchup"></dialog>
+<dialog id="dlg-ref" class="janela" aria-label="Referência"></dialog>
 <dialog id="dlg-escolher" class="escolher" aria-label="Escolher campeão"></dialog>
 <dialog id="dlg-entrar" class="janela" aria-label="Entrar no modo de edição"></dialog>
 <dialog id="dlg-config" class="janela" aria-label="Configurações"></dialog>
@@ -341,7 +385,7 @@
       else if (r.status !== 404) throw new Error(`O GitHub respondeu ${r.status} ao ler as matchups.`);
       const agora = new Date().toISOString().replace(/\.\d+Z$/, "Z");
       for (const [id, e] of Object.entries(mudancas)) atual[id] = e ? { ...e, atualizado: agora } : { apagado: true, atualizado: agora };
-      const ordenado = Object.fromEntries(Object.entries(atual).sort((a, b) => +a[0] - +b[0]));
+      const ordenado = Object.fromEntries(Object.entries(atual).sort((a, b) => (+a[0] || 0) - (+b[0] || 0)));
       const p = await gh(caminho, { method: "PUT", cache: "no-store", body: JSON.stringify({ message: "matchups (editado pela página)",
         content: b64e(JSON.stringify(ordenado, null, 1)), branch: "dados", ...(sha ? { sha } : {}) }) });
       if (p.ok) return ordenado;
@@ -355,6 +399,10 @@
   let D = null, MU = {}, JG = new Set(), filtroMu = null, rapido = false;
   const matchups = () => Object.entries(MU).filter(([, m]) => m && !m.apagado && m.campeao).map(([id, m]) => ({ id: +id, ...m }));
   const ehJungler = id => JG.has(+id);
+  const referencias = () => (MU._referencias && MU._referencias.lista) || [];
+  const CAMPOS = { azul: ["Azul", "#5aa9ff"], vermelho: ["Vermelho", "#ff6a5a"], sapo: ["Sapo", "#7fd17a"], lobos: ["Lobos", "#b8c2cc"],
+                   galinhas: ["Galinhas", "#e7b75e"], golens: ["Golens", "#c9a27e"] };
+  const REGIOES = ["br", "na", "euw", "eune", "kr", "jp", "lan", "las", "oce", "tr", "ru", "me", "sg", "tw", "vn"];
 
   // ============================================================ visualização
   function cartaoMu(m, semId) {
@@ -369,13 +417,67 @@
           <span class="acoes">${semId ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
           ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
         ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">O guia dessa matchup ainda não foi escrito.</p>` : ""}
+        ${blocoInicio(m.inicio)}
         ${(m.feiticos || []).length || runas ? `<div class="grupo">
           ${(m.feiticos || []).length ? `<div><span class="rot">feitiços</span><div class="icones">${m.feiticos.map(f => img(f)).join("")}</div></div>` : ""}${runas}</div>` : ""}
         ${nomeR ? `<div class="vazio" style="font-size:14px;margin-top:4px">${nomeR}</div>` : ""}
-        ${(m.itens || []).length ? `<div class="grupo"><div><span class="rot">itens</span><div class="icones">${m.itens.map(i => img(i)).join('<span class="seta">›</span>')}</div></div></div>` : ""}
-        ${m.plano ? `<div class="plano"><span class="rot">como jogar</span>${esc(m.plano)}</div>` : ""}
+        ${(m.itens || []).length || m.build_nota ? `<div class="bloco-mu"><span class="rot">build para essa matchup</span>
+          ${(m.itens || []).length ? `<div class="icones">${m.itens.map(i => img(i)).join('<span class="seta">›</span>')}</div>` : ""}
+          ${m.build_nota ? `<div class="nota-build">${esc(m.build_nota)}</div>` : ""}</div>` : ""}
+        ${m.plano ? `<div class="plano"><span class="rot">o que fazer</span>${esc(m.plano)}</div>` : ""}
         ${m.dica ? `<div class="dica">${esc(m.dica)}</div>` : ""}
       </div></article>`;
+  }
+  function blocoInicio(ini) {   // "começo da partida": campo onde começar + rota do clear
+    if (!ini || (!ini.campo && !ini.texto)) return "";
+    const c = CAMPOS[ini.campo];
+    return `<div class="bloco-mu"><span class="rot">começo da partida</span>${c ? `<span class="campo-ini" style="--cc:${c[1]}">começar no ${c[0]}</span>` : ""}${esc(ini.texto || "")}</div>`;
+  }
+
+  function opgg(r) {
+    const [nome, tag] = r.nick.split("#");
+    return `https://op.gg/lol/summoners/${r.regiao}/${encodeURIComponent(nome.trim())}-${encodeURIComponent((tag || r.regiao.toUpperCase() + "1").trim())}`;
+  }
+  const nomeLink = u => /twitch\.tv/i.test(u) ? "Twitch" : /youtu/i.test(u) ? "YouTube" : /op\.gg|u\.gg|leagueofgraphs/i.test(u) ? "perfil" : "link";
+  function secReferencias() {
+    const refs = referencias();
+    const novo = EDITAR ? `<div class="barra"><button class="btn" id="ref-nova">+ adicionar referência</button></div>` : "";
+    if (!refs.length) return novo + `<div class="painel vazio">${EDITAR ? "Adicione os monos de Karthus que você recomenda: nick, região e por que vale a pena assistir."
+                                                                     : "Em breve: os monos de Karthus que o polgarlol recomenda acompanhar."}</div>`;
+    return novo + `<div class="refs">${refs.map((r, i) => `<article class="ref">
+        <div class="ref-topo"><b>${esc(r.nick.split("#")[0])}</b><span class="vazio">#${esc(r.nick.split("#")[1] || "")}</span><span class="tag jg">${esc(r.regiao.toUpperCase())}</span></div>
+        ${r.nota ? `<p>${esc(r.nota)}</p>` : ""}
+        <div class="ref-links"><a href="${esc(opgg(r))}" target="_blank" rel="noopener">op.gg</a>${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${nomeLink(r.link)}</a>` : ""}
+          ${EDITAR ? `<button class="btn sec mini" data-ref="${i}" style="margin-left:auto">editar</button>` : ""}</div></article>`).join("")}</div>`;
+  }
+  function editarReferencia(i) {
+    const refs = referencias().map(r => ({ ...r })), r = i == null ? { nick: "", regiao: "br", nota: "", link: "" } : refs[i];
+    const dlg = $("#dlg-ref");
+    dlg.innerHTML = `<h3>${i == null ? "Nova referência" : "Editar referência"}</h3>
+      <div class="bloco"><span class="rot">Nick (Riot ID)</span><input class="campo" id="ref-nick" maxlength="40" placeholder="ex.: NomeDoJogador#BR1" value="${esc(r.nick)}"></div>
+      <div class="bloco"><span class="rot">Região</span><div class="seg" id="ref-regiao" style="flex-wrap:wrap">${REGIOES.map(g => `<button data-g="${g}" class="${r.regiao === g ? "on" : ""}">${g}</button>`).join("")}</div></div>
+      <div class="bloco"><span class="rot">Por que acompanhar (opcional)</span><textarea class="campo" id="ref-nota" maxlength="300" style="min-height:90px" placeholder="ex.: ótimo clear, sabe a hora certa do R">${esc(r.nota)}</textarea></div>
+      <div class="bloco"><span class="rot">Link da live ou canal (opcional)</span><input class="campo" id="ref-link" maxlength="200" placeholder="https://twitch.tv/…" value="${esc(r.link)}"></div>
+      <div class="erro" id="ref-erro"></div>
+      <div class="linha-form" style="justify-content:flex-end">${i == null ? "" : `<button class="btn perigo" id="ref-apagar" style="margin-right:auto">apagar</button>`}
+        <button class="btn sec" id="ref-cancelar">cancelar</button><button class="btn" id="ref-salvar">salvar</button></div>`;
+    dlg.showModal();
+    let regiao = r.regiao;
+    $("#ref-regiao").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; regiao = b.dataset.g;
+      $("#ref-regiao").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); };
+    $("#ref-cancelar").onclick = () => dlg.close();
+    const gravar = async lista => {
+      try { MU = await salvarMatchups({ _referencias: { lista } }); dlg.close(); redesenharReferencias(); avisar("Referências salvas."); }
+      catch (err) { $("#ref-erro").textContent = err.message || "Não consegui salvar."; }
+    };
+    if ($("#ref-apagar")) $("#ref-apagar").onclick = () => { if (confirm(`Tirar ${r.nick} das referências?`)) gravar(refs.filter((_, k) => k !== i)); };
+    $("#ref-salvar").onclick = () => {
+      const nick = $("#ref-nick").value.trim(), link = $("#ref-link").value.trim();
+      if (!nick) return ($("#ref-erro").textContent = "Escreva o nick.");
+      if (link && !/^https:\/\//i.test(link)) return ($("#ref-erro").textContent = "O link precisa começar com https://");
+      const nova = { nick, regiao, nota: $("#ref-nota").value.trim(), link };
+      gravar(i == null ? [...refs, nova] : refs.map((x, k) => k === i ? nova : x));
+    };
   }
 
   function secMatchups() {
@@ -414,6 +516,7 @@
   }
   function secBuild(d) {
     if (!d) return `<p class="vazio">Sem build ainda.</p>`;
+    if (!(d.itens || []).length) return `<div class="painel vazio">${d.ao_vivo ? "Nenhum item comprado ainda nesta partida." : "Sem itens para mostrar."}</div>`;
     return `<div class="painel itens">${(d.itens || []).map(i => `<div class="item">${img(i)}<div>${i.botas ? "<small>botas</small>" : ""}${esc(i.nome)}</div></div>`).join("")}</div>`;
   }
   function anel(p) {
@@ -458,36 +561,45 @@
     Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
     vestirCena(s);
     JG = new Set(d.junglers || []);
-    const k = d.karthus, solo = (d.elo || []).find(e => e.elo), p = d.partida, sel = d.selecao;
+    // dados "ao vivo" só valem se o bot mandou há pouco (se o PC desligou no meio de uma partida, ela não fica "em andamento" para sempre)
+    const fresco = !!d.atualizado && Date.now() / 1000 - d.atualizado < 600 && d.online !== false;
+    const aoVivo = fresco && d.ao_vivo, p = fresco ? d.partida : null, sel = fresco ? d.selecao : null;
+    const build = d.build && d.build.ao_vivo && !fresco ? null : d.build;
+    const k = d.karthus, solo = (d.elo || []).find(e => e.elo), canal = esc(d.canal || "polgarlol");
     const tier = solo ? solo.elo.replace(/\s*\d+\s*PDL$/, "") : "";
     const y = scrollY;
+    // o cabeçalho fica fora do #app e só é refeito quando muda: a cada atualização dos dados ele não pisca nem perde o estado
+    const cab = `<a class="marca" href="#topo" aria-label="Voltar ao topo"><img src="${iconeCampeao(30)}" alt=""><span><small>${canal}</small><b>Guia do Karthus</b></span></a>
+      <nav class="abas" id="abas" aria-label="Seções">${p ? `<a href="#agora">Partida</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#referencias">Referências</a>
+        <a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
+      <a class="twitch" href="https://twitch.tv/${canal}" target="_blank" rel="noopener">${aoVivo ? "● ao vivo" : "▶ twitch"}</a>`;
+    if (cab !== desenhar.cab) { $("#cabecalho").innerHTML = desenhar.cab = cab; }
     $("#app").className = "";
     $("#app").innerHTML = `
-      <header class="hero">
-        <div class="topo"><span class="canal">${esc(d.canal || "polgarlol")}</span><a class="twitch" href="https://twitch.tv/${esc(d.canal || "polgarlol")}" target="_blank" rel="noopener">${d.ao_vivo ? "● assistir ao vivo" : "▶ twitch"}</a></div>
+      <div class="hero" id="topo">
         <div class="sobre">${tier ? esc(tier) + " · " : ""}one-trick de Karthus jungle</div>
         <h1>Guia do Karthus</h1>
-        <p class="lead">Como jogar de Karthus na selva contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.
+        <p class="lead">Como jogar de Karthus na selva contra cada campeão: por onde começar, feitiços, runas, itens e plano de jogo.
           Runas, build e estatísticas se atualizam sozinhas durante a live.</p>
-        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo agora</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
+        <div class="chips">${aoVivo ? `<span class="aovivo"><i></i>ao vivo agora</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
           ${s.nome ? `<span class="chip">skin: <b>${esc(s.nome.replace(/^Karthus\s+/, ""))}</b></span>` : ""}${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
-      </header>
-      <nav id="abas">${p ? `<a href="#agora">Partida</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
+      </div>
       <main>
         ${p ? `<section id="agora"><div class="cab"><div><h2>Partida em andamento</h2><div class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}. Toque num inimigo para ver o guia.</div></div></div>${secAgora(p)}</section>`
             : sel && sel.inimigos.length ? `<section id="agora"><div class="cab"><div><h2>Seleção de campeões</h2><div class="sub">Inimigos que já apareceram. Toque num deles para ver o guia.</div></div></div>
                 <div class="painel">${linhaTime(sel.inimigos, "inimigos")}</div></section>` : ""}
         <section id="matchups">${CAB_MATCHUPS}${secMatchups()}</section>
+        <section id="referencias">${CAB_REFS}${secReferencias()}</section>
         <section id="runas"><div class="cab"><div><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${fraseDe(d.runas)}</div></div></div>${secRunas(d.runas)}</section>
-        <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(d.build ? d.build.titulo : "")}${fraseDe(d.build)}</div></div></div>${secBuild(d.build)}</section>
+        <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(build ? build.titulo : "")}${fraseDe(build)}</div></div></div>${secBuild(build)}</section>
         <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo das duas contas e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
       </main>
-      <footer><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b></span>
+      <footer><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
         <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
       ${EDITAR ? `<div class="modo"><i></i>modo de edição${LOCAL ? " · no PC" : ""}</div>` : ""}`;
     ligarEventos();
-    if (desenhar.feito) scrollTo(0, y); else { desenhar.feito = true; focar(); }
-    marcarAba();
+    if (desenhar.feito) scrollTo({ top: y, behavior: "instant" }); else { desenhar.feito = true; focar(); }
+    marcarAba(); cabecalhoRolou();
   }
   function redesenharMatchups() {
     const s = $("#matchups");
@@ -495,6 +607,15 @@
     s.innerHTML = CAB_MATCHUPS + secMatchups();
     ligarEventos();
   }
+  const CAB_REFS = `<div class="cab"><div><h2>Referências</h2><div class="sub">Monos de Karthus que vale a pena acompanhar para aprender:
+    clear, rotações e a hora certa do Réquiem.</div></div></div>`;
+  function redesenharReferencias() {
+    const s = $("#referencias");
+    if (!s) return desenhar();
+    s.innerHTML = CAB_REFS + secReferencias();
+    ligarEventos();
+  }
+  function cabecalhoRolou() { const c = $("#cabecalho"); if (c) c.classList.toggle("rolou", scrollY > 24); }
 
   // ============================================================ fundo vivo
   let cenaSkin = null;
@@ -565,6 +686,8 @@
   document.addEventListener("click", ev => {
     const ed = ev.target.closest("[data-editar]");
     if (ed && EDITAR) { ev.preventDefault(); abrirEditor(+ed.dataset.editar); return; }
+    const rf = ev.target.closest("[data-ref], #ref-nova");
+    if (rf && EDITAR) { editarReferencia(rf.id === "ref-nova" ? null : +rf.dataset.ref); return; }
     const cp = ev.target.closest("[data-copiar]");
     if (cp) {
       const url = location.origin + location.pathname.replace(/index\.html$/, "") + "#vs-" + cp.dataset.copiar;
@@ -578,12 +701,18 @@
     else if (location.hash.startsWith("#vs-")) { const s = $("#matchups"); if (s) s.scrollIntoView(); }
     else if (location.hash && location.hash.length > 1) { const s = document.querySelector(location.hash); if (s) s.scrollIntoView(); }
   }
-  function marcarAba() {
-    const secoes = [...document.querySelectorAll("main section")];
-    const atual = secoes.filter(s => s.getBoundingClientRect().top < 120).pop() || secoes[0];
-    document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", !!atual && a.getAttribute("href") === "#" + atual.id));
+  function marcarAba() {   // aba da seção que está logo abaixo do cabeçalho (no fim da página, a última)
+    const secoes = [...document.querySelectorAll("main section")], hCab = $("#cabecalho").offsetHeight;
+    const noFim = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+    const atual = noFim ? secoes[secoes.length - 1] : secoes.filter(s => s.getBoundingClientRect().top < hCab + innerHeight * .3).pop();
+    document.querySelectorAll(".abas a").forEach(a => a.classList.toggle("on", !!atual && a.getAttribute("href") === "#" + atual.id));
+    const ativa = document.querySelector(".abas a.on"), abas = $("#abas");   // no celular as abas rolam: mantém a ativa à vista
+    if (ativa && abas && abas.scrollWidth > abas.clientWidth && ativa !== marcarAba.ultima) {
+      abas.scrollTo({ left: ativa.offsetLeft - (abas.clientWidth - ativa.offsetWidth) / 2, behavior: "smooth" });
+    }
+    marcarAba.ultima = ativa;
   }
-  addEventListener("scroll", marcarAba, { passive: true });
+  addEventListener("scroll", () => { marcarAba(); cabecalhoRolou(); }, { passive: true });
   addEventListener("hashchange", focar);
 
   // ============================================================ dados fixos do jogo (só no modo de edição)
@@ -641,7 +770,8 @@
       dificuldade: (m && m.dificuldade) || 0, feiticos: ((m && m.feiticos) || []).map(f => f.id),
       primaria: r.primaria ? r.primaria.id : 0, chave: r.chave ? r.chave.id : 0, primarias: [0, 1, 2].map(i => (r.primarias || [])[i] ? r.primarias[i].id : 0),
       secundaria: r.secundaria ? r.secundaria.id : 0, secundarias: (r.secundarias || []).map(x => x.id), fragmentos: [0, 1, 2].map(i => (r.fragmentos || [])[i] ? r.fragmentos[i].id : 0),
-      itens: ((m && m.itens) || []).map(i => i.id), plano: (m && m.plano) || "", dica: (m && m.dica) || "" };
+      itens: ((m && m.itens) || []).map(i => i.id), plano: (m && m.plano) || "", dica: (m && m.dica) || "",
+      inicio_campo: (m && m.inicio && m.inicio.campo) || "", inicio_texto: (m && m.inicio && m.inicio.texto) || "", build_nota: (m && m.build_nota) || "" };
   }
   function paraSalvar(e) {       // estado do editor -> formato salvo (com nomes e ícones, pronto para a página e o bot)
     const E = EST, est = id => { const s = E.estilos.find(x => x.id === id); return s ? { id: s.id, nome: s.nome, icone: s.icone } : null; };
@@ -649,9 +779,10 @@
       secundaria: est(e.secundaria), secundarias: e.secundarias.map(i => E.perk[i]), fragmentos: e.fragmentos.filter(Boolean).map(i => E.perk[i]) } : null;
     return { campeao: { id: e.id, nome: e.nome }, dificuldade: e.dificuldade, feiticos: e.feiticos.map(i => E.feiticos.find(f => f.id === i)).filter(Boolean),
       runas, itens: e.itens.map(i => E.itens.find(x => x.id === i)).filter(Boolean).map(({ id, nome, icone }) => ({ id, nome, icone })),
-      plano: e.plano.trim(), dica: e.dica.trim() };
+      inicio: { campo: e.inicio_campo, texto: e.inicio_texto.trim() }, build_nota: e.build_nota.trim(), plano: e.plano.trim(), dica: e.dica.trim() };
   }
-  const vazio = e => !e.dificuldade && !e.feiticos.length && !e.chave && !e.itens.length && !e.plano.trim() && !e.dica.trim();
+  const vazio = e => !e.dificuldade && !e.feiticos.length && !e.chave && !e.itens.length && !e.plano.trim() && !e.dica.trim()
+                     && !e.inicio_campo && !e.inicio_texto.trim() && !e.build_nota.trim();
 
   async function abrirEditor(id) {
     const dlg = $("#dlg-editor");
@@ -680,6 +811,11 @@
       <div class="g-corpo">
         <div class="bloco"><span class="rot">Dificuldade para o Karthus</span><div class="dif" id="ed-dif">
           ${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}" class="${e.dificuldade === n ? "on" : ""}" style="--cor:${COR[n]}"><b>${n}</b>${NIVEL[n]}</button>`).join("")}</div></div>
+        <div class="bloco"><span class="rot">Começo da partida · campo inicial</span><div class="campos-ini" id="ed-campo">
+          ${Object.entries(CAMPOS).map(([k, [nome, cor]]) => `<button data-c="${k}" class="${e.inicio_campo === k ? "on" : ""}" style="--cc:${cor}">${nome}</button>`).join("")}</div>
+          <textarea class="campo" id="ed-ini-texto" maxlength="400" style="margin-top:8px;min-height:70px"
+            placeholder="ex.: azul → sapo → lobos e para no vermelho; não comece do lado dele, ele invade nível 1">${esc(e.inicio_texto)}</textarea>
+          <div class="conta-car"><span id="ed-ini-n">${e.inicio_texto.length}</span>/400</div></div>
         <div class="bloco"><span class="rot">Feitiços (escolha 2)</span><div class="esc" id="ed-feit">
           ${E.feiticos.map(f => `<button class="${e.feiticos.includes(f.id) ? "on" : ""}" data-f="${f.id}" title="${esc(f.nome)}" aria-label="${esc(f.nome)}"><img src="${esc(f.icone)}" alt=""></button>`).join("")}</div>
           <div class="escolhido">${esc(e.feiticos.map(i => (E.feiticos.find(f => f.id === i) || {}).nome).join(" + "))}</div></div>
@@ -702,8 +838,12 @@
               <div class="ctl"><button data-mover="${n}" data-dir="-1" aria-label="Mover para a esquerda">‹</button><button data-tirar="${n}" aria-label="Tirar">×</button><button data-mover="${n}" data-dir="1" aria-label="Mover para a direita">›</button></div></div>`; }).join("")
             : `<span class="vazio" style="align-self:center">clique nos itens abaixo para montar a build</span>`}</div>
           <input class="campo" id="ed-item-busca" placeholder="Buscar item… (ex.: zhonya, liandry, botas)" autocomplete="off" style="margin-top:8px">
-          <div class="resultados" id="ed-itens"></div></div>
-        <div class="bloco"><span class="rot">Como jogar (plano de jogo)</span>
+          <div class="resultados" id="ed-itens"></div>
+          <span class="rot" style="display:block;margin-top:12px">Por que essa build (opcional)</span>
+          <textarea class="campo" id="ed-build-nota" maxlength="300" style="min-height:70px"
+            placeholder="ex.: Zhonya cedo porque ele te pula no R; troque a Liandry por Morellonomicon se o time dele curar muito">${esc(e.build_nota)}</textarea>
+          <div class="conta-car"><span id="ed-build-n">${e.build_nota.length}</span>/300</div></div>
+        <div class="bloco"><span class="rot">O que fazer (plano de jogo)</span>
           <textarea class="campo" id="ed-plano" maxlength="3000" placeholder="O que fazer nessa matchup: rota de farm inicial, quando ele é mais forte que você, onde invadir ou evitar, quando usar o R, como ganhar a partida…">${esc(e.plano)}</textarea>
           <div class="conta-car"><span id="ed-plano-n">${e.plano.length}</span>/3000</div></div>
         <div class="bloco"><span class="rot">Dica rápida (vai no chat e no cartão da live)</span>
@@ -726,7 +866,8 @@
   }
 
   function ligarEditor() {
-    const e = ED, dlg = $("#dlg-editor"), lerTextos = () => { e.plano = $("#ed-plano").value; e.dica = $("#ed-dica").value; };
+    const e = ED, dlg = $("#dlg-editor"), lerTextos = () => { e.plano = $("#ed-plano").value; e.dica = $("#ed-dica").value;
+      e.inicio_texto = $("#ed-ini-texto").value; e.build_nota = $("#ed-build-nota").value; };
     const repintar = () => { lerTextos(); const y = dlg.querySelector(".g-corpo").scrollTop; pintarEditor(); dlg.querySelector(".g-corpo").scrollTop = y; };
     $("#ed-fechar").onclick = $("#ed-cancelar").onclick = () => dlg.close();
     $("#ed-dif").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; e.dificuldade = e.dificuldade === +b.dataset.n ? 0 : +b.dataset.n; repintar(); };
@@ -760,6 +901,9 @@
       else return;
       repintar();
     };
+    $("#ed-campo").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; e.inicio_campo = e.inicio_campo === b.dataset.c ? "" : b.dataset.c; repintar(); };
+    $("#ed-ini-texto").oninput = () => { $("#ed-ini-n").textContent = $("#ed-ini-texto").value.length; };
+    $("#ed-build-nota").oninput = () => { $("#ed-build-n").textContent = $("#ed-build-nota").value.length; };
     $("#ed-plano").oninput = () => { $("#ed-plano-n").textContent = $("#ed-plano").value.length; };
     $("#ed-dica").oninput = () => { $("#ed-dica-n").textContent = $("#ed-dica").value.length; };
     $("#ed-salvar").onclick = async () => {
@@ -797,10 +941,12 @@
       const b = ev.target.closest(".notas button"); if (!b) return;
       const id = +b.parentElement.dataset.id, k = +b.dataset.n, c = EST.campeoes.find(x => x.id === id);
       const atual = MU[id] && !MU[id].apagado ? MU[id] : null, nova = (atual ? atual.dificuldade : 0) === k ? 0 : k;
-      const base = atual || { campeao: { id, nome: c.nome }, feiticos: [], runas: null, itens: [], plano: "", dica: "" };
+      const base = atual || { campeao: { id, nome: c.nome }, inicio: { campo: "", texto: "" }, feiticos: [], runas: null, itens: [], build_nota: "", plano: "", dica: "" };
       const entrada = { ...base, dificuldade: nova };
       delete entrada.atualizado;
-      const semNada = !nova && !(entrada.feiticos || []).length && !entrada.runas && !(entrada.itens || []).length && !entrada.plano && !entrada.dica;
+      const ini = entrada.inicio || {};
+      const semNada = !nova && !(entrada.feiticos || []).length && !entrada.runas && !(entrada.itens || []).length && !entrada.plano && !entrada.dica
+                      && !ini.campo && !ini.texto && !entrada.build_nota;
       pendentes[id] = semNada ? null : entrada;
       MU[id] = semNada ? { apagado: true } : entrada;
       b.parentElement.querySelectorAll("button").forEach(x => x.classList.toggle("on", +x.dataset.n === nova));
@@ -880,7 +1026,7 @@
   // ============================================================ início e atualização
   async function atualizar(primeira) {
     try {
-      const editando = $("#dlg-editor").open || $("#dlg-escolher").open || Object.keys(pendentes).length;
+      const editando = $("#dlg-editor").open || $("#dlg-escolher").open || $("#dlg-ref").open || Object.keys(pendentes).length;
       const [d, mu] = await Promise.all([carregarDados(), editando ? Promise.resolve(MU) : carregarMatchups()]);
       D = d || {}; MU = mu || {};
       if (!editando) desenhar();
