@@ -5,9 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>polgarlol · Guia do Karthus</title>
 <meta name="description" content="Guia de matchups do Karthus jungle do polgarlol: dificuldade, feitiços, runas, itens e como jogar contra cada campeão, além de runas, build e estatísticas ao vivo.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="polgarlol">
 <meta property="og:title" content="polgarlol · Guia do Karthus">
-<meta property="og:description" content="Matchups, runas, build e win rate do Karthus, ao vivo.">
-<meta property="og:image" content="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karthus_35.jpg">
+<meta property="og:description" content="Tierlist de matchups do Karthus jungle, como jogar contra cada campeão, runas, build e win rate ao vivo.">
+<meta property="og:url" content="https://rcbcruz.github.io/karthus/">
+<meta property="og:image" content="https://rcbcruz.github.io/karthus/temas/karthus-35.jpg">
+<meta property="og:image:width" content="1215">
+<meta property="og:image:height" content="717">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#120a10">
 <link rel="icon" href="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/30.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,9 +159,16 @@
   .ref-topo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .ref-topo b { font: 900 18px "Cinzel", serif; }
   .ref p { color: color-mix(in srgb, var(--texto) 85%, transparent); font-size: 14.5px; }
-  .ref-links { display: flex; gap: 8px; align-items: center; margin-top: auto; flex-wrap: wrap; }
-  .ref-links a { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--linha); text-decoration: none; }
-  .ref-links a:hover { border-color: var(--borda); }
+  .ref-links { display: flex; gap: 6px; align-items: center; margin-top: auto; flex-wrap: wrap; }
+  .rede { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border: 1px solid var(--linha); background: rgba(0, 0, 0, .2);
+    color: var(--texto); font: 700 13px "Rajdhani", sans-serif; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: border-color .15s, background .15s; }
+  .rede::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rc, var(--borda)); box-shadow: 0 0 8px var(--rc, var(--borda)); }
+  .rede:hover { border-color: var(--rc, var(--borda)); background: color-mix(in srgb, var(--rc, var(--borda)) 12%, transparent); }
+  .ref-acoes { display: flex; justify-content: flex-end; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--linha); }
+  .redes-form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .redes-form label { display: grid; gap: 3px; }
+  .redes-form label span { font: 700 12px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--rc); }
+  @media (max-width: 520px) { .redes-form { grid-template-columns: 1fr; } }
 
   main { max-width: 960px; margin: 0 auto; padding: 0 16px 60px; overflow-wrap: anywhere; }
   section { padding-top: 34px; }
@@ -200,6 +213,10 @@
     border: 1px solid var(--linha); border-left: 4px solid var(--cor); backdrop-filter: blur(8px); }
   .mu.alvo { box-shadow: 0 0 0 2px var(--borda), 0 0 30px var(--brilho); }
   .mu > img { width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
+  .mu.curto { grid-template-columns: 44px 1fr; align-items: center; padding: 12px 18px; }   /* só a dificuldade, guia ainda não escrito */
+  .mu.curto > img { width: 44px; height: 44px; }
+  .mu.curto h3 { font-size: 18px; }
+  .mu .em-breve { font-size: 14px; margin-top: 2px; }
   .mu .topo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .mu h3 { font: 900 20px "Cinzel", serif; }
   .tag { padding: 1px 8px; font: 700 12px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
@@ -232,9 +249,9 @@
 
   .stats { display: grid; gap: 12px; grid-template-columns: 1fr; }
   @media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
-  .conta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 10px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
-  .conta > span:first-child { flex: none; }
-  .conta > span:last-child { text-align: right; margin-left: auto; }
+  .conta { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--linha); }   /* nome da conta em cima, elo embaixo */
+  .conta > span:first-child a { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+  .conta > span:first-child a:hover { text-decoration: underline; }
   .conta:last-child { border-bottom: 0; }
   .conta b { font: 900 18px "Cinzel", serif; color: var(--nome2); }
   .wr { display: flex; align-items: center; gap: 18px; }
@@ -440,12 +457,15 @@
       ${r.secundaria ? `<span class="sep"></span>${img(r.secundaria, "r p")}${(r.secundarias || []).map(x => img(x, "r p")).join("")}` : ""}
       ${(r.fragmentos || []).length ? `<span class="sep"></span>${r.fragmentos.map(x => img(x, "r p", 'style="width:18px;height:18px"')).join("")}` : ""}</div></div>` : "";
     const nomeR = r.chave ? `${esc(r.chave.nome)}${r.secundaria ? ` + ${esc(r.secundaria.nome)}` : ""}` : "";
-    return `<article class="mu" ${semId ? "" : `id="vs-${id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
+    const ini = m.inicio || {};
+    const soNota = !m.sem_nota && !(m.feiticos || []).length && !r.chave && !(m.itens || []).length && !m.plano && !m.dica && !m.build_nota && !ini.campo && !ini.texto;
+    return `<article class="mu${soNota ? " curto" : ""}" ${semId ? "" : `id="vs-${id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
       <img src="${iconeCampeao(id)}" alt="" loading="lazy"><div>
         <div class="topo"><h3>${esc(c.nome)}</h3>${m.dificuldade ? `<span class="tag nv">${NIVEL[m.dificuldade]}</span>` : ""}${ehJungler(id) ? `<span class="tag jg">jungler</span>` : ""}
-          <span class="acoes">${semId ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
-          ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
+          <span class="acoes">${semId || soNota ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
+          ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota || soNota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
         ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">O guia dessa matchup ainda não foi escrito.</p>` : ""}
+        ${soNota ? `<p class="vazio em-breve">${EDITAR ? "Só a dificuldade por enquanto." : "Guia completo em breve."}</p>` : ""}
         ${blocoInicio(m.inicio)}
         ${(m.feiticos || []).length || runas ? `<div class="grupo">
           ${(m.feiticos || []).length ? `<div><span class="rot">feitiços</span><div class="icones">${m.feiticos.map(f => img(f)).join("")}</div></div>` : ""}${runas}</div>` : ""}
@@ -467,26 +487,53 @@
     const [nome, tag] = r.nick.split("#");
     return `https://op.gg/lol/summoners/${r.regiao}/${encodeURIComponent(nome.trim())}-${encodeURIComponent((tag || r.regiao.toUpperCase() + "1").trim())}`;
   }
-  const nomeLink = u => /twitch\.tv/i.test(u) ? "Twitch" : /youtu/i.test(u) ? "YouTube" : /op\.gg|u\.gg|leagueofgraphs/i.test(u) ? "perfil" : "link";
+  // redes de cada referência: guarda só o @ (aceita colar o link inteiro) e monta o link na hora de mostrar
+  const REDES = {
+    twitch:    { nome: "Twitch",    cor: "#a970ff", url: h => `https://www.twitch.tv/${h}`,     de: /twitch\.tv\/([^/?#\s]+)/i,             ok: /^\w{3,25}$/ },
+    youtube:   { nome: "YouTube",   cor: "#ff4e45", url: h => `https://www.youtube.com/@${h}`,  de: /youtube\.com\/@([^/?#\s]+)/i,          ok: /^[\w.-]{3,30}$/ },
+    x:         { nome: "X",         cor: "#e7e9ea", url: h => `https://x.com/${h}`,             de: /(?:x|twitter)\.com\/([^/?#\s]+)/i,     ok: /^\w{1,15}$/ },
+    instagram: { nome: "Instagram", cor: "#f56fa1", url: h => `https://www.instagram.com/${h}`, de: /instagram\.com\/([^/?#\s]+)/i,         ok: /^[\w.]{1,30}$/ },
+    tiktok:    { nome: "TikTok",    cor: "#25f4ee", url: h => `https://www.tiktok.com/@${h}`,   de: /tiktok\.com\/@([^/?#\s]+)/i,           ok: /^[\w.]{2,24}$/ },
+  };
+  function arroba(rede, v) {   // "meito", "@meito" ou o link -> "meito"; null se não der para entender
+    v = String(v || "").trim();
+    if (!v) return "";
+    const m = v.match(REDES[rede].de);
+    v = (m ? m[1] : v).replace(/^@/, "");
+    return REDES[rede].ok.test(v) ? v : null;
+  }
+  const linkRede = (rede, h, extra = "") => `<a class="rede" href="${esc(REDES[rede].url(h))}" target="_blank" rel="noopener" style="--rc:${REDES[rede].cor}" ${extra}>${REDES[rede].nome}</a>`;
   function secReferencias() {
     const refs = referencias();
     const novo = EDITAR ? `<div class="barra"><button class="btn" id="ref-nova">+ adicionar referência</button></div>` : "";
-    if (!refs.length) return novo + `<div class="painel vazio">${EDITAR ? "Adicione os monos de Karthus que você recomenda: nick, região e por que vale a pena assistir."
+    if (!refs.length) return novo + `<div class="painel vazio">${EDITAR ? "Adicione os monos de Karthus que você recomenda: nick com a tag, região, por que vale a pena assistir e as redes de cada um."
                                                                      : "Em breve: os monos de Karthus que o polgarlol recomenda acompanhar."}</div>`;
-    return novo + `<div class="refs">${refs.map((r, i) => `<article class="ref">
-        <div class="ref-topo"><b>${esc(r.nick.split("#")[0])}</b><span class="vazio">#${esc(r.nick.split("#")[1] || "")}</span><span class="tag jg">${esc(r.regiao.toUpperCase())}</span></div>
+    return novo + `<div class="refs">${refs.map((r, i) => { const [nome, tag] = r.nick.split("#"), redes = r.redes || {};
+      return `<article class="ref">
+        <div class="ref-topo"><b>${esc(nome)}</b>${tag ? `<span class="vazio">#${esc(tag)}</span>` : ""}<span class="tag jg">${esc(r.regiao.toUpperCase())}</span></div>
         ${r.nota ? `<p>${esc(r.nota)}</p>` : ""}
-        <div class="ref-links"><a href="${esc(opgg(r))}" target="_blank" rel="noopener">op.gg</a>${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener">${nomeLink(r.link)}</a>` : ""}
-          ${EDITAR ? `<button class="btn sec mini" data-ref="${i}" style="margin-left:auto">editar</button>` : ""}</div></article>`).join("")}</div>`;
+        <div class="ref-links"><a class="rede" href="${esc(opgg(r))}" target="_blank" rel="noopener" style="--rc:#5383e8" title="Perfil e partidas no op.gg">op.gg</a>
+          ${Object.keys(REDES).filter(k => redes[k]).map(k => linkRede(k, redes[k])).join("")}
+          ${r.link ? `<a class="rede" href="${esc(r.link)}" target="_blank" rel="noopener">link</a>` : ""}</div>
+        ${EDITAR ? `<div class="ref-acoes">${i ? `<button class="btn sec mini" data-ref-subir="${i}" title="Mostrar antes">↑ subir</button>` : ""}
+          <button class="btn sec mini" data-ref="${i}">editar</button></div>` : ""}</article>`; }).join("")}</div>`;
+  }
+  async function gravarReferencias(lista) {
+    MU = await salvarMatchups({ _referencias: { lista } }); redesenharReferencias();
   }
   function editarReferencia(i) {
-    const refs = referencias().map(r => ({ ...r })), r = i == null ? { nick: "", regiao: "br", nota: "", link: "" } : refs[i];
+    const refs = referencias().map(r => ({ ...r })), r = i == null ? { nick: "", regiao: "br", nota: "", redes: {} } : refs[i];
+    const redes = r.redes || {};
+    if (r.link) { const t = arroba("twitch", r.link), y = arroba("youtube", r.link); if (t && !redes.twitch) redes.twitch = t; else if (y && !redes.youtube) redes.youtube = y; }
     const dlg = $("#dlg-ref");
     dlg.innerHTML = `<h3>${i == null ? "Nova referência" : "Editar referência"}</h3>
-      <div class="bloco"><span class="rot">Nick (Riot ID)</span><input class="campo" id="ref-nick" maxlength="40" placeholder="ex.: NomeDoJogador#BR1" value="${esc(r.nick)}"></div>
+      <div class="bloco"><span class="rot">Nick com a tag (Riot ID)</span><input class="campo" id="ref-nick" maxlength="40" placeholder="ex.: NomeDoJogador#BR1" value="${esc(r.nick)}" autocomplete="off">
+        <div class="vazio" style="font-size:13px;margin-top:4px">Com a tag certa o op.gg abre direto no perfil dele.</div></div>
       <div class="bloco"><span class="rot">Região</span><div class="seg" id="ref-regiao" style="flex-wrap:wrap">${REGIOES.map(g => `<button data-g="${g}" class="${r.regiao === g ? "on" : ""}">${g}</button>`).join("")}</div></div>
-      <div class="bloco"><span class="rot">Por que acompanhar (opcional)</span><textarea class="campo" id="ref-nota" maxlength="300" style="min-height:90px" placeholder="ex.: ótimo clear, sabe a hora certa do R">${esc(r.nota)}</textarea></div>
-      <div class="bloco"><span class="rot">Link da live ou canal (opcional)</span><input class="campo" id="ref-link" maxlength="200" placeholder="https://twitch.tv/…" value="${esc(r.link)}"></div>
+      <div class="bloco"><span class="rot">Por que acompanhar (opcional)</span><textarea class="campo" id="ref-nota" maxlength="300" style="min-height:80px" placeholder="ex.: ótimo clear, sabe a hora certa do R">${esc(r.nota)}</textarea></div>
+      <div class="bloco"><span class="rot">Redes (opcional: o @ ou o link)</span><div class="redes-form">
+        ${Object.entries(REDES).map(([k, d]) => `<label style="--rc:${d.cor}"><span>${d.nome}</span><input class="campo" data-rede="${k}" maxlength="120" autocomplete="off"
+          placeholder="${k === "twitch" ? "ex.: meito" : "@ ou link"}" value="${esc(redes[k] || "")}"></label>`).join("")}</div></div>
       <div class="erro" id="ref-erro"></div>
       <div class="linha-form" style="justify-content:flex-end">${i == null ? "" : `<button class="btn perigo" id="ref-apagar" style="margin-right:auto">apagar</button>`}
         <button class="btn sec" id="ref-cancelar">cancelar</button><button class="btn" id="ref-salvar">salvar</button></div>`;
@@ -496,15 +543,21 @@
       $("#ref-regiao").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); };
     $("#ref-cancelar").onclick = () => dlg.close();
     const gravar = async lista => {
-      try { MU = await salvarMatchups({ _referencias: { lista } }); dlg.close(); redesenharReferencias(); avisar("Referências salvas."); }
+      try { await gravarReferencias(lista); dlg.close(); avisar("Referências salvas."); }
       catch (err) { $("#ref-erro").textContent = err.message || "Não consegui salvar."; }
     };
     if ($("#ref-apagar")) $("#ref-apagar").onclick = () => { if (confirm(`Tirar ${r.nick} das referências?`)) gravar(refs.filter((_, k) => k !== i)); };
     $("#ref-salvar").onclick = () => {
-      const nick = $("#ref-nick").value.trim(), link = $("#ref-link").value.trim();
+      const nick = $("#ref-nick").value.trim().replace(/\s*#\s*/, "#");
       if (!nick) return ($("#ref-erro").textContent = "Escreva o nick.");
-      if (link && !/^https:\/\//i.test(link)) return ($("#ref-erro").textContent = "O link precisa começar com https://");
-      const nova = { nick, regiao, nota: $("#ref-nota").value.trim(), link };
+      if (!/^[^#]{3,16}#[^#]{2,5}$/.test(nick)) return ($("#ref-erro").textContent = "Escreva o nick com a tag, como no LoL: Nome#BR1.");
+      const novas = {};
+      for (const inp of dlg.querySelectorAll("[data-rede]")) {
+        const h = arroba(inp.dataset.rede, inp.value);
+        if (h === null) { inp.focus(); return ($("#ref-erro").textContent = `Não entendi o ${REDES[inp.dataset.rede].nome}: cole o @ ou o link do perfil.`); }
+        if (h) novas[inp.dataset.rede] = h;
+      }
+      const nova = { nick, regiao, nota: $("#ref-nota").value.trim(), redes: novas };
       gravar(i == null ? [...refs, nova] : refs.map((x, k) => k === i ? nova : x));
     };
   }
@@ -512,7 +565,7 @@
   function secMatchups() {
     const todas = matchups();
     const temJg = todas.some(m => ehJungler(m.id));
-    if (filtroMu === null) filtroMu = temJg ? "junglers" : "todos";
+    if (filtroMu === null) filtroMu = temJg || !todas.length ? "junglers" : "todos";   // o Karthus dele é de selva: começa pelos junglers
     const lista = (filtroMu === "junglers" ? todas.filter(m => ehJungler(m.id)) : todas)
       .sort((a, b) => (b.dificuldade || 0) - (a.dificuldade || 0) || a.campeao.nome.localeCompare(b.campeao.nome, "pt"));
     const niveis = [1, 2, 3, 4, 5].map(n => ({ n, cs: lista.filter(m => m.dificuldade === n) })).filter(x => x.cs.length);
@@ -531,7 +584,7 @@
   }
 
   function secRunas(d) {
-    if (!d) return `<p class="vazio">Sem runas ainda.</p>`;
+    if (!d) return `<div class="painel vazio">As runas aparecem aqui assim que o LoL abrir durante a live.</div>`;
     const r = d.runas || [];
     return `<div class="painel runas"><div>
         <div class="arvore">${img(d.primaria)}${esc(d.primaria.nome)}</div>
@@ -544,7 +597,7 @@
       </div></div>`;
   }
   function secBuild(d) {
-    if (!d) return `<p class="vazio">Sem build ainda.</p>`;
+    if (!d) return `<div class="painel vazio">A build mais usada aparece aqui assim que o LoL abrir durante a live.</div>`;
     if (!(d.itens || []).length) return `<div class="painel vazio">${d.ao_vivo ? "Nenhum item comprado ainda nesta partida." : "Sem itens para mostrar."}</div>`;
     return `<div class="painel itens">${(d.itens || []).map(i => `<div class="item">${img(i)}<div>${i.botas ? "<small>botas</small>" : ""}${esc(i.nome)}</div></div>`).join("")}</div>`;
   }
@@ -774,6 +827,14 @@
     if (ed && EDITAR) { ev.preventDefault(); abrirEditor(+ed.dataset.editar); return; }
     const rf = ev.target.closest("[data-ref], #ref-nova");
     if (rf && EDITAR) { editarReferencia(rf.id === "ref-nova" ? null : +rf.dataset.ref); return; }
+    const sb = ev.target.closest("[data-ref-subir]");
+    if (sb && EDITAR) {
+      const i = +sb.dataset.refSubir, l = referencias().map(r => ({ ...r }));
+      [l[i - 1], l[i]] = [l[i], l[i - 1]];
+      sb.disabled = true;
+      gravarReferencias(l).catch(err => { sb.disabled = false; alert(err.message || "Não consegui salvar."); });
+      return;
+    }
     const cp = ev.target.closest("[data-copiar]");
     if (cp) {
       const url = location.origin + location.pathname.replace(/index\.html$/, "") + "#vs-" + cp.dataset.copiar;
@@ -1013,11 +1074,15 @@
     if (!EST) return `<div class="painel" style="margin-bottom:12px"><p class="vazio">carregando campeões…</p></div>`;
     const lista = EST.campeoes.filter(c => filtroMu === "todos" || ehJungler(c.id));
     return `<div class="painel" style="margin-bottom:12px"><div class="sub">Clique no número para dar a dificuldade (1 fácil … 5 pesadelo); clique de novo para tirar. Salva sozinho.
-      <span id="rap-status"></span></div><div class="rapido" id="rap-grade">${lista.map(c => {
+      <b id="rap-conta">${contaRapido(lista)}</b><span id="rap-status"></span></div><div class="rapido" id="rap-grade">${lista.map(c => {
         const m = MU[c.id], n = m && !m.apagado ? m.dificuldade || 0 : 0;
         return `<div class="c"><img src="${iconeCampeao(c.id)}" alt="" loading="lazy"><div style="min-width:0"><div class="n">${esc(c.nome)}</div>
           <div class="notas" data-id="${c.id}">${[1, 2, 3, 4, 5].map(k => `<button class="${n === k ? "on" : ""}" data-n="${k}" style="--cor:${COR[k]}" aria-label="${NIVEL[k]}">${k}</button>`).join("")}</div></div></div>`;
       }).join("")}</div></div>`;
+  }
+  function contaRapido(lista) {
+    const n = lista.filter(c => MU[c.id] && !MU[c.id].apagado && MU[c.id].dificuldade).length;
+    return ` ${n} de ${lista.length} ${filtroMu === "todos" ? "campeões" : "junglers"} classificados.`;
   }
   async function prepararRapido() { await estaticos(); if (rapido) redesenharMatchups(); }
   function ligarRapido() {
@@ -1036,6 +1101,7 @@
       pendentes[id] = semNada ? null : entrada;
       MU[id] = semNada ? { apagado: true } : entrada;
       b.parentElement.querySelectorAll("button").forEach(x => x.classList.toggle("on", +x.dataset.n === nova));
+      $("#rap-conta").textContent = contaRapido(EST.campeoes.filter(c => filtroMu === "todos" || ehJungler(c.id)));
       $("#rap-status").textContent = " · salvando…";
       clearTimeout(tPend);
       tPend = setTimeout(async () => {
