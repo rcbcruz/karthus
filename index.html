@@ -164,6 +164,16 @@
     color: var(--texto); font: 700 13px "Rajdhani", sans-serif; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: border-color .15s, background .15s; }
   .rede::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rc, var(--borda)); box-shadow: 0 0 8px var(--rc, var(--borda)); }
   .rede:hover { border-color: var(--rc, var(--borda)); background: color-mix(in srgb, var(--rc, var(--borda)) 12%, transparent); }
+  .ref.no-ar { border-top-color: #eb0400; box-shadow: 0 0 0 1px rgba(235, 4, 0, .3), 0 12px 34px rgba(235, 4, 0, .14); }
+  .vivo-ref { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 3px 9px; background: #c4122f; color: #fff;
+    font: 700 11px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
+  .vivo-ref:hover { background: #e0173a; }
+  .vivo-ref i { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pisca 1.2s ease-in-out infinite; }
+  .visitas { gap: 6px 18px; }
+  .visitas .num { font-size: 14px; color: var(--suave); }
+  .visitas .num b { font-size: 20px; margin-right: 4px; }
+  .barras { margin-left: auto; display: flex; align-items: flex-end; gap: 4px; height: 30px; }
+  .barras i { width: 9px; background: var(--borda); opacity: .85; }
   .ref-acoes { display: flex; justify-content: flex-end; gap: 6px; padding-top: 8px; border-top: 1px dashed var(--linha); }
   .redes-form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .redes-form label { display: grid; gap: 3px; }
@@ -446,8 +456,8 @@
   const matchups = () => Object.entries(MU).filter(([, m]) => m && !m.apagado && m.campeao).map(([id, m]) => ({ id: +id, ...m }));
   const ehJungler = id => JG.has(+id);
   const referencias = () => (MU._referencias && MU._referencias.lista) || [];
-  const CAMPOS = { azul: ["Azul", "#5aa9ff"], vermelho: ["Vermelho", "#ff6a5a"], sapo: ["Sapo", "#7fd17a"], lobos: ["Lobos", "#b8c2cc"],
-                   galinhas: ["Galinhas", "#e7b75e"], golens: ["Golens", "#c9a27e"] };
+  const CAMPOS = { azul: ["Azul", "#5aa9ff", "no Azul"], vermelho: ["Vermelho", "#ff6a5a", "no Vermelho"], sapo: ["Sapo", "#7fd17a", "no Sapo"],
+                   lobos: ["Lobos", "#b8c2cc", "nos Lobos"], galinhas: ["Galinhas", "#e7b75e", "nas Galinhas"], golens: ["Golens", "#c9a27e", "nos Golens"] };
   const REGIOES = ["br", "na", "euw", "eune", "kr", "jp", "lan", "las", "oce", "tr", "ru", "me", "sg", "tw", "vn"];
 
   // ============================================================ visualização
@@ -480,7 +490,7 @@
   function blocoInicio(ini) {   // "começo da partida": campo onde começar + rota do clear
     if (!ini || (!ini.campo && !ini.texto)) return "";
     const c = CAMPOS[ini.campo];
-    return `<div class="bloco-mu"><span class="rot">começo da partida</span>${c ? `<span class="campo-ini" style="--cc:${c[1]}">começar no ${c[0]}</span>` : ""}${esc(ini.texto || "")}</div>`;
+    return `<div class="bloco-mu"><span class="rot">começo da partida</span>${c ? `<span class="campo-ini" style="--cc:${c[1]}">começar ${c[2]}</span>` : ""}${esc(ini.texto || "")}</div>`;
   }
 
   function opgg(r) {
@@ -508,9 +518,12 @@
     const novo = EDITAR ? `<div class="barra"><button class="btn" id="ref-nova">+ adicionar referência</button></div>` : "";
     if (!refs.length) return novo + `<div class="painel vazio">${EDITAR ? "Adicione os monos de Karthus que você recomenda: nick com a tag, região, por que vale a pena assistir e as redes de cada um."
                                                                      : "Em breve: os monos de Karthus que o polgarlol recomenda acompanhar."}</div>`;
-    return novo + `<div class="refs">${refs.map((r, i) => { const [nome, tag] = r.nick.split("#"), redes = r.redes || {};
-      return `<article class="ref">
-        <div class="ref-topo"><b>${esc(nome)}</b>${tag ? `<span class="vazio">#${esc(tag)}</span>` : ""}<span class="tag jg">${esc(r.regiao.toUpperCase())}</span></div>
+    const noAr = r => VIVO[((r.redes || {}).twitch || "").toLowerCase()];
+    const ordem = refs.map((r, i) => [r, i]).sort((a, b) => !!noAr(b[0]) - !!noAr(a[0]));   // quem está ao vivo aparece primeiro
+    return novo + `<div class="refs">${ordem.map(([r, i]) => { const [nome, tag] = r.nick.split("#"), redes = r.redes || {}, vivo = noAr(r);
+      return `<article class="ref${vivo ? " no-ar" : ""}">
+        <div class="ref-topo"><b>${esc(nome)}</b>${tag ? `<span class="vazio">#${esc(tag)}</span>` : ""}<span class="tag jg">${esc(r.regiao.toUpperCase())}</span>
+          ${vivo ? `<a class="vivo-ref" href="${esc(REDES.twitch.url(redes.twitch))}" target="_blank" rel="noopener" title="Assistir agora na Twitch"><i></i>ao vivo · ${esc(vivo)}</a>` : ""}</div>
         ${r.nota ? `<p>${esc(r.nota)}</p>` : ""}
         <div class="ref-links"><a class="rede" href="${esc(opgg(r))}" target="_blank" rel="noopener" style="--rc:#5383e8" title="Perfil e partidas no op.gg">op.gg</a>
           ${Object.keys(REDES).filter(k => redes[k]).map(k => linkRede(k, redes[k])).join("")}
@@ -676,7 +689,7 @@
         <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(build ? build.titulo : "")}${fraseDe(build)}</div></div></div>${secBuild(build)}</section>
         <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo das duas contas e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
       </main>
-      <footer><div class="patch" id="patch">${blocoPatch()}</div><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
+      <footer>${EDITAR ? `<div class="patch visitas" id="visitas">${blocoVisitas()}</div>` : ""}<div class="patch" id="patch">${blocoPatch()}</div><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!clear campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
         <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
       ${EDITAR ? `<div class="modo"><i></i>modo de edição${LOCAL ? " · no PC" : ""}</div>` : ""}`;
     ligarEventos();
@@ -768,6 +781,60 @@
   }
   const blocoPatch = () => PATCH ? `<span class="rot">patch atual do LoL</span><b>${esc(PATCH.nome)}</b>
     <a href="${esc(PATCH.link)}" target="_blank" rel="noopener">notas do patch ↗</a>` : "";
+
+  // ============================================================ contador de visitas (Abacus: só números, sem cookies e sem dados de quem visita)
+  // conta 1 visita por sessão do navegador (e 1 "pessoa" por aparelho); você não conta. Os números só aparecem no modo de edição.
+  const CONTADOR = "https://abacus.jasoncameron.dev", NS = "rcbcruz-karthus";
+  const diaSP = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(d);   // "2026-10-14"
+  function contarVisita() {
+    if (LOCAL || EDITAR || guardar.ler("karthus.token")) return;
+    try { if (sessionStorage.getItem("karthus.visita")) return; sessionStorage.setItem("karthus.visita", "1"); } catch (e) { return; }
+    const chaves = ["visitas", "dia-" + diaSP()];
+    if (!guardar.ler("karthus.pessoa")) { guardar.gravar("karthus.pessoa", "1"); chaves.push("pessoas"); }
+    chaves.forEach(k => fetch(`${CONTADOR}/hit/${NS}/${k}`, { keepalive: true }).catch(() => {}));
+  }
+  let VISITAS = null;
+  async function carregarVisitas() {
+    if (!EDITAR) return;
+    const ler = k => fetch(`${CONTADOR}/get/${NS}/${k}`, { cache: "no-store" }).then(r => r.ok ? r.json() : { value: 0 }).then(j => j.value || 0).catch(() => null);
+    const dias = Array.from({ length: 7 }, (_, i) => diaSP(new Date(Date.now() - i * 864e5))).reverse();   // do mais antigo para hoje
+    const [total, pessoas, ...porDia] = await Promise.all([ler("visitas"), ler("pessoas"), ...dias.map(d => ler("dia-" + d))]);
+    if (total === null) return;
+    VISITAS = { total, pessoas, dias: dias.map((d, i) => [d, porDia[i] || 0]) };
+    const el = $("#visitas"); if (el) el.innerHTML = blocoVisitas();
+  }
+  function blocoVisitas() {
+    if (!VISITAS) return "";
+    const v = VISITAS, hoje = v.dias[6][1], semana = v.dias.reduce((s, [, n]) => s + n, 0), max = Math.max(1, ...v.dias.map(([, n]) => n));
+    const nomeDia = d => new Date(d + "T12:00:00").toLocaleDateString("pt-BR", { weekday: "short", day: "numeric" });
+    return `<span class="rot">visitas no site · só você vê</span>
+      <span class="num"><b>${hoje}</b> hoje</span><span class="num"><b>${semana}</b> em 7 dias</span><span class="num"><b>${v.total}</b> no total</span>
+      <span class="num"><b>${v.pessoas}</b> pessoas</span>
+      <span class="barras" aria-hidden="true">${v.dias.map(([d, n]) => `<i style="height:${Math.max(6, n / max * 100)}%" title="${esc(nomeDia(d))}: ${n}"></i>`).join("")}</span>`;
+  }
+
+  // ============================================================ quem das referências está ao vivo (DecAPI: status público da Twitch, sem chave)
+  let VIVO = {}, vivoTs = 0;
+  function duracao(t) {   // "1 day, 7 hours, 53 minutes, 1 second" -> "31 h 53 min"
+    const n = u => +((t.match(new RegExp(`(\\d+)\\s+${u}`)) || [])[1] || 0);
+    const h = n("day") * 24 + n("hour"), m = n("minute");
+    return h ? `${h} h${m ? ` ${m} min` : ""}` : `${m || 1} min`;
+  }
+  async function checarAoVivo() {
+    const logins = [...new Set(referencias().map(r => (r.redes || {}).twitch).filter(Boolean).map(l => l.toLowerCase()))];
+    if (!logins.length || Date.now() - vivoTs < 110000) return;
+    vivoTs = Date.now();
+    const novo = {};
+    await Promise.all(logins.map(async l => {
+      try {
+        const t = (await (await fetch(`https://decapi.me/twitch/uptime/${encodeURIComponent(l)}`)).text()).trim();
+        if (!/offline|not found|error/i.test(t) && /\d+\s+(second|minute|hour|day)/i.test(t)) novo[l] = duracao(t);
+      } catch (e) {}
+    }));
+    const mudou = JSON.stringify(novo) !== JSON.stringify(VIVO);
+    VIVO = novo;
+    if (mudou && $("#referencias")) redesenharReferencias();
+  }
   (function animarCena() {
     const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches, cenaArte = $("#cena-arte");
     // parallax: a arte anda mais devagar que a página; no PC, acompanha um pouco o mouse
@@ -958,10 +1025,10 @@
       <div class="g-corpo">
         <div class="bloco"><span class="rot">Dificuldade para o Karthus</span><div class="dif" id="ed-dif">
           ${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}" class="${e.dificuldade === n ? "on" : ""}" style="--cor:${COR[n]}"><b>${n}</b>${NIVEL[n]}</button>`).join("")}</div></div>
-        <div class="bloco"><span class="rot">Começo da partida · campo inicial</span><div class="campos-ini" id="ed-campo">
+        <div class="bloco"><span class="rot">Começo da partida · campo inicial (é o que o !clear mostra)</span><div class="campos-ini" id="ed-campo">
           ${Object.entries(CAMPOS).map(([k, [nome, cor]]) => `<button data-c="${k}" class="${e.inicio_campo === k ? "on" : ""}" style="--cc:${cor}">${nome}</button>`).join("")}</div>
           <textarea class="campo" id="ed-ini-texto" maxlength="400" style="margin-top:8px;min-height:70px"
-            placeholder="ex.: azul → sapo → lobos e para no vermelho; não comece do lado dele, ele invade nível 1">${esc(e.inicio_texto)}</textarea>
+            placeholder="Rota e prioridades. ex.: azul → sapo → lobos e para no vermelho; não comece do lado dele, ele invade nível 1; priorize o caranguejo do topo no 3:30">${esc(e.inicio_texto)}</textarea>
           <div class="conta-car"><span id="ed-ini-n">${e.inicio_texto.length}</span>/400</div></div>
         <div class="bloco"><span class="rot">Feitiços (escolha 2)</span><div class="esc" id="ed-feit">
           ${E.feiticos.map(f => `<button class="${e.feiticos.includes(f.id) ? "on" : ""}" data-f="${f.id}" title="${esc(f.nome)}" aria-label="${esc(f.nome)}"><img src="${esc(f.icone)}" alt=""></button>`).join("")}</div>
@@ -1133,7 +1200,7 @@
         if ((u.login || "").toLowerCase() !== REPO.dono.toLowerCase()) throw new Error(`Essa chave é da conta ${u.login}, não da dona da página.`);
         token = chave; guardar.gravar("karthus.token", chave); EDITAR = true;
         MU = await carregarMatchups();
-        dlg.close(); desenhar(); avisar("Modo de edição ligado.");
+        dlg.close(); desenhar(); avisar("Modo de edição ligado."); carregarVisitas();
       } catch (err) { $("#ent-erro").textContent = err.message || "Não consegui conferir a chave."; }
     };
   }
@@ -1182,6 +1249,7 @@
       const [d, mu] = await Promise.all([carregarDados(), editando ? Promise.resolve(MU) : carregarMatchups()]);
       D = d || {}; MU = mu || {};
       if (!editando) desenhar();
+      checarAoVivo();
     } catch (e) {
       if (primeira) $("#app").textContent = "Não consegui carregar os dados agora. Tente de novo em instantes.";
     }
@@ -1198,6 +1266,9 @@
       } catch (e) {}
     }
     await atualizar(true);
+    contarVisita();
+    carregarVisitas();
+    setInterval(carregarVisitas, 300000);
     setInterval(() => atualizar(false), LOCAL ? 30000 : 120000);
     if (LOCAL) setInterval(() => fetch("/api/ping").catch(() => {}), 60000);
   })();
