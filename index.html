@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>polgarlol · Karthus: runas, build e matchups</title>
+<meta name="description" content="Runas, build, tierlist de matchups e estatísticas do Karthus do polgarlol, atualizadas sozinhas durante a live.">
+<meta property="og:title" content="polgarlol · Karthus">
+<meta property="og:description" content="Runas, build, matchups e win rate do Karthus, ao vivo.">
+<meta property="og:image" content="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Karthus_35.jpg">
+<meta name="theme-color" content="#120a10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap">
+<style>
+  /* Página pública do Karthus do polgarlol (GitHub Pages). Lê data.json do ramo "dados", escrito pelo karthus_bot.py.
+     As cores seguem a skin que ele está usando. Conferência local: index.html?dados=<url do json> */
+  :root { --borda: #f1c27a; --acento: #d3233a; --texto: #f3e4d2; --fundo1: #240916; --fundo2: #10050c; --brilho: rgba(211, 35, 58, .55);
+          --nome1: #b9772c; --nome2: #fff4dc; --nome3: #f1c27a; --fundo: #0d0709; --painel: #160d12; --linha: #2c1d25; --suave: #a8959f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { background: var(--fundo); color: var(--texto); font: 16px/1.5 "Rajdhani", system-ui, sans-serif; font-weight: 500; }
+  a { color: var(--borda); }
+  img { display: block; }
+  .rot { font: 700 12px "Rajdhani", sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--suave); }
+  .cinzel { font-family: "Cinzel", serif; font-weight: 900; }
+
+  .hero { position: relative; padding: 22px 18px 26px; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
+    background: linear-gradient(180deg, rgba(13, 7, 9, .15), var(--fundo) 96%), linear-gradient(90deg, rgba(13, 7, 9, .85), transparent 75%), var(--splash, none) center 22% / cover; }
+  .hero .topo { position: absolute; top: 16px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .hero .canal { font: 700 14px "Rajdhani", sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--borda); }
+  .botao { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: #9146ff; color: #fff; font: 700 14px "Rajdhani", sans-serif;
+    letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+  .hero h1 { font: 900 clamp(40px, 9vw, 64px)/1 "Cinzel", serif; letter-spacing: .02em;
+    background: linear-gradient(100deg, var(--nome1), var(--nome3) 30%, var(--nome2) 45%, var(--nome3) 60%, var(--nome1)); -webkit-background-clip: text;
+    background-clip: text; color: transparent; filter: drop-shadow(0 0 18px var(--brilho)); }
+  .hero .skin { margin-top: 6px; color: var(--suave); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip { padding: 5px 12px; background: rgba(0, 0, 0, .45); border: 1px solid color-mix(in srgb, var(--borda) 45%, transparent); font-weight: 600; }
+  .chip b { color: var(--nome2); }
+
+  nav { position: sticky; top: 0; z-index: 5; display: flex; overflow-x: auto; background: color-mix(in srgb, var(--fundo) 92%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
+  nav a { flex: 1; min-width: 88px; padding: 14px 10px; text-align: center; color: var(--suave); text-decoration: none; font: 700 15px "Rajdhani", sans-serif;
+    letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid transparent; }
+  nav a.on { color: var(--borda); border-bottom-color: var(--borda); }
+
+  main { max-width: 920px; margin: 0 auto; padding: 0 16px 60px; overflow-wrap: anywhere; }
+  section { padding-top: 34px; }
+  h2 { font: 900 24px "Cinzel", serif; color: var(--texto); }
+  .sub { color: var(--suave); margin: 2px 0 16px; font-size: 15px; }
+  .painel { background: linear-gradient(180deg, var(--fundo1), var(--fundo2)); border: 1px solid color-mix(in srgb, var(--borda) 40%, transparent); padding: 18px; }
+
+  .runas { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 640px) { .runas { grid-template-columns: 1.3fr 1fr; } }
+  .arvore { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font: 700 16px "Rajdhani", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--borda); }
+  .arvore img { width: 28px; height: 28px; }
+  .chave { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  .chave img { width: 80px; height: 80px; filter: drop-shadow(0 0 12px var(--brilho)); }
+  .chave b { font: 900 21px/1.15 "Cinzel", serif; color: var(--nome2); }
+  .runa { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-weight: 600; font-size: 17px; }
+  .runa img { width: 38px; height: 38px; border-radius: 50%; background: #000; box-shadow: 0 0 0 1px color-mix(in srgb, var(--borda) 40%, transparent); }
+  .frag { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--linha); font-size: 14px; color: var(--suave); }
+  .frag span { display: inline-flex; align-items: center; gap: 6px; }
+  .frag img { width: 22px; height: 22px; border-radius: 50%; background: #000; }
+
+  .itens { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 12px; }
+  .item { display: flex; align-items: center; gap: 10px; font-weight: 600; line-height: 1.2; min-width: 0; }
+  .item img { width: 48px; height: 48px; border-radius: 6px; flex: none; box-shadow: 0 0 0 2px color-mix(in srgb, var(--borda) 50%, transparent); }
+  .item small { display: block; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--acento); }
+
+  .nivel { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--linha); }
+  .nivel:last-child { border-bottom: 0; }
+  .nivel .nome { width: 104px; flex: none; padding-top: 8px; font: 700 14px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cor); }
+  .nivel .camps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nivel a img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
+  .busca { width: 100%; margin: 18px 0 12px; padding: 11px 14px; background: var(--painel); border: 1px solid var(--linha); color: var(--texto); font: inherit; }
+  .mus { display: grid; gap: 10px; }
+  .mu { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 14px; background: var(--painel); border: 1px solid var(--linha); border-left: 4px solid var(--cor); }
+  .mu.alvo { box-shadow: 0 0 0 2px var(--borda), 0 0 30px var(--brilho); }
+  .mu > img { width: 64px; height: 64px; border-radius: 50%; }
+  .mu h3 { font: 900 19px "Cinzel", serif; }
+  .mu .nv { display: inline-block; margin-left: 8px; padding: 1px 8px; background: var(--cor); color: #140c08; font: 700 12px "Rajdhani", sans-serif;
+    letter-spacing: .12em; text-transform: uppercase; vertical-align: 3px; }
+  .mu .icones { display: flex; gap: 6px; margin: 8px 0 4px; align-items: center; }
+  .mu .icones img { width: 34px; height: 34px; border-radius: 6px; }
+  .mu .icones .r { border-radius: 50%; }
+  .mu p { margin-top: 6px; font-size: 16px; }
+  .mu p .rot { display: block; }
+
+  .stats { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
+  .conta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
+  .conta:last-child { border-bottom: 0; }
+  .conta b { font: 900 18px "Cinzel", serif; color: var(--nome2); }
+  .wr { display: flex; align-items: center; gap: 18px; }
+  .wr svg { width: 110px; height: 110px; flex: none; transform: rotate(-90deg); }
+  .pct { font: 900 46px/1 "Cinzel", serif; color: var(--nome2); }
+  .v { color: #6fe0a0; } .d { color: #ff7d8f; }
+  .jogo { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
+  .jogo:last-child { border-bottom: 0; }
+  .jogo img { width: 38px; height: 38px; border-radius: 50%; }
+  .jogo .kda { font: 900 18px "Cinzel", serif; min-width: 92px; }
+  .jogo .res { margin-left: auto; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; }
+  .vazio { color: var(--suave); }
+  footer { max-width: 920px; margin: 0 auto; padding: 24px 16px 40px; color: var(--suave); font-size: 14px; border-top: 1px solid var(--linha); }
+  .carregando { padding: 80px 16px; text-align: center; color: var(--suave); }
+</style>
+</head>
+<body>
+<div id="app" class="carregando">carregando…</div>
+<script>
+  const COR = { 1: "#4fbf7f", 2: "#a3c95a", 3: "#e0b84c", 4: "#e4793a", 5: "#e0405a" };
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const img = (x, cls = "", extra = "") => x && x.icone ? `<img class="${cls}" src="${esc(x.icone)}" alt="${esc(x.nome || "")}" title="${esc(x.nome || "")}" loading="lazy" ${extra}>` : "";
+  const semAcento = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const de = x => x && x.de ? ` · dados de ${esc(x.de)}` : "";
+
+  async function carregar() {
+    const q = new URLSearchParams(location.search);
+    if (q.get("dados")) return fetch(q.get("dados"), { cache: "no-store" }).then(r => r.json());
+    const dono = location.hostname.split(".")[0], repo = location.pathname.split("/").filter(Boolean)[0];
+    try {   // API do GitHub: sempre a versão mais nova
+      const r = await fetch(`https://api.github.com/repos/${dono}/${repo}/contents/data.json?ref=dados`, { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-store" });
+      if (r.ok) return r.json();
+    } catch (e) {}
+    return fetch(`https://raw.githubusercontent.com/${dono}/${repo}/dados/data.json?t=${Date.now()}`).then(r => r.json());
+  }
+
+  function haQuanto(seg) {
+    const m = Math.max(0, Math.round((Date.now() / 1000 - seg) / 60));
+    return m < 1 ? "agora mesmo" : m < 60 ? `há ${m} min` : m < 1440 ? `há ${Math.round(m / 60)} h` : `há ${Math.round(m / 1440)} dias`;
+  }
+
+  function secRunas(d) {
+    if (!d) return `<p class="vazio">Sem runas ainda.</p>`;
+    const r = d.runas || [];
+    return `<div class="painel runas"><div>
+        <div class="arvore">${img(d.primaria)}${esc(d.primaria.nome)}</div>
+        <div class="chave">${img(r[0])}<b>${esc(r[0] && r[0].nome)}</b></div>
+        ${r.slice(1, 4).map(x => `<div class="runa">${img(x)}${esc(x.nome)}</div>`).join("")}
+      </div><div>
+        <div class="arvore">${img(d.secundaria)}${esc(d.secundaria.nome)}</div>
+        ${r.slice(4, 6).map(x => `<div class="runa">${img(x)}${esc(x.nome)}</div>`).join("")}
+        <div class="frag">${(d.fragmentos || []).map(x => `<span>${img(x)}${esc(x.nome)}</span>`).join("")}</div>
+      </div></div>`;
+  }
+
+  function secBuild(d) {
+    if (!d) return `<p class="vazio">Sem build ainda.</p>`;
+    return `<div class="painel itens">${(d.itens || []).map(i => `<div class="item">${img(i)}<div>${i.botas ? "<small>botas</small>" : ""}${esc(i.nome)}</div></div>`).join("")}</div>`;
+  }
+
+  function cartaoMu(m) {
+    const c = m.campeao;
+    return `<article class="mu" id="vs-${c.id}" data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
+      ${img(c)}<div><h3>${esc(c.nome)}${m.nivel ? `<span class="nv">${esc(m.nivel)}</span>` : ""}</h3>
+      ${m.feiticos.length || m.keystone ? `<div class="icones">${m.feiticos.map(f => img(f)).join("")}${img(m.keystone, "r")}${img(m.secundaria, "r", 'style="width:26px;height:26px"')}</div>` : ""}
+      ${m.runas ? `<p><span class="rot">runas</span>${esc(m.runas)}</p>` : ""}
+      ${m.build ? `<p><span class="rot">build</span>${esc(m.build)}</p>` : ""}
+      ${m.dicas ? `<p><span class="rot">dica</span>${esc(m.dicas)}</p>` : ""}</div></article>`;
+  }
+
+  function secMatchups(d) {
+    if (!d.matchups || !d.matchups.length) return `<p class="vazio">As anotações de matchup ainda não foram publicadas.</p>`;
+    const tl = d.tierlist ? `<div class="painel">${d.tierlist.niveis.filter(n => n.campeoes.length).map(n => `<div class="nivel" style="--cor:${COR[n.n]}">
+        <span class="nome">${esc(n.nome)}</span><div class="camps">${n.campeoes.map(c => `<a href="#vs-${c.id}">${img(c)}</a>`).join("")}</div></div>`).join("")}</div>` : "";
+    return `${tl}<input class="busca" id="busca" placeholder="Buscar campeão…" autocomplete="off"><div class="mus" id="mus">${d.matchups.map(cartaoMu).join("")}</div>`;
+  }
+
+  function anel(pct) {
+    const c = 2 * Math.PI * 46;
+    return `<svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="none" stroke="var(--linha)" stroke-width="9"/>
+      <circle cx="55" cy="55" r="46" fill="none" stroke="var(--borda)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - pct / 100)}"/></svg>`;
+  }
+
+  function secStats(d) {
+    const k = d.karthus, r = d.ranqueada;
+    const contas = (d.elo || []).map(e => `<div class="conta"><span><a href="${esc(e.opgg)}" target="_blank" rel="noopener">${esc(e.conta)}</a></span>
+      <span>${e.elo ? `<b>${esc(e.elo)}</b> · ${Math.round(e.v / Math.max(1, e.v + e.d) * 100)}% (${e.v}V ${e.d}D)${e.de ? ` · em ${esc(e.de)}` : ""}` : `<span class="vazio">sem dados ainda</span>`}</span></div>`).join("");
+    const wr = k ? `<div class="painel"><div class="rot">Karthus · últimas ${k.jogos}</div><div class="wr" style="margin-top:10px">${anel(Math.round(k.v / k.jogos * 100))}
+        <div><div class="pct">${Math.round(k.v / k.jogos * 100)}%</div><div><span class="v">${k.v}V</span> · <span class="d">${k.jogos - k.v}D</span></div>
+        <div class="vazio">KDA ${k.k} / ${k.d} / ${k.a} · melhor ${esc(k.melhor)}</div></div></div></div>` : "";
+    const temporada = r ? `<div class="painel"><div class="rot">${esc(r.fila)} na temporada</div><div class="wr" style="margin-top:10px">${anel(Math.round(r.v / (r.v + r.d) * 100))}
+        <div><div class="pct">${Math.round(r.v / (r.v + r.d) * 100)}%</div><div><span class="v">${r.v}V</span> · <span class="d">${r.d}D</span></div></div></div></div>` : "";
+    const ult = (d.ultimas || []).map(j => `<div class="jogo">${img(j.campeao)}<span class="kda">${j.k}/${j.d}/${j.a}</span><span class="vazio">${esc(j.f)}</span>
+        <span class="res ${j.remake ? "" : j.v ? "v" : "d"}">${j.remake ? "remake" : j.v ? "vitória" : "derrota"}</span></div>`).join("");
+    return `<div class="stats"><div class="painel"><div class="rot">Elo Solo/Duo</div>${contas}</div>${wr}${temporada}
+      ${ult ? `<div class="painel"><div class="rot">Últimas partidas</div>${ult}</div>` : ""}</div>`;
+  }
+
+  function desenhar(d) {
+    const s = d.skin || {};
+    Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
+    const k = d.karthus, solo = (d.elo || []).find(e => e.elo);
+    document.getElementById("app").className = "";
+    document.getElementById("app").innerHTML = `
+      <header class="hero" style="--splash:url('${esc(s.splash || "")}')">
+        <div class="topo"><span class="canal">${esc(d.canal)}</span><a class="botao" href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">▶ live</a></div>
+        <h1>Karthus</h1><div class="skin">skin de agora: ${esc(s.nome || "")}</div>
+        <div class="chips">${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${Math.round(k.v / k.jogos * 100)}%</b> nas últimas ${k.jogos}</span>` : ""}
+          <span class="chip">atualizado ${haQuanto(d.atualizado)}</span></div>
+      </header>
+      <nav id="abas"><a href="#runas">Runas</a><a href="#build">Build</a><a href="#matchups">Matchups</a><a href="#stats">Stats</a></nav>
+      <main>
+        <section id="runas"><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${de(d.runas)}</div>${secRunas(d.runas)}</section>
+        <section id="build"><h2>Build</h2><div class="sub">${esc(d.build ? d.build.titulo : "")}${de(d.build)}</div>${secBuild(d.build)}</section>
+        <section id="matchups"><h2>Matchups</h2><div class="sub">Quão difícil é jogar de Karthus contra cada campeão, com feitiços, runas e dicas.</div>${secMatchups(d)}</section>
+        <section id="stats"><h2>Stats</h2><div class="sub">Elo e win rate</div>${secStats(d)}</section>
+      </main>
+      <footer>Atualiza sozinho durante a live · <a href="https://twitch.tv/${esc(d.canal)}" target="_blank" rel="noopener">twitch.tv/${esc(d.canal)}</a> · comandos no chat: !runas !build !tierlist !vs campeão</footer>`;
+    const busca = document.getElementById("busca");
+    if (busca) busca.oninput = () => {
+      const t = semAcento(busca.value);
+      document.querySelectorAll(".mu").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
+    };
+    focar();
+    marcarAba();
+  }
+
+  function focar() {   // #vs-238 vindo do chat: rola até a matchup e destaca
+    document.querySelectorAll(".mu.alvo").forEach(m => m.classList.remove("alvo"));
+    const alvo = location.hash.startsWith("#vs-") && document.querySelector(location.hash);
+    if (alvo) { alvo.classList.add("alvo"); alvo.scrollIntoView({ block: "center" }); }
+    else if (location.hash) { const s = document.querySelector(location.hash); if (s) s.scrollIntoView(); }
+  }
+  function marcarAba() {
+    const secoes = [...document.querySelectorAll("section")];
+    const atual = secoes.filter(s => s.getBoundingClientRect().top < 120).pop() || secoes[0];
+    document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", atual && a.getAttribute("href") === "#" + atual.id));
+  }
+  addEventListener("scroll", marcarAba, { passive: true });
+  addEventListener("hashchange", focar);
+
+  let primeira = true;
+  async function atualizar() {
+    try {
+      const d = await carregar();
+      const y = scrollY;
+      desenhar(d);
+      if (!primeira) scrollTo(0, y);
+      primeira = false;
+    } catch (e) {
+      if (primeira) document.getElementById("app").textContent = "Não consegui carregar os dados agora. Tente de novo em instantes.";
+    }
+  }
+  atualizar();
+  setInterval(atualizar, 120000);
+</script>
+</body>
+</html>
