@@ -1101,7 +1101,7 @@
       $("#cfg-corpo").innerHTML = html;
       if ($("#tw-sair")) $("#tw-sair").onclick = () => api("/api/twitch/sair", {}).then(pintar);
       if ($("#tw-ok")) $("#tw-ok").onclick = () => api("/api/twitch/iniciar", { client_id: $("#tw-cid").value }).then(pintar);
-      $("#tw-testar").onclick = () => api("/api/testar", { texto: $("#tw-teste").value }).then(r => { $("#tw-resp").textContent = r.resposta; });
+      $("#tw-testar").onclick = () => api("/api/testar", { texto: $("#tw-teste").value }).then(r => { $("#tw-resp").textContent = r.resposta + (r.resposta.startsWith("(") ? "" : "  — o cartão aparece no OBS, como no chat de verdade."); });
       if ($("#gh-sair")) $("#gh-sair").onclick = () => { if (confirm("Desligar a página na internet?")) api("/api/github/sair", {}).then(pintar); };
       if ($("#gh-ok")) $("#gh-ok").onclick = () => { $("#gh-ok").disabled = true; api("/api/github/configurar", { token: $("#gh-token").value, repo: $("#gh-repo").value }).then(pintar); };
       if ($("#gh-chave")) $("#gh-chave").onclick = () => api("/api/github/chave", {}).then(r => navigator.clipboard.writeText(r.token)).then(() => avisar("Chave copiada. Não mostre na live."), () => avisar("Não consegui copiar."));
