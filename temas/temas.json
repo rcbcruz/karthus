@@ -1,0 +1,214 @@
+{
+ "padrao": 35,
+ "temas": [
+  {
+   "n": 35,
+   "nome": "Karthus Arcana",
+   "rosto": [
+    52.7,
+    20.9
+   ],
+   "cores": {
+    "borda": "#f1c27a",
+    "acento": "#d3233a",
+    "texto": "#f3e4d2",
+    "fundo1": "rgba(36, 9, 22, .94)",
+    "fundo2": "rgba(16, 5, 12, .86)",
+    "brilho": "rgba(211, 35, 58, .55)",
+    "nome1": "#b9772c",
+    "nome2": "#fff4dc",
+    "nome3": "#f1c27a"
+   }
+  },
+  {
+   "n": 0,
+   "nome": "Karthus Clássico",
+   "rosto": [
+    67.3,
+    19.5
+   ],
+   "cores": {
+    "borda": "#7fd1b0",
+    "acento": "#3fffb0",
+    "texto": "#e0fff4",
+    "fundo1": "rgba(6, 26, 22, .94)",
+    "fundo2": "rgba(2, 10, 9, .9)",
+    "brilho": "rgba(80, 255, 180, .5)",
+    "nome1": "#5fd1a8",
+    "nome2": "#ffffff",
+    "nome3": "#9fffd6"
+   }
+  },
+  {
+   "n": 1,
+   "nome": "Karthus Cerimônia das Trevas",
+   "rosto": [
+    71.6,
+    15.6
+   ],
+   "cores": {
+    "borda": "#c9a2ff",
+    "acento": "#7fe8ff",
+    "texto": "#f0e6ff",
+    "fundo1": "rgba(24, 8, 40, .94)",
+    "fundo2": "rgba(8, 3, 16, .9)",
+    "brilho": "rgba(170, 90, 255, .55)",
+    "nome1": "#7fe8ff",
+    "nome2": "#ffffff",
+    "nome3": "#e3c8ff"
+   }
+  },
+  {
+   "n": 2,
+   "nome": "Karthus da Liberdade",
+   "rosto": [
+    69.0,
+    18.4
+   ],
+   "cores": {
+    "borda": "#9fe0c8",
+    "acento": "#ffd36b",
+    "texto": "#eafff6",
+    "fundo1": "rgba(10, 30, 26, .94)",
+    "fundo2": "rgba(3, 12, 10, .9)",
+    "brilho": "rgba(255, 200, 90, .45)",
+    "nome1": "#7fd1b0",
+    "nome2": "#fff2c4",
+    "nome3": "#ffd36b"
+   }
+  },
+  {
+   "n": 3,
+   "nome": "Karthus Lacaio da Morte",
+   "rosto": [
+    77.6,
+    28.6
+   ],
+   "cores": {
+    "borda": "#cfd8e6",
+    "acento": "#ffb347",
+    "texto": "#e6ebf2",
+    "fundo1": "rgba(10, 18, 28, .94)",
+    "fundo2": "rgba(3, 6, 11, .88)",
+    "brilho": "rgba(120, 190, 230, .5)",
+    "nome1": "#6f7f94",
+    "nome2": "#ffffff",
+    "nome3": "#cfd8e6"
+   }
+  },
+  {
+   "n": 4,
+   "nome": "Karthus Pentakill",
+   "rosto": [
+    52.8,
+    35.7
+   ],
+   "cores": {
+    "borda": "#c9ccd2",
+    "acento": "#ff2a1a",
+    "texto": "#f2f2f2",
+    "fundo1": "rgba(26, 8, 8, .94)",
+    "fundo2": "rgba(8, 3, 3, .9)",
+    "brilho": "rgba(255, 40, 30, .5)",
+    "nome1": "#8d939c",
+    "nome2": "#ffffff",
+    "nome3": "#d5d9df"
+   }
+  },
+  {
+   "n": 5,
+   "nome": "Fnatic Karthus",
+   "rosto": [
+    71.8,
+    56.5
+   ],
+   "cores": {
+    "borda": "#ff7a00",
+    "acento": "#ffb347",
+    "texto": "#fff4e6",
+    "fundo1": "rgba(18, 12, 6, .95)",
+    "fundo2": "rgba(6, 4, 2, .9)",
+    "brilho": "rgba(255, 120, 0, .5)",
+    "nome1": "#ff6a00",
+    "nome2": "#ffffff",
+    "nome3": "#ff9a1a"
+   }
+  },
+  {
+   "n": 9,
+   "nome": "Karthus Bane-luz",
+   "rosto": [
+    50.8,
+    15.9
+   ],
+   "cores": {
+    "borda": "#d0a6ff",
+    "acento": "#b46bff",
+    "texto": "#f4e9ff",
+    "fundo1": "rgba(22, 8, 36, .94)",
+    "fundo2": "rgba(8, 3, 14, .9)",
+    "brilho": "rgba(180, 100, 255, .55)",
+    "nome1": "#b77bff",
+    "nome2": "#ffffff",
+    "nome3": "#f0d9ff"
+   }
+  },
+  {
+   "n": 10,
+   "nome": "Karthus Infernal",
+   "rosto": [
+    56.0,
+    18.1
+   ],
+   "cores": {
+    "borda": "#ff8a3d",
+    "acento": "#ffc14d",
+    "texto": "#fff0de",
+    "fundo1": "rgba(40, 10, 3, .94)",
+    "fundo2": "rgba(14, 4, 1, .9)",
+    "brilho": "rgba(255, 100, 20, .55)",
+    "nome1": "#e0430f",
+    "nome2": "#ffe9a8",
+    "nome3": "#ffb347"
+   }
+  },
+  {
+   "n": 17,
+   "nome": "Karthus Pentakill III",
+   "rosto": [
+    50.0,
+    11.9
+   ],
+   "cores": {
+    "borda": "#ffd36b",
+    "acento": "#d3233a",
+    "texto": "#fff3dc",
+    "fundo1": "rgba(40, 6, 10, .94)",
+    "fundo2": "rgba(14, 2, 4, .9)",
+    "brilho": "rgba(255, 190, 80, .45)",
+    "nome1": "#b8860b",
+    "nome2": "#fff3c4",
+    "nome3": "#ffd36b"
+   }
+  },
+  {
+   "n": 26,
+   "nome": "Karthus Sabugueiro",
+   "rosto": [
+    50.0,
+    23.8
+   ],
+   "cores": {
+    "borda": "#a46bff",
+    "acento": "#e0a050",
+    "texto": "#f1e6ff",
+    "fundo1": "rgba(18, 8, 30, .94)",
+    "fundo2": "rgba(6, 3, 12, .9)",
+    "brilho": "rgba(160, 90, 255, .55)",
+    "nome1": "#a46bff",
+    "nome2": "#ffffff",
+    "nome3": "#e6d0ff"
+   }
+  }
+ ]
+}
