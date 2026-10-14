@@ -138,7 +138,9 @@
 
   .stats { display: grid; gap: 12px; grid-template-columns: 1fr; }
   @media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
-  .conta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
+  .conta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 10px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
+  .conta > span:first-child { flex: none; }
+  .conta > span:last-child { text-align: right; margin-left: auto; }
   .conta:last-child { border-bottom: 0; }
   .conta b { font: 900 18px "Cinzel", serif; color: var(--nome2); }
   .wr { display: flex; align-items: center; gap: 18px; }
