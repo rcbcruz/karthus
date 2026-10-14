@@ -499,7 +499,7 @@
       feiticos: feit.filter(f => ordemF.includes(f.id)).sort((a, b) => ordemF.indexOf(a.id) - ordemF.indexOf(b.id)).map(f => ({ id: f.id, nome: f.name, icone: iconeCD(f.iconPath) })),
       perk,
       estilos: (estilos.styles || estilos).map(s => ({ id: s.id, nome: s.name, icone: iconeCD(s.iconPath), linhas: s.slots.map(l => ({ tipo: l.type, perks: l.perks })) })),
-      itens: itens.filter(i => i.id < 10000 && i.inStore !== false && i.priceTotal > 0 && !i.requiredChampion && !i.requiredAlly
+      itens: itens.filter(i => i.id < 10000 && i.inStore !== false && i.priceTotal > 0 && i.priceTotal <= 4500 && !i.requiredChampion && !i.requiredAlly
                          && !(i.categories || []).some(c => c === "Trinket" || c === "Consumable"))
         .map(i => ({ id: i.id, nome: i.name, icone: iconeCD(i.iconPath), preco: i.priceTotal, cat: i.categories || [], fim: !(i.to || []).length }))
         .sort((a, b) => b.preco - a.preco),
