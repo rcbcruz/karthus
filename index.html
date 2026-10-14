@@ -368,7 +368,7 @@
         <div class="topo"><h3>${esc(c.nome)}</h3>${m.dificuldade ? `<span class="tag nv">${NIVEL[m.dificuldade]}</span>` : ""}${ehJungler(id) ? `<span class="tag jg">jungler</span>` : ""}
           <span class="acoes">${semId ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
           ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
-        ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">Ainda não tem guia para essa matchup.</p>` : ""}
+        ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">O guia dessa matchup ainda não foi escrito.</p>` : ""}
         ${(m.feiticos || []).length || runas ? `<div class="grupo">
           ${(m.feiticos || []).length ? `<div><span class="rot">feitiços</span><div class="icones">${m.feiticos.map(f => img(f)).join("")}</div></div>` : ""}${runas}</div>` : ""}
         ${nomeR ? `<div class="vazio" style="font-size:14px;margin-top:4px">${nomeR}</div>` : ""}
@@ -389,8 +389,9 @@
     let html = `<div class="barra"><div class="seg" id="filtro-mu"><button data-f="junglers" class="${filtroMu === "junglers" ? "on" : ""}">Junglers</button>
       <button data-f="todos" class="${filtroMu === "todos" ? "on" : ""}">Todos</button></div>${edicao}</div>`;
     if (rapido) html += secRapido();
-    if (!todas.length) return html + `<div class="painel vazio">${EDITAR ? "Nenhum guia escrito ainda. Use \"classificar rápido\" para dar as notas de dificuldade e \"+ escrever guia\" para os detalhes."
-                                                                     : "Os guias de matchup ainda estão sendo escritos."}</div>`;
+    if (!todas.length) return html + `<div class="painel vazio">${EDITAR
+      ? "Nenhum guia ainda. Comece por <b>classificar rápido</b> para dar a dificuldade de cada jungler; depois escreva os guias completos em <b>+ escrever guia</b>."
+      : "Os guias estão sendo escritos. Enquanto isso, pergunte no chat: <b>!vs</b> e o nome do campeão."}</div>`;
     if (niveis.length) html += `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}"><span class="nome">${NIVEL[x.n]}</span>
       <div class="camps">${x.cs.map(m => `<a href="#vs-${m.id}" title="${esc(m.campeao.nome)}"><img src="${iconeCampeao(m.id)}" alt="${esc(m.campeao.nome)}" loading="lazy"></a>`).join("")}</div></div>`).join("")}</div>`;
     html += `<div class="barra" style="margin-top:14px"><input class="busca" id="busca-mu" placeholder="Buscar campeão…" autocomplete="off"></div>
@@ -448,31 +449,40 @@
           ? { ...MU[p.oponente.campeao.id], campeao: p.oponente.campeao } : p.oponente, true)}</div>` : ""}`;
   }
 
+  const CAB_MATCHUPS = `<div class="cab"><div><h2>Matchups</h2><div class="sub">O quanto cada campeão complica a vida do Karthus na selva, e o que fazer
+    em cada confronto: feitiços, runas, itens e plano de jogo. Toque num campeão da lista para abrir o guia.</div></div></div>`;
+  function fraseDe(x) { return x && x.de ? ` · dados de ${esc(x.de)}` : ""; }
+
   function desenhar() {
     const d = D || {}, s = d.skin || {};
     Object.entries(s.cores || {}).forEach(([k, v]) => document.documentElement.style.setProperty("--" + k, v));
+    vestirCena(s);
     JG = new Set(d.junglers || []);
     const k = d.karthus, solo = (d.elo || []).find(e => e.elo), p = d.partida, sel = d.selecao;
+    const tier = solo ? solo.elo.replace(/\s*\d+\s*PDL$/, "") : "";
     const y = scrollY;
     $("#app").className = "";
     $("#app").innerHTML = `
-      <header class="hero" style="--splash:url('${esc(s.splash || "")}')">
+      <header class="hero">
         <div class="topo"><span class="canal">${esc(d.canal || "polgarlol")}</span><a class="twitch" href="https://twitch.tv/${esc(d.canal || "polgarlol")}" target="_blank" rel="noopener">${d.ao_vivo ? "● assistir ao vivo" : "▶ twitch"}</a></div>
-        <h1>Guia do Karthus</h1><div class="skin">jungle · skin de agora: ${esc(s.nome || "")}</div>
-        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
-          ${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
+        <div class="sobre">${tier ? esc(tier) + " · " : ""}one-trick de Karthus jungle</div>
+        <h1>Guia do Karthus</h1>
+        <p class="lead">Como jogar de Karthus na selva contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.
+          Runas, build e estatísticas se atualizam sozinhas durante a live.</p>
+        <div class="chips">${d.ao_vivo ? `<span class="aovivo"><i></i>ao vivo agora</span>` : ""}${solo ? `<span class="chip"><b>${esc(solo.elo)}</b></span>` : ""}${k ? `<span class="chip">Karthus <b>${pct(k.v, k.jogos)}%</b> nas últimas ${k.jogos}</span>` : ""}
+          ${s.nome ? `<span class="chip">skin: <b>${esc(s.nome.replace(/^Karthus\s+/, ""))}</b></span>` : ""}${d.atualizado ? `<span class="chip">atualizado ${haQuanto(d.atualizado)}</span>` : ""}</div>
       </header>
-      <nav id="abas">${p ? `<a href="#agora">Agora</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
+      <nav id="abas">${p ? `<a href="#agora">Partida</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
       <main>
-        ${p ? `<section id="agora"><div class="cab"><h2>Partida agora</h2><span class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}</span></div>${secAgora(p)}</section>`
-            : sel && sel.inimigos.length ? `<section id="agora"><div class="cab"><h2>Seleção de campeões</h2><span class="sub">inimigos que já apareceram</span></div>
+        ${p ? `<section id="agora"><div class="cab"><div><h2>Partida em andamento</h2><div class="sub">${esc(p.campeao)} · atualizado ${haQuanto(d.atualizado)}. Toque num inimigo para ver o guia.</div></div></div>${secAgora(p)}</section>`
+            : sel && sel.inimigos.length ? `<section id="agora"><div class="cab"><div><h2>Seleção de campeões</h2><div class="sub">Inimigos que já apareceram. Toque num deles para ver o guia.</div></div></div>
                 <div class="painel">${linhaTime(sel.inimigos, "inimigos")}</div></section>` : ""}
-        <section id="matchups"><div class="cab"><div><h2>Matchups</h2><div class="sub">Como jogar de Karthus jungle contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.</div></div></div>${secMatchups()}</section>
-        <section id="runas"><div class="cab"><h2>Runas</h2><span class="sub">${esc(d.runas ? d.runas.titulo : "")}${d.runas && d.runas.de ? ` · dados de ${esc(d.runas.de)}` : ""}</span></div>${secRunas(d.runas)}</section>
-        <section id="build"><div class="cab"><h2>Build</h2><span class="sub">${esc(d.build ? d.build.titulo : "")}${d.build && d.build.de ? ` · dados de ${esc(d.build.de)}` : ""}</span></div>${secBuild(d.build)}</section>
-        <section id="stats"><div class="cab"><h2>Stats</h2><span class="sub">elo e win rate</span></div>${secStats(d)}</section>
+        <section id="matchups">${CAB_MATCHUPS}${secMatchups()}</section>
+        <section id="runas"><div class="cab"><div><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${fraseDe(d.runas)}</div></div></div>${secRunas(d.runas)}</section>
+        <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(d.build ? d.build.titulo : "")}${fraseDe(d.build)}</div></div></div>${secBuild(d.build)}</section>
+        <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo das duas contas e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
       </main>
-      <footer><span>Atualiza sozinho durante a live · comandos no chat: <b>!matchup</b> <b>!vs campeão</b> <b>!runas</b> <b>!build</b> <b>!tierlist</b></span>
+      <footer><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b></span>
         <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
       ${EDITAR ? `<div class="modo"><i></i>modo de edição${LOCAL ? " · no PC" : ""}</div>` : ""}`;
     ligarEventos();
@@ -482,9 +492,61 @@
   function redesenharMatchups() {
     const s = $("#matchups");
     if (!s) return desenhar();
-    s.innerHTML = `<div class="cab"><div><h2>Matchups</h2><div class="sub">Como jogar de Karthus jungle contra cada campeão: dificuldade, feitiços, runas, itens e plano de jogo.</div></div></div>${secMatchups()}`;
+    s.innerHTML = CAB_MATCHUPS + secMatchups();
     ligarEventos();
   }
+
+  // ============================================================ fundo vivo
+  let cenaSkin = null;
+  function vestirCena(s) {   // troca a arte do fundo (só quando a skin muda) e centra o zoom no rosto do Karthus
+    if (!s.splash || s.splash === cenaSkin) return;
+    cenaSkin = s.splash;
+    const r = document.documentElement.style, arte = $("#arte");
+    r.setProperty("--fx", (s.rosto ? s.rosto[0] : 60) + "%");
+    r.setProperty("--fy", (s.rosto ? s.rosto[1] : 25) + "%");
+    const imgArte = new Image();
+    imgArte.onload = () => { arte.classList.remove("ok"); setTimeout(() => { r.setProperty("--splash", `url("${s.splash}")`); arte.classList.add("ok"); }, arte.classList.contains("ok") ? 600 : 0); };
+    imgArte.src = s.splash;
+  }
+  (function animarCena() {
+    const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches, cenaArte = $("#cena-arte");
+    // parallax: a arte anda mais devagar que a página; no PC, acompanha um pouco o mouse
+    let alvoX = 0, alvoY = 0, x = 0, y = 0;
+    if (!calmo) addEventListener("mousemove", ev => { alvoX = (ev.clientX / innerWidth - .5) * -14; alvoY = (ev.clientY / innerHeight - .5) * -8; }, { passive: true });
+    // brasas subindo nas cores da skin (desenhadas a partir de um brilho pré-pronto: leve até no celular)
+    const cv = $("#brasas"), ctx = cv.getContext("2d");
+    let W = 0, H = 0, dpr = 1, brasas = [], sprites = {}, ult = performance.now();
+    const rgb = v => { const h = getComputedStyle(document.documentElement).getPropertyValue(v).trim().replace("#", "");
+      return h.length === 6 ? [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)) : [241, 194, 122]; };
+    const sprite = c => { const k = c.join(); if (!sprites[k]) { const s = document.createElement("canvas"); s.width = s.height = 32; const g = s.getContext("2d"),
+      gr = g.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, `rgba(${k},1)`); gr.addColorStop(1, `rgba(${k},0)`); g.fillStyle = gr; g.fillRect(0, 0, 32, 32); sprites[k] = s; } return sprites[k]; };
+    const nova = (inicio) => { const cores = [rgb("--acento"), rgb("--borda"), rgb("--nome2")];
+      return { x: Math.random() * W, y: inicio ? Math.random() * H : H + 20 * dpr, vy: (14 + Math.random() * 30) * dpr, fase: Math.random() * 6.3,
+               amp: (6 + Math.random() * 24) * dpr, r: (1 + Math.random() * 2.2) * dpr, pisca: 1.5 + Math.random() * 3, spr: sprite(cores[Math.random() < .25 ? 0 : Math.random() < .7 ? 1 : 2]) }; };
+    const redim = () => { dpr = Math.min(2, devicePixelRatio || 1); W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
+      const n = calmo ? 0 : innerWidth < 640 ? 24 : 54; brasas = Array.from({ length: n }, () => nova(true)); };
+    redim(); addEventListener("resize", redim);
+    let tempo = 0;
+    function quadro(agora) {
+      const dt = Math.min(.05, (agora - ult) / 1000); ult = agora; tempo += dt;
+      x += (alvoX - x) * .05; y += (alvoY - y) * .05;
+      const rolagem = Math.min(scrollY * .12, innerHeight * .18);
+      cenaArte.style.transform = `translate3d(${x.toFixed(1)}px, ${(y - rolagem).toFixed(1)}px, 0)`;
+      ctx.clearRect(0, 0, W, H);
+      for (const b of brasas) {
+        b.y -= b.vy * dt; b.fase += dt * .8;
+        if (b.y < -20) Object.assign(b, nova(false));
+        const a = (.35 + .65 * Math.abs(Math.sin(tempo * b.pisca + b.fase))) * Math.min(1, b.y / (H * .35));
+        ctx.globalAlpha = Math.max(0, a); const R = b.r * 4;
+        ctx.drawImage(b.spr, b.x + Math.sin(b.fase) * b.amp - R, b.y - R, R * 2, R * 2);
+      }
+      ctx.globalAlpha = 1;
+      if (!document.hidden) requestAnimationFrame(quadro);
+    }
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) { ult = performance.now(); requestAnimationFrame(quadro); } });
+    requestAnimationFrame(quadro);
+    addEventListener("resize", () => { sprites = {}; });
+  })();
 
   function ligarEventos() {
     document.querySelectorAll("#filtro-mu button").forEach(b => b.onclick = () => { filtroMu = b.dataset.f; redesenharMatchups(); });
