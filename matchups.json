@@ -75,6 +75,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:05Z"
  },
+ "60": {
+  "campeao": {
+   "id": 60,
+   "nome": "Elise"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:43Z"
+ },
  "64": {
   "campeao": {
    "id": 64,
@@ -241,6 +259,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:00Z"
  },
+ "141": {
+  "campeao": {
+   "id": 141,
+   "nome": "Kayn"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 5,
+  "atualizado": "2026-10-15T22:39:43Z"
+ },
  "163": {
   "campeao": {
    "id": 163,
@@ -388,6 +424,24 @@
   "dica": "",
   "dificuldade": 3,
   "atualizado": "2026-10-15T22:39:30Z"
+ },
+ "887": {
+  "campeao": {
+   "id": 887,
+   "nome": "Gwen"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:43Z"
  },
  "950": {
   "campeao": {
