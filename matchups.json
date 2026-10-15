@@ -17,6 +17,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:15Z"
  },
+ "24": {
+  "campeao": {
+   "id": 24,
+   "nome": "Jax"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:30Z"
+ },
  "33": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
@@ -128,6 +146,24 @@
   "dica": "",
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:08Z"
+ },
+ "104": {
+  "campeao": {
+   "id": 104,
+   "nome": "Graves"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:39:30Z"
  },
  "107": {
   "campeao": {
@@ -280,6 +316,24 @@
   "dica": "",
   "dificuldade": 4,
   "atualizado": "2026-10-15T22:38:55Z"
+ },
+ "876": {
+  "campeao": {
+   "id": 876,
+   "nome": "Lillia"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:30Z"
  },
  "950": {
   "campeao": {
