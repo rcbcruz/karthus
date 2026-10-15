@@ -1,4 +1,22 @@
 {
+ "5": {
+  "campeao": {
+   "id": 5,
+   "nome": "Xin Zhao"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:15Z"
+ },
  "33": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
@@ -115,9 +133,63 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:00Z"
  },
+ "234": {
+  "campeao": {
+   "id": 234,
+   "nome": "Viego"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:15Z"
+ },
  "238": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
+ },
+ "254": {
+  "campeao": {
+   "id": 254,
+   "nome": "Vi"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:15Z"
+ },
+ "517": {
+  "campeao": {
+   "id": 517,
+   "nome": "Sylas"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:15Z"
  },
  "799": {
   "campeao": {
