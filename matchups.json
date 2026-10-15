@@ -263,6 +263,24 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "245": {
+  "campeao": {
+   "id": 245,
+   "nome": "Ekko"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:33Z"
+ },
  "254": {
   "campeao": {
    "id": 254,
