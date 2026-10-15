@@ -75,6 +75,24 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "56": {
+  "campeao": {
+   "id": 56,
+   "nome": "Nocturne"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:48Z"
+ },
  "59": {
   "campeao": {
    "id": 59,
@@ -370,6 +388,24 @@
   "dica": "",
   "dificuldade": 3,
   "atualizado": "2026-10-15T22:39:33Z"
+ },
+ "246": {
+  "campeao": {
+   "id": 246,
+   "nome": "Qiyana"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:39:48Z"
  },
  "254": {
   "campeao": {
