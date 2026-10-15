@@ -3,9 +3,41 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "59": {
+  "campeao": {
+   "id": 59,
+   "nome": "Jarvan IV"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:05Z"
+ },
  "64": {
-  "apagado": true,
-  "atualizado": "2026-10-14T23:10:27Z"
+  "campeao": {
+   "id": 64,
+   "nome": "Lee Sin"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:39:05Z"
  },
  "79": {
   "campeao": {
@@ -68,6 +100,24 @@
   "dica": "",
   "dificuldade": 4,
   "atualizado": "2026-10-15T22:38:55Z"
+ },
+ "950": {
+  "campeao": {
+   "id": 950,
+   "nome": "Naafiri"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:05Z"
  },
  "_referencias": {
   "lista": [
