@@ -35,6 +35,24 @@
   "dificuldade": 5,
   "atualizado": "2026-10-15T22:39:45Z"
  },
+ "19": {
+  "campeao": {
+   "id": 19,
+   "nome": "Warwick"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:58Z"
+ },
  "24": {
   "campeao": {
    "id": 24,
@@ -92,6 +110,24 @@
   "dica": "",
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:52Z"
+ },
+ "48": {
+  "campeao": {
+   "id": 48,
+   "nome": "Trundle"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:58Z"
  },
  "56": {
   "campeao": {
@@ -367,6 +403,24 @@
   "dificuldade": 5,
   "atualizado": "2026-10-15T22:39:43Z"
  },
+ "143": {
+  "campeao": {
+   "id": 143,
+   "nome": "Zyra"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:58Z"
+ },
  "163": {
   "campeao": {
    "id": 163,
@@ -422,8 +476,22 @@
   "atualizado": "2026-10-15T22:39:15Z"
  },
  "238": {
-  "apagado": true,
-  "atualizado": "2026-10-14T23:10:27Z"
+  "campeao": {
+   "id": 238,
+   "nome": "Zed"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:58Z"
  },
  "245": {
   "campeao": {
