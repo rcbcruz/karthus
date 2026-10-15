@@ -15,6 +15,24 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "799": {
+  "campeao": {
+   "id": 799,
+   "nome": "Ambessa"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:38:55Z"
+ },
  "_referencias": {
   "lista": [
    {
