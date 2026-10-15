@@ -75,6 +75,24 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "35": {
+  "campeao": {
+   "id": 35,
+   "nome": "Shaco"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:52Z"
+ },
  "56": {
   "campeao": {
    "id": 56,
@@ -218,6 +236,24 @@
   "dica": "",
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:08Z"
+ },
+ "91": {
+  "campeao": {
+   "id": 91,
+   "nome": "Talon"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 3,
+  "atualizado": "2026-10-15T22:39:52Z"
  },
  "104": {
   "campeao": {
