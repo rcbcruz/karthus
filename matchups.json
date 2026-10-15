@@ -259,6 +259,24 @@
   "dificuldade": 3,
   "atualizado": "2026-10-15T22:39:20Z"
  },
+ "200": {
+  "campeao": {
+   "id": 200,
+   "nome": "Bel'Veth"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:38Z"
+ },
  "234": {
   "campeao": {
    "id": 234,
