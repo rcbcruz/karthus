@@ -7,9 +7,45 @@
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
  },
+ "79": {
+  "campeao": {
+   "id": 79,
+   "nome": "Gragas"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:00Z"
+ },
  "121": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
+ },
+ "131": {
+  "campeao": {
+   "id": 131,
+   "nome": "Diana"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:00Z"
  },
  "238": {
   "apagado": true,
