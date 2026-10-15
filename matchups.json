@@ -89,6 +89,24 @@
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:30Z"
  },
+ "28": {
+  "campeao": {
+   "id": 28,
+   "nome": "Evelynn"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:40:09Z"
+ },
  "32": {
   "campeao": {
    "id": 32,
@@ -430,6 +448,24 @@
   "dica": "",
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:20Z"
+ },
+ "120": {
+  "campeao": {
+   "id": 120,
+   "nome": "Hecarim"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:40:09Z"
  },
  "121": {
   "campeao": {
