@@ -273,6 +273,24 @@
   "dificuldade": 4,
   "atualizado": "2026-10-15T22:39:30Z"
  },
+ "106": {
+  "campeao": {
+   "id": 106,
+   "nome": "Volibear"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:54Z"
+ },
  "107": {
   "campeao": {
    "id": 107,
