@@ -701,6 +701,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:15Z"
  },
+ "427": {
+  "campeao": {
+   "id": 427,
+   "nome": "Ivern"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:40:22Z"
+ },
  "517": {
   "campeao": {
    "id": 517,
