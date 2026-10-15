@@ -305,6 +305,24 @@
   "dificuldade": 4,
   "atualizado": "2026-10-15T22:39:05Z"
  },
+ "72": {
+  "campeao": {
+   "id": 72,
+   "nome": "Skarner"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:29Z"
+ },
  "76": {
   "campeao": {
    "id": 76,
@@ -754,6 +772,24 @@
   "dica": "",
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:15Z"
+ },
+ "421": {
+  "campeao": {
+   "id": 421,
+   "nome": "Rek'Sai"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:29Z"
  },
  "427": {
   "campeao": {
