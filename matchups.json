@@ -287,6 +287,42 @@
   "dificuldade": 3,
   "atualizado": "2026-10-15T22:39:43Z"
  },
+ "62": {
+  "campeao": {
+   "id": 62,
+   "nome": "Wukong"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:32Z"
+ },
+ "63": {
+  "campeao": {
+   "id": 63,
+   "nome": "Brand"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:32Z"
+ },
  "64": {
   "campeao": {
    "id": 64,
@@ -340,6 +376,24 @@
   "dica": "",
   "dificuldade": 4,
   "atualizado": "2026-10-15T22:39:20Z"
+ },
+ "77": {
+  "campeao": {
+   "id": 77,
+   "nome": "Udyr"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:40:32Z"
  },
  "78": {
   "campeao": {
