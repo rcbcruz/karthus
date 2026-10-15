@@ -1,4 +1,22 @@
 {
+ "2": {
+  "campeao": {
+   "id": 2,
+   "nome": "Olaf"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:26Z"
+ },
  "5": {
   "campeao": {
    "id": 5,
@@ -106,6 +124,24 @@
   "dica": "",
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:30Z"
+ },
+ "25": {
+  "campeao": {
+   "id": 25,
+   "nome": "Morgana"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:26Z"
  },
  "28": {
   "campeao": {
@@ -592,6 +628,24 @@
   "dica": "",
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:38Z"
+ },
+ "203": {
+  "campeao": {
+   "id": 203,
+   "nome": "Kindred"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 4,
+  "atualizado": "2026-10-15T22:40:26Z"
  },
  "233": {
   "campeao": {
