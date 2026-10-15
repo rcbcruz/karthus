@@ -57,6 +57,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:00Z"
  },
+ "80": {
+  "campeao": {
+   "id": 80,
+   "nome": "Pantheon"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:39:08Z"
+ },
  "121": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
