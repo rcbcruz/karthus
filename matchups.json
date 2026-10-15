@@ -598,18 +598,112 @@
    "id": 121,
    "nome": "Kha'Zix"
   },
+  "dificuldade": 5,
+  "feiticos": [
+   {
+    "id": 14,
+    "nome": "Incendiar",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerignite.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
+  "runas": {
+   "primaria": {
+    "id": 8100,
+    "nome": "Dominação",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7200_domination.png"
+   },
+   "chave": {
+    "id": 8128,
+    "nome": "Colheita Sombria",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/darkharvest/darkharvest.png"
+   },
+   "primarias": [
+    {
+     "id": 8126,
+     "nome": "Golpe Desleal",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/cheapshot/cheapshot.png"
+    },
+    {
+     "id": 8137,
+     "nome": "Sexto Sentido",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/sixthsense/sixthsense.png"
+    },
+    {
+     "id": 8135,
+     "nome": "Caçador de Tesouros",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/treasurehunter/treasurehunter.png"
+    }
+   ],
+   "secundaria": {
+    "id": 8000,
+    "nome": "Precisão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png"
+   },
+   "secundarias": [
+    {
+     "id": 8299,
+     "nome": "Até a Morte",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/laststand/laststand.png"
+    },
+    {
+     "id": 8009,
+     "nome": "Presença de Espírito",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/precision/presenceofmind/presenceofmind.png"
+    }
+   ],
+   "fragmentos": [
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5011,
+     "nome": "Vida",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodshealthscalingicon.png"
+    }
+   ]
+  },
+  "itens": [
+   {
+    "id": 2503,
+    "nome": "Tocha de Chamas Negras",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/2503_blackfiretorch64.png"
+   },
+   {
+    "id": 3020,
+    "nome": "Sapatos do Feiticeiro",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/3020_class_t2_sorcerersshoes.png"
+   },
+   {
+    "id": 6653,
+    "nome": "Tormento de Liandry",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/6653_mage_t4_liandrysanguish.png"
+   },
+   {
+    "id": 3157,
+    "nome": "Ampulheta de Zhonya",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/3157_mage_t3_zhonyashourglass.png"
+   }
+  ],
   "inicio": {
    "campo": "",
-   "texto": ""
+   "texto": "eu gosto de pegar ign x kha zix para forçar esse 1v1 e trocar kill, exaust ele fica dando R até acabar a redução de dano do exaust (e quase n muda nada, ele te rasga no meio)."
   },
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
   "build_nota": "",
   "plano": "",
   "dica": "",
-  "dificuldade": 5,
-  "atualizado": "2026-10-15T22:40:03Z"
+  "atualizado": "2026-10-15T22:43:57Z"
  },
  "131": {
   "campeao": {
