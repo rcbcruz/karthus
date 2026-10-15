@@ -17,6 +17,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:15Z"
  },
+ "9": {
+  "campeao": {
+   "id": 9,
+   "nome": "Fiddlesticks"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:20Z"
+ },
  "11": {
   "campeao": {
    "id": 11,
@@ -574,6 +592,24 @@
   "dica": "",
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:38Z"
+ },
+ "233": {
+  "campeao": {
+   "id": 233,
+   "nome": "Briar"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:40:20Z"
  },
  "234": {
   "campeao": {
