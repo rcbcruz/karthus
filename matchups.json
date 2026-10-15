@@ -14,5 +14,18 @@
  "238": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
+ },
+ "_referencias": {
+  "lista": [
+   {
+    "nick": "Meito#GHUL",
+    "regiao": "br",
+    "nota": "melhorzinho do br, recomendo acompanhar caso queira melhorar de karthus adc",
+    "redes": {
+     "twitch": "meito3"
+    }
+   }
+  ],
+  "atualizado": "2026-10-15T22:38:16Z"
  }
 }
