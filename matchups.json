@@ -35,6 +35,24 @@
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:30Z"
  },
+ "32": {
+  "campeao": {
+   "id": 32,
+   "nome": "Amumu"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:39:36Z"
+ },
  "33": {
   "apagado": true,
   "atualizado": "2026-10-14T23:10:27Z"
