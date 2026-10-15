@@ -53,6 +53,24 @@
   "dificuldade": 1,
   "atualizado": "2026-10-15T22:39:58Z"
  },
+ "20": {
+  "campeao": {
+   "id": 20,
+   "nome": "Nunu e Willump"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:03Z"
+ },
  "24": {
   "campeao": {
    "id": 24,
@@ -90,8 +108,22 @@
   "atualizado": "2026-10-15T22:39:36Z"
  },
  "33": {
-  "apagado": true,
-  "atualizado": "2026-10-14T23:10:27Z"
+  "campeao": {
+   "id": 33,
+   "nome": "Rammus"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:03Z"
  },
  "35": {
   "campeao": {
@@ -273,6 +305,24 @@
   "dificuldade": 2,
   "atualizado": "2026-10-15T22:39:08Z"
  },
+ "82": {
+  "campeao": {
+   "id": 82,
+   "nome": "Mordekaiser"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 1,
+  "atualizado": "2026-10-15T22:40:03Z"
+ },
  "91": {
   "campeao": {
    "id": 91,
@@ -290,6 +340,24 @@
   "dica": "",
   "dificuldade": 3,
   "atualizado": "2026-10-15T22:39:52Z"
+ },
+ "102": {
+  "campeao": {
+   "id": 102,
+   "nome": "Shyvana"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 2,
+  "atualizado": "2026-10-15T22:40:03Z"
  },
  "104": {
   "campeao": {
@@ -364,8 +432,22 @@
   "atualizado": "2026-10-15T22:39:20Z"
  },
  "121": {
-  "apagado": true,
-  "atualizado": "2026-10-14T23:10:27Z"
+  "campeao": {
+   "id": 121,
+   "nome": "Kha'Zix"
+  },
+  "inicio": {
+   "campo": "",
+   "texto": ""
+  },
+  "feiticos": [],
+  "runas": null,
+  "itens": [],
+  "build_nota": "",
+  "plano": "",
+  "dica": "",
+  "dificuldade": 5,
+  "atualizado": "2026-10-15T22:40:03Z"
  },
  "131": {
   "campeao": {
