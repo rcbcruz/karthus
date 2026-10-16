@@ -1307,18 +1307,91 @@
    "id": 163,
    "nome": "Taliyah"
   },
+  "dificuldade": 3,
+  "feiticos": [
+   {
+    "id": 4,
+    "nome": "Flash",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_flash.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
+  "runas": {
+   "primaria": {
+    "id": 8200,
+    "nome": "Feitiçaria",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7202_sorcery.png"
+   },
+   "chave": {
+    "id": 8992,
+    "nome": "Toque Ígneo",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/deathfiretouch/deathfire_touch_keystone.png"
+   },
+   "primarias": [
+    {
+     "id": 8224,
+     "nome": "Arcanista do Axioma",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/nullifyingorb/axiom_arcanist.png"
+    },
+    {
+     "id": 8210,
+     "nome": "Transcendência",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/transcendence/transcendence.png"
+    },
+    {
+     "id": 8236,
+     "nome": "Tempestade Crescente",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/gatheringstorm/gatheringstorm.png"
+    }
+   ],
+   "secundaria": {
+    "id": 8000,
+    "nome": "Precisão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png"
+   },
+   "secundarias": [
+    {
+     "id": 8009,
+     "nome": "Presença de Espírito",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/precision/presenceofmind/presenceofmind.png"
+    },
+    {
+     "id": 8299,
+     "nome": "Até a Morte",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/laststand/laststand.png"
+    }
+   ],
+   "fragmentos": [
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5011,
+     "nome": "Vida",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodshealthscalingicon.png"
+    }
+   ]
+  },
+  "itens": [],
   "inicio": {
    "campo": "",
-   "texto": ""
+   "texto": "Match muito tranquila, mas depende do seu nv de karthus, nunca tive dificuldade contra nenhuma taliyah, jogo de flash, faço full ap e tento lutar tudo o que der contra ela."
   },
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
   "build_nota": "",
   "plano": "",
-  "dica": "",
-  "dificuldade": 3,
-  "atualizado": "2026-10-15T22:39:20Z"
+  "dica": "lute tudo o que der para lutar contra ela, flasha na boca dela e pronto, free match pro cê",
+  "atualizado": "2026-10-16T12:59:23Z"
  },
  "200": {
   "campeao": {
