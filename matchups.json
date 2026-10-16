@@ -1707,18 +1707,91 @@
    "id": 950,
    "nome": "Naafiri"
   },
+  "dificuldade": 3,
+  "feiticos": [
+   {
+    "id": 3,
+    "nome": "Exaustão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_exhaust.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
+  "runas": {
+   "primaria": {
+    "id": 8100,
+    "nome": "Dominação",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7200_domination.png"
+   },
+   "chave": {
+    "id": 8128,
+    "nome": "Colheita Sombria",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/darkharvest/darkharvest.png"
+   },
+   "primarias": [
+    {
+     "id": 8126,
+     "nome": "Golpe Desleal",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/cheapshot/cheapshot.png"
+    },
+    {
+     "id": 8137,
+     "nome": "Sexto Sentido",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/sixthsense/sixthsense.png"
+    },
+    {
+     "id": 8135,
+     "nome": "Caçador de Tesouros",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/treasurehunter/treasurehunter.png"
+    }
+   ],
+   "secundaria": {
+    "id": 8000,
+    "nome": "Precisão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png"
+   },
+   "secundarias": [
+    {
+     "id": 8009,
+     "nome": "Presença de Espírito",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/precision/presenceofmind/presenceofmind.png"
+    },
+    {
+     "id": 8299,
+     "nome": "Até a Morte",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/laststand/laststand.png"
+    }
+   ],
+   "fragmentos": [
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5011,
+     "nome": "Vida",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodshealthscalingicon.png"
+    }
+   ]
+  },
+  "itens": [],
   "inicio": {
    "campo": "",
-   "texto": ""
+   "texto": "Meu winrate contra Naafiri é bom, tanto faz flash/exaust, você consegue jogar bem essa match de todas as formas, colheita + exaust, flash + toque ígneo, então apenas jogue o básico.\nEu coloquei exaust e colheita pq tem alguns nerds que invadem com essa merda, então um exaustzinho pra matar eles é massa."
   },
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
   "build_nota": "",
   "plano": "",
-  "dica": "",
-  "dificuldade": 3,
-  "atualizado": "2026-10-15T22:39:05Z"
+  "dica": "Cuidado invade no teu sapo, ela pode fazer galo e invadir teu sapo de smite up",
+  "atualizado": "2026-10-16T12:55:31Z"
  },
  "_referencias": {
   "lista": [
