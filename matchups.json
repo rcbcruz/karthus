@@ -602,18 +602,91 @@
    "id": 104,
    "nome": "Graves"
   },
+  "dificuldade": 4,
+  "feiticos": [
+   {
+    "id": 4,
+    "nome": "Flash",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_flash.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
+  "runas": {
+   "primaria": {
+    "id": 8200,
+    "nome": "Feitiçaria",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7202_sorcery.png"
+   },
+   "chave": {
+    "id": 8992,
+    "nome": "Toque Ígneo",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/deathfiretouch/deathfire_touch_keystone.png"
+   },
+   "primarias": [
+    {
+     "id": 8224,
+     "nome": "Arcanista do Axioma",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/nullifyingorb/axiom_arcanist.png"
+    },
+    {
+     "id": 8210,
+     "nome": "Transcendência",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/transcendence/transcendence.png"
+    },
+    {
+     "id": 8236,
+     "nome": "Tempestade Crescente",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/gatheringstorm/gatheringstorm.png"
+    }
+   ],
+   "secundaria": {
+    "id": 8000,
+    "nome": "Precisão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png"
+   },
+   "secundarias": [
+    {
+     "id": 8009,
+     "nome": "Presença de Espírito",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/precision/presenceofmind/presenceofmind.png"
+    },
+    {
+     "id": 8299,
+     "nome": "Até a Morte",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/laststand/laststand.png"
+    }
+   ],
+   "fragmentos": [
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5011,
+     "nome": "Vida",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodshealthscalingicon.png"
+    }
+   ]
+  },
+  "itens": [],
   "inicio": {
    "campo": "",
-   "texto": ""
+   "texto": "a match é completamente dele, ele faz o que quer cntg, porém, meu wr contra graves é de boa, acho que só o Melato é um bom player de graves, faça full ap, joga clenando e cuidado com os invades"
   },
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
   "build_nota": "",
   "plano": "",
   "dica": "",
-  "dificuldade": 4,
-  "atualizado": "2026-10-15T22:39:30Z"
+  "atualizado": "2026-10-16T12:42:23Z"
  },
  "106": {
   "campeao": {
