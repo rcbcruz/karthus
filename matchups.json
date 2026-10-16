@@ -458,18 +458,29 @@
    "id": 76,
    "nome": "Nidalee"
   },
-  "inicio": {
-   "campo": "",
-   "texto": ""
-  },
-  "feiticos": [],
+  "dificuldade": 4,
+  "feiticos": [
+   {
+    "id": 4,
+    "nome": "Flash",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_flash.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
   "runas": null,
   "itens": [],
+  "inicio": {
+   "campo": "",
+   "texto": "Eu gosto muito de ser a nida nessa match, jogar de karthus contra nida é pedir para tomar invade 24/7, mas deixarei algumas dicas.\nSe o seu time não tomar gank lv3 e nem você tomar invade, termina o clear e luta aronga com ela, se você jogar um pouco melhor que ela a vantagem é tua, porém ela não pode estar fog e te pegar na lança, se não esse lv4 é dela."
+  },
   "build_nota": "",
   "plano": "",
-  "dica": "",
-  "dificuldade": 4,
-  "atualizado": "2026-10-15T22:39:20Z"
+  "dica": "Depende muito do seu estilo de jogo, eu sinto mais dificuldade de nida contra karthus que estão de flash. Faça full ap e cuidado com invade.",
+  "atualizado": "2026-10-16T12:50:09Z"
  },
  "77": {
   "campeao": {
