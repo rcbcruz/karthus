@@ -820,18 +820,91 @@
    "id": 120,
    "nome": "Hecarim"
   },
+  "dificuldade": 4,
+  "feiticos": [
+   {
+    "id": 14,
+    "nome": "Incendiar",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerignite.png"
+   },
+   {
+    "id": 11,
+    "nome": "Golpear",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png"
+   }
+  ],
+  "runas": {
+   "primaria": {
+    "id": 8100,
+    "nome": "Dominação",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7200_domination.png"
+   },
+   "chave": {
+    "id": 8128,
+    "nome": "Colheita Sombria",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/darkharvest/darkharvest.png"
+   },
+   "primarias": [
+    {
+     "id": 8126,
+     "nome": "Golpe Desleal",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/cheapshot/cheapshot.png"
+    },
+    {
+     "id": 8137,
+     "nome": "Sexto Sentido",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/sixthsense/sixthsense.png"
+    },
+    {
+     "id": 8135,
+     "nome": "Caçador de Tesouros",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/domination/treasurehunter/treasurehunter.png"
+    }
+   ],
+   "secundaria": {
+    "id": 8000,
+    "nome": "Precisão",
+    "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/7201_precision.png"
+   },
+   "secundarias": [
+    {
+     "id": 8299,
+     "nome": "Até a Morte",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/sorcery/laststand/laststand.png"
+    },
+    {
+     "id": 8009,
+     "nome": "Presença de Espírito",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/precision/presenceofmind/presenceofmind.png"
+    }
+   ],
+   "fragmentos": [
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5008,
+     "nome": "Força Adaptativa",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodsadaptiveforceicon.png"
+    },
+    {
+     "id": 5011,
+     "nome": "Vida",
+     "icone": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/statmodshealthscalingicon.png"
+    }
+   ]
+  },
+  "itens": [],
   "inicio": {
    "campo": "",
-   "texto": ""
+   "texto": "Hecarim é confuso, são poucos os hec que vão jogar certo essa match, mas aqui vai um guia rápido.\nA maioria dos Hec imitam o lendário Zeiken, então vão invadir lv1 e tentar roubar teu galo ou vão fazer galo e invadir o teu blue lv2 de ghost, o que você faz, você pede pro mid wardar o galo e você warda a entrada do seu blue, para ver se ele te invade, guarde o seu smite e se ele invadir saia."
   },
-  "feiticos": [],
-  "runas": null,
-  "itens": [],
   "build_nota": "",
   "plano": "",
-  "dica": "",
-  "dificuldade": 4,
-  "atualizado": "2026-10-15T22:40:09Z"
+  "dica": "pega ign, warda as entradas, da o Q no pé e faça double mask, eu particularmente gosto dessa match, acho 50 50 se vc n tomar invade lv1/2",
+  "atualizado": "2026-10-16T12:45:06Z"
  },
  "121": {
   "campeao": {
