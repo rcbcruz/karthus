@@ -120,7 +120,7 @@
       -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); }
     .abas a { padding: 0 12px; }
   }
-  .hero { position: relative; max-width: 960px; margin: 0 auto; padding: calc(var(--h-cab) + 48px) 18px 34px; min-height: min(66vh, 600px);
+  .hero { position: relative; max-width: 960px; margin: 0 auto; padding: calc(var(--h-cab) + 48px) 18px 34px; min-height: min(56vh, 520px);
     display: flex; flex-direction: column; justify-content: flex-end; }
   .hero .sobre { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--acento); margin-bottom: 10px; }
   .hero .lead { max-width: 560px; margin-top: 14px; font-size: 16.5px; line-height: 1.6; color: color-mix(in srgb, var(--texto) 88%, transparent); }
@@ -216,8 +216,33 @@
   .nivel { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--linha); }
   .nivel:last-child { border-bottom: 0; }
   .nivel .nome { width: 104px; flex: none; padding-top: 8px; font: 700 14px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cor); }
+  .nivel .nome small { margin-left: 6px; font-size: 12px; color: var(--fraco); letter-spacing: .05em; }
   .nivel .camps { display: flex; flex-wrap: wrap; gap: 6px; }
-  .nivel a img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); }
+  .nivel a { position: relative; display: block; }
+  .nivel a img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); transition: transform .15s; }
+  .nivel a:hover img { transform: scale(1.08); }
+  .nivel a.guia::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--borda); box-shadow: 0 0 0 2px var(--painel), 0 0 8px var(--borda); }   /* tem guia escrito */
+  .legenda { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; color: var(--suave); }
+  .legenda i { width: 10px; height: 10px; border-radius: 50%; background: var(--borda); box-shadow: 0 0 8px var(--borda); }
+  @media (max-width: 560px) {
+    .nivel { flex-direction: column; gap: 6px; }
+    .nivel .nome { width: auto; padding-top: 0; }
+    .nivel a img { width: 40px; height: 40px; }
+  }
+  /* matchups só com a dificuldade: grade compacta no fim da lista (os guias completos vêm antes) */
+  .sem-guia { margin-top: 22px; }
+  .sem-guia > .rot { display: block; margin-bottom: 10px; }
+  .minis { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+  @media (max-width: 560px) { .minis { grid-template-columns: 1fr 1fr; } .mu-mini { padding: 7px 8px; gap: 8px; } .mu-mini b { font-size: 13.5px; } }
+  .mu-mini { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: color-mix(in srgb, var(--painel) 88%, transparent);
+    border: 1px solid var(--linha); border-left: 3px solid var(--cor); color: var(--texto); text-decoration: none; text-align: left; }
+  .mu-mini img { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 0 2px var(--cor); flex: none; }
+  .mu-mini b { display: block; font: 900 15px/1.2 "Cinzel", serif; }
+  .mu-mini small { font: 700 11px "Rajdhani", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--cor); }
+  .mu-mini.alvo { box-shadow: 0 0 0 2px var(--borda), 0 0 24px var(--brilho); }
+  button.mu-mini { width: 100%; cursor: pointer; }
+  button.mu-mini:hover { border-color: var(--borda); }
   .mus { display: grid; gap: 12px; margin-top: 14px; }
   .mu { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 18px; background: color-mix(in srgb, var(--painel) 88%, transparent);
     border: 1px solid var(--linha); border-left: 4px solid var(--cor); backdrop-filter: blur(8px); }
@@ -238,7 +263,7 @@
   .icones { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
   .icones img { width: 34px; height: 34px; border-radius: 6px; }
   .icones .r { border-radius: 50%; background: #000; }
-  .icones .p { width: 24px; height: 24px; }
+  .icones .p { width: 26px; height: 26px; }
   .icones .chv { width: 40px; height: 40px; }
   .icones .sep { width: 1px; height: 24px; background: var(--linha); margin: 0 3px; }
   .icones .seta { color: var(--fraco); font-weight: 700; }
@@ -257,7 +282,7 @@
   .oponente { margin-top: 14px; }
   .oponente > .rot { color: var(--acento); margin-bottom: 8px; display: block; }
 
-  .stats { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  .stats { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: start; }   /* cada cartão na sua altura (sem caixa vazia) */
   @media (min-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
   .conta { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--linha); }   /* nome da conta em cima, elo embaixo */
   .conta > span:first-child a { font: 700 13px "Rajdhani", sans-serif; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
@@ -461,17 +486,26 @@
   const REGIOES = ["br", "na", "euw", "eune", "kr", "jp", "lan", "las", "oce", "tr", "ru", "me", "sg", "tw", "vn"];
 
   // ============================================================ visualização
+  function soDificuldade(m) {   // matchup ainda sem guia escrito (só a nota de 1 a 5)
+    const r = m.runas || {}, ini = m.inicio || {};
+    return !m.sem_nota && !(m.feiticos || []).length && !r.chave && !(m.itens || []).length && !m.plano && !m.dica && !m.build_nota && !ini.campo && !ini.texto;
+  }
+  function miniMu(m) {          // quadradinho da grade "só a dificuldade" (no modo de edição, abre o editor)
+    const c = m.campeao, attrs = `id="vs-${c.id}" data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}"`;
+    const miolo = `<img src="${iconeCampeao(c.id)}" alt="" loading="lazy"><span><b>${esc(c.nome)}</b><small>${NIVEL[m.dificuldade] || ""}</small></span>`;
+    return EDITAR ? `<button class="mu-mini" ${attrs} data-editar="${c.id}" title="Escrever o guia">${miolo}</button>` : `<div class="mu-mini" ${attrs}>${miolo}</div>`;
+  }
   function cartaoMu(m, semId) {
     const c = m.campeao, r = m.runas || {}, id = c.id;
     const runas = r.chave ? `<div><span class="rot">runas</span><div class="icones">${img(r.chave, "r chv")}${(r.primarias || []).map(x => img(x, "r p")).join("")}
       ${r.secundaria ? `<span class="sep"></span>${img(r.secundaria, "r p")}${(r.secundarias || []).map(x => img(x, "r p")).join("")}` : ""}
       ${(r.fragmentos || []).length ? `<span class="sep"></span>${r.fragmentos.map(x => img(x, "r p", 'style="width:18px;height:18px"')).join("")}` : ""}</div></div>` : "";
     const nomeR = r.chave ? `${esc(r.chave.nome)}${r.secundaria ? ` + ${esc(r.secundaria.nome)}` : ""}` : "";
-    const ini = m.inicio || {};
-    const soNota = !m.sem_nota && !(m.feiticos || []).length && !r.chave && !(m.itens || []).length && !m.plano && !m.dica && !m.build_nota && !ini.campo && !ini.texto;
+    const soNota = soDificuldade(m);
     return `<article class="mu${soNota ? " curto" : ""}" ${semId ? "" : `id="vs-${id}"`} data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}">
       <img src="${iconeCampeao(id)}" alt="" loading="lazy"><div>
-        <div class="topo"><h3>${esc(c.nome)}</h3>${m.dificuldade ? `<span class="tag nv">${NIVEL[m.dificuldade]}</span>` : ""}${ehJungler(id) ? `<span class="tag jg">jungler</span>` : ""}
+        <div class="topo"><h3>${esc(c.nome)}</h3>${m.dificuldade ? `<span class="tag nv">${NIVEL[m.dificuldade]}</span>` : ""}
+          ${ehJungler(id) && filtroMu !== "junglers" ? `<span class="tag jg">jungler</span>` : ""}
           <span class="acoes">${semId || soNota ? "" : `<button class="btn sec mini" data-copiar="${id}" title="Copiar o link deste guia">link</button>`}
           ${EDITAR ? `<button class="btn mini" data-editar="${id}">${m.sem_nota || soNota ? "escrever guia" : "editar"}</button>` : ""}</span></div>
         ${m.sem_nota ? `<p class="vazio" style="margin-top:6px">O guia dessa matchup ainda não foi escrito.</p>` : ""}
@@ -589,10 +623,15 @@
     if (!todas.length) return html + `<div class="painel vazio">${EDITAR
       ? "Nenhum guia ainda. Comece por <b>classificar rápido</b> para dar a dificuldade de cada jungler; depois escreva os guias completos em <b>+ escrever guia</b>."
       : "Os guias estão sendo escritos. Enquanto isso, pergunte no chat: <b>!vs</b> e o nome do campeão."}</div>`;
-    if (niveis.length) html += `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}"><span class="nome">${NIVEL[x.n]}</span>
-      <div class="camps">${x.cs.map(m => `<a href="#vs-${m.id}" title="${esc(m.campeao.nome)}"><img src="${iconeCampeao(m.id)}" alt="${esc(m.campeao.nome)}" loading="lazy"></a>`).join("")}</div></div>`).join("")}</div>`;
+    const completos = lista.filter(m => !soDificuldade(m)), curtos = lista.filter(soDificuldade);
+    if (niveis.length) html += `<div class="painel">${niveis.map(x => `<div class="nivel" style="--cor:${COR[x.n]}"><span class="nome">${NIVEL[x.n]}<small>${x.cs.length}</small></span>
+      <div class="camps">${x.cs.map(m => { const g = !soDificuldade(m);
+        return `<a href="#vs-${m.id}" class="${g ? "guia" : ""}" title="${esc(m.campeao.nome)}${g ? " · guia completo" : ""}"><img src="${iconeCampeao(m.id)}" alt="${esc(m.campeao.nome)}" loading="lazy"></a>`; }).join("")}</div></div>`).join("")}
+      ${completos.length ? `<div class="legenda"><i></i>guia completo escrito (${completos.length}) · toque num campeão para ver</div>` : ""}</div>`;
     html += `<div class="barra" style="margin-top:14px"><input class="busca" id="busca-mu" placeholder="Buscar campeão…" autocomplete="off"></div>
-      <div class="mus" id="mus">${lista.map(m => cartaoMu(m)).join("") || `<p class="vazio">Nenhum guia neste filtro.</p>`}</div>`;
+      <div id="mus"><div class="mus">${completos.map(m => cartaoMu(m)).join("") || (curtos.length ? "" : `<p class="vazio">Nenhum guia neste filtro.</p>`)}</div>
+        ${curtos.length ? `<div class="sem-guia"><span class="rot">${EDITAR ? "Só a dificuldade por enquanto: clique para escrever o guia" : "Guia completo em breve"} (${curtos.length})</span>
+          <div class="minis">${curtos.map(miniMu).join("")}</div></div>` : ""}</div>`;
     return html;
   }
 
@@ -880,7 +919,9 @@
     const busca = $("#busca-mu");
     if (busca) busca.oninput = () => {
       const t = semAcento(busca.value);
-      document.querySelectorAll("#mus .mu").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
+      document.querySelectorAll("#mus [data-nome]").forEach(m => { m.style.display = !t || m.dataset.nome.includes(t) ? "" : "none"; });
+      const sg = $("#mus .sem-guia");   // esconde o título da grade quando nenhum dela bate com a busca
+      if (sg) sg.style.display = [...sg.querySelectorAll("[data-nome]")].some(m => m.style.display !== "none") ? "" : "none";
     };
     if ($("#novo")) $("#novo").onclick = () => escolherCampeao(id => abrirEditor(id));
     if ($("#rapido")) $("#rapido").onclick = () => { rapido = !rapido; redesenharMatchups(); if (rapido) prepararRapido(); };
@@ -909,7 +950,7 @@
     }
   });
   function focar() {
-    document.querySelectorAll(".mu.alvo").forEach(m => m.classList.remove("alvo"));
+    document.querySelectorAll(".alvo").forEach(m => m.classList.remove("alvo"));
     const alvo = location.hash.startsWith("#vs-") && document.querySelector(location.hash);
     if (alvo) { alvo.classList.add("alvo"); alvo.scrollIntoView({ block: "center" }); }
     else if (location.hash.startsWith("#vs-")) { const s = $("#matchups"); if (s) s.scrollIntoView(); }
