@@ -1308,13 +1308,15 @@
       // extensão da Twitch: perfis dos jogadores ao passar o mouse no Carregamento
       html += `<div class="secao-config"><h4>Extensão da Twitch · perfis no Carregamento</h4>`;
       if (ex.configurada) html += `<p><span class="v">●</span> Ligada (ID ${esc(ex.client_id)}).${ex.ultimo_envio ? ` Último envio às ${esc(ex.ultimo_envio)}.` : " Envia quando o Carregamento entrar no ar."}</p>
-        <button class="btn perigo mini" id="ex-sair">desligar</button>`;
+        <div class="linha-form">${ex.tem_partida ? `<button class="btn sec" id="ex-teste">${ex.testando ? "testando…" : "testar (mostra a última partida por 90 s)"}</button>` : `<span class="vazio">o teste fica disponível depois da primeira partida</span>`}
+        <button class="btn perigo mini" id="ex-sair">desligar</button></div>`;
       else html += `<p>No <a href="https://dev.twitch.tv/console/extensions" target="_blank">console da extensão</a>: copie o <b>ID do cliente</b> e, em <b>Configurações da extensão → Segredos</b>, a chave secreta. Cole aqui (fica só neste PC):</p>
         <div class="linha-form"><input class="campo" id="ex-cid" placeholder="ID do cliente da extensão"><input class="campo" id="ex-seg" type="password" placeholder="chave secreta"><button class="btn" id="ex-ok">ligar</button></div>`;
       if (ex.erro) html += `<p class="erro">${esc(ex.erro)}</p>`;
       html += `</div>`;
       $("#cfg-corpo").innerHTML = html;
       if ($("#ex-ok")) $("#ex-ok").onclick = () => api("/api/extensao", { client_id: $("#ex-cid").value, segredo: $("#ex-seg").value }).then(r => r && r.erro ? alert(r.erro) : pintar(), () => alert("Não consegui salvar."));
+      if ($("#ex-teste")) $("#ex-teste").onclick = () => api("/api/extensao/testar", {}).then(pintar);
       if ($("#ex-sair")) $("#ex-sair").onclick = () => { if (confirm("Desligar a extensão?")) api("/api/extensao", { client_id: "", segredo: "" }).then(pintar); };
       if ($("#tw-sair")) $("#tw-sair").onclick = () => api("/api/twitch/sair", {}).then(pintar);
       if ($("#tw-ok")) $("#tw-ok").onclick = () => api("/api/twitch/iniciar", { client_id: $("#tw-cid").value }).then(pintar);
