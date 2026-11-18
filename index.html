@@ -724,8 +724,7 @@
       <nav class="abas" id="abas" aria-label="Seções">${p ? `<a href="#agora">Partida</a>` : sel ? `<a href="#agora">Seleção</a>` : ""}<a href="#matchups">Matchups</a><a href="#referencias">Referências</a>
         <a href="#runas">Runas</a><a href="#build">Build</a><a href="#stats">Stats</a></nav>
       ${TEMAS ? `<button class="tema-btn" id="tema-btn" aria-haspopup="true" aria-expanded="${$("#temas").classList.contains("aberto")}" aria-controls="temas"
-        title="Trocar o tema da página"><img src="${arquivoTema(TEMA, "rosto")}" alt=""><span>Tema</span></button>` : ""}
-      <a class="twitch" href="https://twitch.tv/${canal}" target="_blank" rel="noopener">${aoVivo ? "● ao vivo" : "▶ twitch"}</a>`;
+        title="Trocar o tema da página"><img src="${arquivoTema(TEMA, "rosto")}" alt=""><span>Tema</span></button>` : ""}`;
     if (cab !== desenhar.cab) { $("#cabecalho").innerHTML = desenhar.cab = cab; }
     $("#app").className = "";
     $("#app").innerHTML = `
