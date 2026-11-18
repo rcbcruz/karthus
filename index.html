@@ -153,6 +153,19 @@
   .nota-build { margin-top: 6px; font-size: 14.5px; color: color-mix(in srgb, var(--texto) 80%, transparent); }
   .bloco-mu { margin-top: 14px; }
   .bloco-mu > .rot { display: block; margin-bottom: 4px; }
+  /* rota do clear: mini mapa + a ordem dos campos */
+  .rota-mu { display: flex; gap: 16px; align-items: center; margin: 4px 0 8px; }
+  .rota-mu .mapa { width: 150px; flex: none; border: 1px solid var(--linha); }
+  .rota-mu ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; font: 700 13px "Rajdhani", sans-serif;
+    letter-spacing: .08em; text-transform: uppercase; }
+  .rota-mu li { display: flex; align-items: center; gap: 6px; color: var(--cc); }
+  .rota-mu li + li::before { content: "›"; color: var(--suave); }
+  .rota-mu li b { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--cc); font-size: 11px; color: var(--texto); }
+  .ed-rota { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; flex-wrap: wrap; }
+  .ed-rota .mapa { width: 260px; flex: none; border: 1px solid var(--linha); cursor: crosshair; }
+  .ed-rota .mapa .ms-campo:hover rect { stroke: #fff; stroke-width: .8; }
+  .ed-rota .lado { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 560px) { .rota-mu { flex-direction: column; align-items: flex-start; } .ed-rota .mapa { width: 100%; } }
   .refs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
   .ref { padding: 16px 18px; background: color-mix(in srgb, var(--painel) 88%, transparent); border: 1px solid var(--linha); border-top: 3px solid var(--borda);
     backdrop-filter: blur(8px); display: flex; flex-direction: column; gap: 8px; }
@@ -407,6 +420,7 @@
 <dialog id="dlg-config" class="janela" aria-label="Configurações"></dialog>
 <div class="aviso" id="aviso" role="status"></div>
 
+<script src="mapa.js"></script>
 <script>
   // ============================================================ ambiente e utilidades
   const LOCAL = ["127.0.0.1", "localhost"].includes(location.hostname);
@@ -488,7 +502,8 @@
   // ============================================================ visualização
   function soDificuldade(m) {   // matchup ainda sem guia escrito (só a nota de 1 a 5)
     const r = m.runas || {}, ini = m.inicio || {};
-    return !m.sem_nota && !(m.feiticos || []).length && !r.chave && !(m.itens || []).length && !m.plano && !m.dica && !m.build_nota && !ini.campo && !ini.texto;
+    return !m.sem_nota && !(m.feiticos || []).length && !r.chave && !(m.itens || []).length && !m.plano && !m.dica && !m.build_nota && !ini.campo && !ini.texto
+      && !(ini.rota || []).length;
   }
   function miniMu(m) {          // quadradinho da grade "só a dificuldade" (no modo de edição, abre o editor)
     const c = m.campeao, attrs = `id="vs-${c.id}" data-nome="${esc(semAcento(c.nome))}" style="--cor:${COR[m.dificuldade] || "var(--borda)"}"`;
@@ -521,10 +536,14 @@
         ${m.dica ? `<div class="dica">${esc(m.dica)}</div>` : ""}
       </div></article>`;
   }
-  function blocoInicio(ini) {   // "começo da partida": campo onde começar + rota do clear
-    if (!ini || (!ini.campo && !ini.texto)) return "";
+  function blocoInicio(ini) {   // "começo da partida": campo onde começar + rota do clear (mini mapa)
+    const rota = ((ini && ini.rota) || []).filter(k => window.MapaSelva && MapaSelva.CAMPOS[k]);
+    if (!ini || (!ini.campo && !ini.texto && !rota.length)) return "";
     const c = CAMPOS[ini.campo];
-    return `<div class="bloco-mu"><span class="rot">começo da partida</span>${c ? `<span class="campo-ini" style="--cc:${c[1]}">começar ${c[2]}</span>` : ""}${esc(ini.texto || "")}</div>`;
+    const mapa = rota.length ? `<div class="rota-mu"><div class="mapa">${MapaSelva.svg(rota, { lado: "azul", zoom: true })}</div>
+      <ol aria-label="Rota do clear">${rota.map((k, i) => `<li style="--cc:${MapaSelva.COR[k]}"><b>${i + 1}</b>${esc(MapaSelva.CAMPOS[k])}</li>`).join("")}</ol></div>` : "";
+    return `<div class="bloco-mu"><span class="rot">começo da partida${rota.length ? " · rota do clear (lado azul; no vermelho é espelhado)" : ""}</span>${mapa}
+      ${c && !rota.length ? `<span class="campo-ini" style="--cc:${c[1]}">começar ${c[2]}</span>` : ""}${esc(ini.texto || "")}</div>`;
   }
 
   function opgg(r) {
@@ -726,7 +745,7 @@
         <section id="referencias">${CAB_REFS}${secReferencias()}</section>
         <section id="runas"><div class="cab"><div><h2>Runas</h2><div class="sub">${esc(d.runas ? d.runas.titulo : "")}${fraseDe(d.runas)}</div></div></div>${secRunas(d.runas)}</section>
         <section id="build"><div class="cab"><div><h2>Build</h2><div class="sub">${esc(build ? build.titulo : "")}${fraseDe(build)}</div></div></div>${secBuild(build)}</section>
-        <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo das duas contas e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
+        <section id="stats"><div class="cab"><div><h2>Stats</h2><div class="sub">Elo da conta judit polgár#chess e o desempenho recente de Karthus.</div></div></div>${secStats(d)}</section>
       </main>
       <footer>${EDITAR ? `<div class="patch visitas" id="visitas">${blocoVisitas()}</div>` : ""}<div class="patch" id="patch">${blocoPatch()}</div><span>Os dados se atualizam sozinhos durante a live. No chat: <b>!matchup</b> · <b>!vs campeão</b> · <b>!clear campeão</b> · <b>!runas</b> · <b>!build</b> · <b>!tierlist</b> · <b>!referencias</b></span>
         <span>${LOCAL ? `<button id="abrir-config">configurações do bot</button>` : EDITAR ? `<button id="sair-edicao">sair do modo de edição</button>` : `<button id="entrar">editar</button>`}</span></footer>
@@ -1026,7 +1045,8 @@
       primaria: r.primaria ? r.primaria.id : 0, chave: r.chave ? r.chave.id : 0, primarias: [0, 1, 2].map(i => (r.primarias || [])[i] ? r.primarias[i].id : 0),
       secundaria: r.secundaria ? r.secundaria.id : 0, secundarias: (r.secundarias || []).map(x => x.id), fragmentos: [0, 1, 2].map(i => (r.fragmentos || [])[i] ? r.fragmentos[i].id : 0),
       itens: ((m && m.itens) || []).map(i => i.id), plano: (m && m.plano) || "", dica: (m && m.dica) || "",
-      inicio_campo: (m && m.inicio && m.inicio.campo) || "", inicio_texto: (m && m.inicio && m.inicio.texto) || "", build_nota: (m && m.build_nota) || "" };
+      inicio_campo: (m && m.inicio && m.inicio.campo) || "", inicio_texto: (m && m.inicio && m.inicio.texto) || "", build_nota: (m && m.build_nota) || "",
+      inicio_rota: ((m && m.inicio && m.inicio.rota) || []).slice() };
   }
   function paraSalvar(e) {       // estado do editor -> formato salvo (com nomes e ícones, pronto para a página e o bot)
     const E = EST, est = id => { const s = E.estilos.find(x => x.id === id); return s ? { id: s.id, nome: s.nome, icone: s.icone } : null; };
@@ -1034,10 +1054,10 @@
       secundaria: est(e.secundaria), secundarias: e.secundarias.map(i => E.perk[i]), fragmentos: e.fragmentos.filter(Boolean).map(i => E.perk[i]) } : null;
     return { campeao: { id: e.id, nome: e.nome }, dificuldade: e.dificuldade, feiticos: e.feiticos.map(i => E.feiticos.find(f => f.id === i)).filter(Boolean),
       runas, itens: e.itens.map(i => E.itens.find(x => x.id === i)).filter(Boolean).map(({ id, nome, icone }) => ({ id, nome, icone })),
-      inicio: { campo: e.inicio_campo, texto: e.inicio_texto.trim() }, build_nota: e.build_nota.trim(), plano: e.plano.trim(), dica: e.dica.trim() };
+      inicio: { campo: e.inicio_campo, texto: e.inicio_texto.trim(), rota: e.inicio_rota }, build_nota: e.build_nota.trim(), plano: e.plano.trim(), dica: e.dica.trim() };
   }
   const vazio = e => !e.dificuldade && !e.feiticos.length && !e.chave && !e.itens.length && !e.plano.trim() && !e.dica.trim()
-                     && !e.inicio_campo && !e.inicio_texto.trim() && !e.build_nota.trim();
+                     && !e.inicio_campo && !e.inicio_texto.trim() && !e.build_nota.trim() && !e.inicio_rota.length;
 
   async function abrirEditor(id) {
     const dlg = $("#dlg-editor");
@@ -1068,6 +1088,11 @@
           ${[1, 2, 3, 4, 5].map(n => `<button data-n="${n}" class="${e.dificuldade === n ? "on" : ""}" style="--cor:${COR[n]}"><b>${n}</b>${NIVEL[n]}</button>`).join("")}</div></div>
         <div class="bloco"><span class="rot">Começo da partida · campo inicial (é o que o !clear mostra)</span><div class="campos-ini" id="ed-campo">
           ${Object.entries(CAMPOS).map(([k, [nome, cor]]) => `<button data-c="${k}" class="${e.inicio_campo === k ? "on" : ""}" style="--cc:${cor}">${nome}</button>`).join("")}</div>
+          <div class="ed-rota"><div class="mapa" id="ed-mapa" title="Clique nos campos na ordem do clear">${MapaSelva.svg(e.inicio_rota, { lado: "azul", clicavel: true, zoom: true })}</div>
+            <div class="lado"><span class="rot">Rota do clear · clique nos campos na ordem (até 8). Clique de novo para tirar.</span>
+              <div class="sub">${e.inicio_rota.length ? e.inicio_rota.map((k, i) => `${i + 1}. ${esc(MapaSelva.CAMPOS[k])}`).join(" › ") : "Sem rota ainda. O 1º campo vira o campo inicial."}</div>
+              <div style="display:flex;gap:6px">${e.inicio_rota.length ? `<button class="btn sec mini" id="ed-rota-volta">desfazer</button><button class="btn sec mini" id="ed-rota-limpa">limpar rota</button>` : ""}</div>
+              <div class="sub" style="opacity:.7">Desenhe pelo lado azul; no lado vermelho a live espelha sozinha.</div></div></div>
           <textarea class="campo" id="ed-ini-texto" maxlength="400" style="margin-top:8px;min-height:70px"
             placeholder="Rota e prioridades. ex.: azul → sapo → lobos e para no vermelho; não comece do lado dele, ele invade nível 1; priorize o caranguejo do topo no 3:30">${esc(e.inicio_texto)}</textarea>
           <div class="conta-car"><span id="ed-ini-n">${e.inicio_texto.length}</span>/400</div></div>
@@ -1157,6 +1182,15 @@
       repintar();
     };
     $("#ed-campo").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; e.inicio_campo = e.inicio_campo === b.dataset.c ? "" : b.dataset.c; repintar(); };
+    const rotaMudou = () => { if (e.inicio_rota.length && CAMPOS[e.inicio_rota[0]]) e.inicio_campo = e.inicio_rota[0]; repintar(); };
+    $("#ed-mapa").onclick = ev => {
+      const g = ev.target.closest("[data-campo]"); if (!g) return;
+      const k = g.dataset.campo, i = e.inicio_rota.indexOf(k);
+      if (i >= 0) e.inicio_rota.splice(i, 1); else if (e.inicio_rota.length < 8) e.inicio_rota.push(k);
+      rotaMudou();
+    };
+    if ($("#ed-rota-volta")) $("#ed-rota-volta").onclick = () => { e.inicio_rota.pop(); rotaMudou(); };
+    if ($("#ed-rota-limpa")) $("#ed-rota-limpa").onclick = () => { e.inicio_rota = []; rotaMudou(); };
     $("#ed-ini-texto").oninput = () => { $("#ed-ini-n").textContent = $("#ed-ini-texto").value.length; };
     $("#ed-build-nota").oninput = () => { $("#ed-build-n").textContent = $("#ed-build-nota").value.length; };
     $("#ed-plano").oninput = () => { $("#ed-plano-n").textContent = $("#ed-plano").value.length; };
@@ -1205,7 +1239,7 @@
       delete entrada.atualizado;
       const ini = entrada.inicio || {};
       const semNada = !nova && !(entrada.feiticos || []).length && !entrada.runas && !(entrada.itens || []).length && !entrada.plano && !entrada.dica
-                      && !ini.campo && !ini.texto && !entrada.build_nota;
+                      && !ini.campo && !ini.texto && !(ini.rota || []).length && !entrada.build_nota;
       pendentes[id] = semNada ? null : entrada;
       MU[id] = semNada ? { apagado: true } : entrada;
       b.parentElement.querySelectorAll("button").forEach(x => x.classList.toggle("on", +x.dataset.n === nova));
