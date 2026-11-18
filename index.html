@@ -1287,7 +1287,7 @@
     dlg.showModal();
     $("#cfg-fechar").onclick = () => { dlg.close(); clearInterval(abrirConfig.t); };
     const pintar = async () => {
-      const [tw, g] = await Promise.all([api("/api/twitch"), api("/api/github")]);
+      const [tw, g, ex] = await Promise.all([api("/api/twitch"), api("/api/github"), api("/api/extensao").catch(() => ({}))]);
       let html = `<div class="secao-config"><h4>Bot da Twitch</h4>`;
       if (tw.pendente) html += `<p>Abra <a href="${esc(tw.pendente.link)}" target="_blank">twitch.tv/activate</a> logado como <b>polgarlol</b> e digite:</p><div class="codigo">${esc(tw.pendente.codigo)}</div>`;
       else if (tw.login) html += `<p>${tw.conectado ? `<span class="v">●</span> No chat como <b>${esc(tw.login)}</b>, respondendo os comandos.` : tw.bot_no_chat ? "Entrando no chat…" : `Autorizado como <b>${esc(tw.login)}</b>; entra no chat quando o OBS estiver aberto.`}</p>
@@ -1305,7 +1305,17 @@
         <div class="linha-form"><input class="campo" id="gh-token" type="password" placeholder="github_pat_…"><input class="campo" id="gh-repo" value="${esc(g.repo || "karthus")}" style="max-width:130px"><button class="btn" id="gh-ok">ligar</button></div>`;
       if (g.erro) html += `<p class="erro">${esc(g.erro)}</p>`;
       html += `</div>`;
+      // extensão da Twitch: perfis dos jogadores ao passar o mouse no Carregamento
+      html += `<div class="secao-config"><h4>Extensão da Twitch · perfis no Carregamento</h4>`;
+      if (ex.configurada) html += `<p><span class="v">●</span> Ligada (ID ${esc(ex.client_id)}).${ex.ultimo_envio ? ` Último envio às ${esc(ex.ultimo_envio)}.` : " Envia quando o Carregamento entrar no ar."}</p>
+        <button class="btn perigo mini" id="ex-sair">desligar</button>`;
+      else html += `<p>No <a href="https://dev.twitch.tv/console/extensions" target="_blank">console da extensão</a>: copie o <b>ID do cliente</b> e, em <b>Configurações da extensão → Segredos</b>, a chave secreta. Cole aqui (fica só neste PC):</p>
+        <div class="linha-form"><input class="campo" id="ex-cid" placeholder="ID do cliente da extensão"><input class="campo" id="ex-seg" type="password" placeholder="chave secreta"><button class="btn" id="ex-ok">ligar</button></div>`;
+      if (ex.erro) html += `<p class="erro">${esc(ex.erro)}</p>`;
+      html += `</div>`;
       $("#cfg-corpo").innerHTML = html;
+      if ($("#ex-ok")) $("#ex-ok").onclick = () => api("/api/extensao", { client_id: $("#ex-cid").value, segredo: $("#ex-seg").value }).then(r => r && r.erro ? alert(r.erro) : pintar(), () => alert("Não consegui salvar."));
+      if ($("#ex-sair")) $("#ex-sair").onclick = () => { if (confirm("Desligar a extensão?")) api("/api/extensao", { client_id: "", segredo: "" }).then(pintar); };
       if ($("#tw-sair")) $("#tw-sair").onclick = () => api("/api/twitch/sair", {}).then(pintar);
       if ($("#tw-ok")) $("#tw-ok").onclick = () => api("/api/twitch/iniciar", { client_id: $("#tw-cid").value }).then(pintar);
       $("#tw-testar").onclick = () => api("/api/testar", { texto: $("#tw-teste").value }).then(r => { $("#tw-resp").textContent = r.resposta + (r.resposta.startsWith("(") ? "" : "  — o cartão aparece no OBS, como no chat de verdade."); });
